@@ -14,6 +14,14 @@ import expansion from "@/assets/history-2016-expansion.jpg";
 import foodProgramme from "@/assets/history-2019-food-programme.jpg";
 import courts from "@/assets/history-2026-courts.jpg";
 
+// Head teacher portraits. Small native source files (Henry's is 336x379,
+// the other two only ~150x190) — kept at a modest on-screen avatar size in
+// the markup below rather than blown up, so the limited resolution stays
+// crisp instead of going soft.
+import headHenry from "@/assets/head-henry.jpg";
+import headJeanDeDieu from "@/assets/head-jean-de-dieu.jpg";
+import headMarieClaire from "@/assets/head-marie-claire.jpg";
+
 /**
  * The school's history as an editorial photo grid, not a scroll of full-bleed
  * bands — replaces the earlier alternating-colour-band layout with the
@@ -86,7 +94,7 @@ const chapters: Chapter[] = [
     size: "standard",
     span: "sm:col-span-1 lg:col-span-2",
     body: [
-      "Crimson Academy opened its doors in 2011 with four classrooms and 181 students, under our first head teacher, Henry.",
+      "Crimson Academy opened its doors in 2011 with four classrooms and 181 students, under our first head teacher, Henry Ngolobe.",
       "Four rooms meant four grades. Everything above Primary 4 was still an intention rather than a building.",
     ],
     photo: firstBlock,
@@ -131,7 +139,7 @@ const chapters: Chapter[] = [
     span: "sm:col-span-1 lg:col-span-3",
     body: [
       "With Crimson Foundation and the Jenzabar Foundation, the campus expanded in a single push: six new classrooms, a library, and a teacher's house so that staff could live on site rather than commute from far away.",
-      "Jean had become head teacher the year before, in 2015, and led the school through the expansion.",
+      "Jean De Dieu Nsabimana had become head teacher the year before, in 2015, and led the school through the expansion.",
     ],
     photo: expansion,
     alt: "The grown campus seen across the playing field: two further school buildings, a paved walkway and planted beds, with students in maroon uniform moving between them",
@@ -171,11 +179,11 @@ const chapters: Chapter[] = [
 const keyDates: { year: string; text: string }[] = [
   { year: "2009", text: "First visit to Kagina." },
   { year: "2010", text: "Land purchased; the village begins clearing the site." },
-  { year: "2011", text: "School opens with four classrooms and 181 students. Henry is appointed the first head teacher." },
+  { year: "2011", text: "School opens with four classrooms and 181 students. Henry Ngolobe is appointed the first head teacher." },
   { year: "2012", text: "Primary 5 added." },
   { year: "2013", text: "Primary 6 added, completing the full primary programme." },
   { year: "2013", text: "Ranked first in the Southern Province on the National Examinations for the first time." },
-  { year: "2015", text: "Jean becomes the second head teacher." },
+  { year: "2015", text: "Jean De Dieu Nsabimana becomes the second head teacher." },
   { year: "2016", text: "Six new classrooms, a library, and a teacher's house are built." },
   { year: "2017", text: "MUKABIRINDA Marie Claire becomes the third head teacher, and leads the school today." },
   { year: "2019", text: "Transport and food programmes begin; karate, debate, gymnastics, football, and chorus are offered." },
@@ -183,10 +191,17 @@ const keyDates: { year: string; text: string }[] = [
   { year: "2026", text: "Two courts built, all classrooms and facilities renovated, grounds paved and planted." },
 ];
 
-const heads: { name: string; years: string; note: string }[] = [
-  { name: "Henry", years: "2011 – 2015", note: "Opened the school and took it from four classrooms to a full primary programme." },
-  { name: "Jean", years: "2015 – 2017", note: "Led the school through the 2016 expansion." },
-  { name: "MUKABIRINDA Marie Claire", years: "2017 – present", note: "Third head teacher, and the school's principal today." },
+interface Head {
+  name: string;
+  years: string;
+  note: string;
+  photo?: string;
+}
+
+const heads: Head[] = [
+  { name: "Henry Ngolobe", years: "2011 – 2015", note: "Opened the school and took it from four classrooms to a full primary programme.", photo: headHenry },
+  { name: "Jean De Dieu Nsabimana", years: "2015 – 2017", note: "Led the school through the 2016 expansion.", photo: headJeanDeDieu },
+  { name: "MUKABIRINDA Marie Claire", years: "2017 – present", note: "Third head teacher, and the school's principal today.", photo: headMarieClaire },
 ];
 
 /**
@@ -343,12 +358,33 @@ export const SchoolHistory = () => (
 
       <div className="mt-8 grid gap-5 md:grid-cols-3">
         {heads.map((h) => (
-          <div key={h.name} className="border-l-2 border-accent pl-5">
-            <div className="text-xs font-semibold uppercase tracking-wider text-eyebrow">
-              {h.years}
+          <div key={h.name} className="flex gap-4 border-l-2 border-accent pl-5">
+            {h.photo ? (
+              <img
+                src={h.photo}
+                alt={`Portrait of ${h.name}`}
+                className="h-16 w-16 shrink-0 rounded-full object-cover"
+                loading="lazy"
+                width={64}
+                height={64}
+              />
+            ) : (
+              // Wrapped in a fixed-size box rather than sizing PhotoSlot
+              // itself: PhotoSlot's own ratio classes (w-full etc.) and a
+              // fixed h-16 w-16 override would fight for specificity since
+              // they're equal-specificity utility classes — ratio="fill"
+              // sizes to the wrapper instead, sidestepping that.
+              <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full">
+                <PhotoSlot ratio="fill" brief={`Portrait of ${h.name}`} compact />
+              </div>
+            )}
+            <div className="min-w-0">
+              <div className="text-xs font-semibold uppercase tracking-wider text-eyebrow">
+                {h.years}
+              </div>
+              <div className="mt-1 font-heading text-lg font-semibold">{h.name}</div>
+              <p className="mt-2 text-sm text-muted-foreground">{h.note}</p>
             </div>
-            <div className="mt-1 font-heading text-lg font-semibold">{h.name}</div>
-            <p className="mt-2 text-sm text-muted-foreground">{h.note}</p>
           </div>
         ))}
       </div>
