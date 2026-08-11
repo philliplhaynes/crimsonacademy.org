@@ -39,7 +39,12 @@
   .card .frame { aspect-ratio: 16/11; overflow: hidden; position: relative; background: var(--cream2); }
   .card iframe { width: 400%; height: 400%; transform: scale(.25); transform-origin: top left; border: none; pointer-events: none; }
   .card .body { padding: 20px; }
-  .card .letter { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--crimson); color: #fff; font-family: Fraunces, serif; font-weight: 700; font-size: 14px; }
+  .card .letter { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--crimson); color: #fff; font-family: Fraunces, serif; font-weight: 700; font-size: 14px; vertical-align: middle; }
+  .card .letter.c { background: var(--gold); color: hsl(0 20% 12%); }
+  .pick { display: inline-block; margin-left: 10px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: hsl(38 65% 28%); background: hsl(46 68% 47% / .2); padding: 4px 10px; border-radius: 999px; vertical-align: middle; }
+  .featured { margin-top: 34px; }
+  .featured .card { border-color: hsl(46 68% 47% / .55); border-width: 2px; }
+  .featured .frame.tall { aspect-ratio: 16/8; }
   .card h2 { font-size: 19px; margin-top: 12px; }
   .card .sub { font-size: 12.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; color: var(--crimson); margin-top: 3px; }
   .card p { font-size: 14px; color: var(--muted); margin-top: 10px; }
@@ -51,11 +56,13 @@
 <body>
 <div class="container">
   <div class="eyebrow">Design Exploration</div>
-  <h1>Two redesign directions for the About page</h1>
+  <h1>Redesign directions for the About page</h1>
   <p class="intro">
-    Both use the real content — same mission text, same six core values with verses, same faith
-    section, same five leaders, same contact details — and both <strong>bring the history content
-    back onto the About page</strong>, which is the question that prompted this. They differ in how.
+    All three use the real content — same mission text, same six core values with verses, same faith
+    section, same five leaders, same contact details — and all three <strong>bring the history
+    content back onto the About page</strong>, which is the question that prompted this. They differ
+    in how. <strong style="color:var(--fg)">C is the current pick:</strong> B’s structure with A’s
+    history treatment.
   </p>
 
   <div class="verdict">
@@ -80,6 +87,30 @@
     </p>
   </div>
 
+  <div class="featured">
+    <a class="card" href="03-dossier-rail.html">
+      <div class="frame tall"><iframe src="03-dossier-rail.html" title="Mockup C preview"></iframe></div>
+      <div class="body">
+        <span class="letter c">C</span>
+        <span class="pick">The merge — B’s shell, A’s history</span>
+        <h2>The Dossier + Milestone Rail</h2>
+        <div class="sub">Sticky rail · editorial column · crimson history panel</div>
+        <p>B’s structure end to end — sticky left rail with working scroll-spy, report-style cover
+        with the fact strip, editorial column — but the history section is A’s crimson milestone
+        rail instead of B’s vertical timeline. All eight chapters scroll horizontally on the crimson
+        field, with the three head teachers kept from B underneath.</p>
+        <p style="margin-top:8px"><strong style="color:var(--fg)">One adaptation was unavoidable:</strong>
+        A ran its history band full-bleed, edge to edge. That can’t work inside B — the content lives
+        in a 760px column beside a sticky rail, and a band breaking out of that column would collide
+        with the rail and break the document metaphor. So it’s a contained crimson panel: same
+        treatment, same crimson field, same gold years and scrolling chapters, just bounded by the
+        column instead of the viewport.</p>
+        <span class="tag">+213 KB · 8 thumbnails</span>
+      </div>
+    </a>
+  </div>
+
+  <h3 style="margin-top:44px;font-size:19px">The two it came from</h3>
   <div class="cards">
     <a class="card" href="01-thread.html">
       <div class="frame"><iframe src="01-thread.html" title="Mockup A preview"></iframe></div>
@@ -122,11 +153,16 @@
   </div>
 
   <p class="intro" style="margin-top:34px">
-    <strong style="color:var(--fg)">My lean:</strong> B, if you want the About page to do work for
-    prospective parents — the sticky rail solves the real problem that this page is long and
-    currently gives no sense of its own shape, and the fact strip up top answers the four questions
-    every parent asks before they read a word. A is the safer pick if you'd rather keep the current
-    feel and just fix the weakest section (the history teaser), which it does well.
+    <strong style="color:var(--fg)">Where this landed:</strong> C is the one to build. B's sticky
+    rail solves the real problem — the About page is long and currently gives no sense of its own
+    shape — and its fact strip answers the four questions every parent asks before reading a word.
+    A's crimson rail is the better history treatment: it makes the fifteen years feel like a story
+    you can move through rather than a list you read down, and it earns the colour break that B's
+    all-cream document was missing. C takes both.
+  </p>
+  <p class="intro" style="margin-top:14px">
+    A and B are kept above as the sources, not as live options. If you want a genuinely different
+    third direction rather than a merge of these two, say so and I'll explore one.
   </p>
 </div>
 </body>

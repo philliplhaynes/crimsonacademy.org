@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Mockup B — The Dossier | About Us Redesign</title>
+<title>Mockup C — Dossier + Milestone Rail | About Us Redesign</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -47,15 +47,14 @@
   .btn-gold { background: var(--gold); color: hsl(0 20% 12%); }
   .btn-outline { border: 1.5px solid currentColor; color: var(--crimson); }
 
-  /* ===== the dossier shell: sticky rail + editorial column ===== */
+  /* ===== dossier shell: sticky rail + editorial column ===== */
   .shell { max-width: 1220px; margin: 0 auto; padding: 0 28px; display: grid; grid-template-columns: 232px minmax(0, 1fr); gap: 56px; align-items: start; }
   @media (max-width: 940px) { .shell { grid-template-columns: minmax(0, 1fr); gap: 0; } }
 
-  /* min-width: 0 is load-bearing, not decoration. On mobile .railnav becomes a
-     horizontally scrolling strip, but a grid child defaults to min-width: auto —
-     so the rail refused to shrink below its 5-item content width (~704px) and
-     blew the whole page out to a horizontal scroll at 390px instead of
-     scrolling internally. */
+  /* min-width: 0 is load-bearing. On mobile .railnav becomes a horizontally
+     scrolling strip, but a grid child defaults to min-width: auto — so the rail
+     refused to shrink below its 5-item content width and blew the page out to a
+     horizontal scroll at 390px instead of scrolling internally. */
   .rail { position: sticky; top: 24px; padding: 40px 0; min-width: 0; }
   .doc { min-width: 0; }
   @media (max-width: 940px) {
@@ -77,7 +76,7 @@
 
   .doc { padding: 40px 0 80px; max-width: 760px; }
 
-  /* compact hero — inset, not full-bleed. The dossier opens like a report cover. */
+  /* report-style cover */
   .cover { border-radius: 12px; overflow: hidden; position: relative; isolation: isolate; color: var(--crimson-fg); }
   .cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 29%; z-index: -2; }
   .cover::before { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, hsl(var(--primary) / .92), hsl(var(--primary) / .70)); z-index: -1; }
@@ -101,7 +100,7 @@
   .verse { border-left: 3px solid var(--gold); background: hsl(var(--secondary) / .55); padding: 14px 16px; font-style: italic; color: var(--muted); border-radius: 0 8px 8px 0; margin-top: 18px; font-size: 14px; }
   .verse .cite { display: block; font-style: normal; font-size: 11px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--eyebrow-c); margin-top: 5px; }
 
-  /* values as a compact table — dossier idiom, not a big diagram */
+  /* values table */
   .vtable { margin-top: 20px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
   .vrow { display: grid; grid-template-columns: 130px 1fr; gap: 16px; padding: 13px 16px; border-bottom: 1px solid var(--line); }
   .vrow:last-child { border-bottom: 0; }
@@ -118,25 +117,44 @@
   .venn-mini { max-width: 320px; margin: 18px 0 0; }
   .venn-cap { font-size: 12px; color: var(--muted); margin-top: 8px; max-width: 340px; }
 
-  /* ===== HISTORY — inline vertical timeline, full 8 chapters ===== */
-  .tl { margin-top: 24px; }
-  .tl-item { display: grid; grid-template-columns: 62px 90px 1fr; gap: 16px; align-items: start; padding: 14px 0; border-bottom: 1px dashed var(--line); }
-  .tl-item:last-child { border-bottom: 0; }
-  @media (max-width: 620px) { .tl-item { grid-template-columns: 56px 1fr; } .tl-item img { display: none; } }
-  .tl-yr { font-family: Fraunces, serif; font-weight: 700; font-size: 15px; color: var(--crimson); padding-top: 2px; }
-  .tl-item.mile .tl-yr { color: hsl(38 65% 30%); }
-  .tl-item img { width: 90px; height: 68px; object-fit: cover; border-radius: 6px; }
-  .tl-ti { font-family: Fraunces, serif; font-weight: 600; font-size: 15px; }
-  .tl-dk { font-size: 13.5px; color: var(--muted); margin-top: 3px; }
-  .tl-badge { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: hsl(38 65% 30%); background: hsl(var(--accent) / .18); padding: 1px 6px; border-radius: 4px; margin-left: 6px; vertical-align: 1px; }
-  .heads { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px; }
+  /* ===== HISTORY — A's crimson milestone rail, as a contained panel =====
+     A ran this full-bleed edge-to-edge. That can't work here: the dossier's
+     content lives in a 760px column beside a sticky rail, and a band breaking
+     out of that column would collide with the rail and break the document
+     metaphor. Contained crimson panel keeps A's treatment — crimson field,
+     gold years, horizontally scrolling chapters — inside B's structure. */
+  .hpanel { background: var(--crimson); color: var(--crimson-fg); border-radius: 12px; padding: 26px 24px 24px; margin-top: 22px; }
+  .hpanel .eyebrow { color: var(--gold); }
+  .hpanel h3 { font-size: 20px; margin-top: 7px; color: var(--crimson-fg); }
+  .hpanel .lead { font-size: 14px; color: hsl(var(--primary-foreground) / .85); margin-top: 10px; max-width: 56ch; }
+  .hrail {
+    display: grid; grid-auto-flow: column; grid-auto-columns: minmax(172px, 1fr);
+    gap: 14px; margin-top: 20px; overflow-x: auto; padding-bottom: 12px;
+    scroll-snap-type: x mandatory;
+  }
+  .hrail::-webkit-scrollbar { height: 6px; }
+  .hrail::-webkit-scrollbar-thumb { background: hsl(var(--primary-foreground) / .3); border-radius: 99px; }
+  .hrail::-webkit-scrollbar-track { background: hsl(var(--primary-foreground) / .12); border-radius: 99px; }
+  .chapter { scroll-snap-align: start; text-decoration: none; color: inherit; }
+  .chapter img { aspect-ratio: 4/3; width: 100%; object-fit: cover; border-radius: 8px; }
+  .chapter .yr { font-family: Fraunces, serif; font-weight: 700; font-size: 16px; color: var(--gold); margin-top: 10px; }
+  .chapter .ti { font-family: Fraunces, serif; font-weight: 600; font-size: 14px; margin-top: 2px; line-height: 1.25; }
+  .chapter .dk { font-size: 12.5px; color: hsl(var(--primary-foreground) / .75); margin-top: 4px; line-height: 1.45; }
+  .rail-hint { font-size: 11.5px; color: hsl(var(--primary-foreground) / .6); margin-top: 8px; }
+
+  /* head teachers — kept from B (photo row beats A's one-line text mention),
+     restyled for the crimson field */
+  .hpanel .hteach { margin-top: 22px; padding-top: 18px; border-top: 1px solid hsl(var(--primary-foreground) / .2); }
+  .hpanel .hteach .eyebrow { color: var(--gold); }
+  .heads { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 12px; }
   @media (max-width: 620px) { .heads { grid-template-columns: 1fr; } }
   .head { display: flex; gap: 10px; align-items: center; }
   .head img { width: 42px; height: 42px; border-radius: 999px; object-fit: cover; flex-shrink: 0; }
-  .head .yy { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--eyebrow-c); }
-  .head .nn { font-family: Fraunces, serif; font-weight: 600; font-size: 13.5px; line-height: 1.2; }
+  .head .yy { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--gold); }
+  .head .nn { font-family: Fraunces, serif; font-weight: 600; font-size: 13.5px; line-height: 1.2; color: var(--crimson-fg); }
+  .hpanel .cta-row { margin-top: 20px; }
 
-  /* leaders — compact rows, dossier style */
+  /* leaders */
   .lgrid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 20px; }
   @media (max-width: 760px) { .lgrid { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 480px) { .lgrid { grid-template-columns: repeat(2, 1fr); } }
@@ -146,7 +164,7 @@
   .lgrid .nm { font-family: Fraunces, serif; font-weight: 600; font-size: 13.5px; margin-top: 2px; line-height: 1.2; }
   .statbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-top: 20px; padding: 14px 16px; background: hsl(var(--secondary) / .55); border-radius: 9px; }
 
-  /* contact — a card, not a full-bleed band */
+  /* contact card */
   .cwrap { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: 12px; overflow: hidden; margin-top: 20px; }
   @media (max-width: 680px) { .cwrap { grid-template-columns: 1fr; } }
   .cwrap .photo { position: relative; min-height: 240px; }
@@ -161,7 +179,7 @@
 </head>
 <body>
 
-<div class="mockup-tag">MOCKUP B — “THE DOSSIER” — sticky rail + editorial column, history inline as a full timeline <a href="index.html">← back to comparison</a></div>
+<div class="mockup-tag">MOCKUP C — DOSSIER SHELL + A’s CRIMSON MILESTONE RAIL <a href="index.html">← back to comparison</a></div>
 
 <header class="topbar">
   <div class="inner">
@@ -173,7 +191,6 @@
 
 <div class="shell">
 
-  <!-- STICKY RAIL -->
   <aside class="rail">
     <div class="who">About</div>
     <h2>Crimson Academy of Kagina</h2>
@@ -193,7 +210,6 @@
     </div>
   </aside>
 
-  <!-- DOCUMENT -->
   <main class="doc">
 
     <div class="cover">
@@ -270,31 +286,40 @@
       </div>
     </section>
 
-    <!-- HISTORY — inline, all eight chapters, dossier density -->
+    <!-- HISTORY — A's crimson milestone rail, contained -->
     <section class="art" id="history">
       <div class="eyebrow">Our History</div>
       <h2>From one visit to a full campus.</h2>
       <p>Crimson Academy did not start with a building. It started with a visit, and with parents in a Rwandan village asking for something their children could not otherwise get.</p>
 
-      <div class="tl">
-        <div class="tl-item mile"><div class="tl-yr">2009</div><img src="thumbs/thumb-2009.webp" alt="The village of Kagina gathered on open ground in 2009" /><div><div class="tl-ti">Before there was a school<span class="tl-badge">Milestone</span></div><div class="tl-dk">A first visit to Kagina. No classroom to see, because there was no school — what there was, plainly, was demand.</div></div></div>
-        <div class="tl-item"><div class="tl-yr">2010–11</div><img src="thumbs/thumb-2010.webp" alt="Villagers laying the stone footings by hand" /><div><div class="tl-ti">Breaking ground</div><div class="tl-dk">Land purchased; the village built the first classrooms largely by hand.</div></div></div>
-        <div class="tl-item"><div class="tl-yr">2011</div><img src="thumbs/thumb-2011.webp" alt="The finished four-classroom block" /><div><div class="tl-ti">Four rooms and 181 children</div><div class="tl-dk">Doors open under our first head teacher, Henry Ngolobe.</div></div></div>
-        <div class="tl-item"><div class="tl-yr">2012–13</div><img src="thumbs/thumb-2012.webp" alt="Two classroom blocks facing a planted courtyard" /><div><div class="tl-ti">A grade a year</div><div class="tl-dk">A classroom added each year so the first intake could finish primary school without leaving Kagina.</div></div></div>
-        <div class="tl-item mile"><div class="tl-yr">2013</div><img src="thumbs/thumb-2013.webp" alt="A Primary 6 graduating class in red caps and gowns" /><div><div class="tl-ti">First in the province<span class="tl-badge">Milestone</span></div><div class="tl-dk">The first cohort to sit the National Examination placed first in the Southern Province.</div></div></div>
-        <div class="tl-item"><div class="tl-yr">2016</div><img src="thumbs/thumb-2016.webp" alt="The grown campus seen across the playing field" /><div><div class="tl-ti">Room to grow</div><div class="tl-dk">Six new classrooms, a library, and a teacher’s house, with Crimson Foundation.</div></div></div>
-        <div class="tl-item"><div class="tl-yr">2019</div><img src="thumbs/thumb-2019.webp" alt="Students at mealtime" /><div><div class="tl-ti">More than lessons</div><div class="tl-dk">Buses and a food programme removed reasons a child might stop attending.</div></div></div>
-        <div class="tl-item mile"><div class="tl-yr">2026</div><img src="thumbs/thumb-2026.webp" alt="Teams on the new courts" /><div><div class="tl-ti">A campus, finished<span class="tl-badge">Milestone</span></div><div class="tl-dk">Two courts, every classroom renovated, grounds paved and planted.</div></div></div>
-      </div>
+      <div class="hpanel">
+        <div class="eyebrow">Fifteen years</div>
+        <h3>Eight chapters, 2009 to today.</h3>
+        <p class="lead">The land was bought with permission given first, and the first classrooms were built by the families whose children would sit in them.</p>
 
-      <div style="margin-top:26px" class="eyebrow">Head teachers</div>
-      <div class="heads">
-        <div class="head"><img src="../../crimsonacademy-site/src/assets/head-henry.jpg" alt="Portrait of Henry Ngolobe" /><div><div class="yy">2011–2015</div><div class="nn">Henry Ngolobe</div></div></div>
-        <div class="head"><img src="../../crimsonacademy-site/src/assets/head-jean-de-dieu.jpg" alt="Portrait of Jean De Dieu Nsabimana" /><div><div class="yy">2015–2017</div><div class="nn">Jean De Dieu Nsabimana</div></div></div>
-        <div class="head"><img src="../../crimsonacademy-site/src/assets/head-marie-claire.jpg" alt="Portrait of Marie Claire Mukabirinda" /><div><div class="yy">2017–Present</div><div class="nn">Marie Claire Mukabirinda</div></div></div>
-      </div>
+        <div class="hrail">
+          <a class="chapter" href="#"><img src="thumbs/thumb-2009.webp" alt="The village of Kagina gathered on open ground in 2009" /><div class="yr">2009</div><div class="ti">Before there was a school</div><div class="dk">A first visit. No classroom, because there was no school — only demand.</div></a>
+          <a class="chapter" href="#"><img src="thumbs/thumb-2010.webp" alt="Villagers laying the stone footings by hand" /><div class="yr">2010–2011</div><div class="ti">Breaking ground</div><div class="dk">The village built the first classrooms largely by hand.</div></a>
+          <a class="chapter" href="#"><img src="thumbs/thumb-2011.webp" alt="The finished four-classroom block" /><div class="yr">2011</div><div class="ti">Four rooms, 181 children</div><div class="dk">Doors open under our first head teacher, Henry Ngolobe.</div></a>
+          <a class="chapter" href="#"><img src="thumbs/thumb-2012.webp" alt="Two classroom blocks facing a planted courtyard" /><div class="yr">2012–2013</div><div class="ti">A grade a year</div><div class="dk">A classroom added each year so the first intake could finish here.</div></a>
+          <a class="chapter" href="#"><img src="thumbs/thumb-2013.webp" alt="A Primary 6 graduating class in red caps and gowns" /><div class="yr">2013</div><div class="ti">First in the province</div><div class="dk">The first cohort placed first in the Southern Province.</div></a>
+          <a class="chapter" href="#"><img src="thumbs/thumb-2016.webp" alt="The grown campus seen across the playing field" /><div class="yr">2016</div><div class="ti">Room to grow</div><div class="dk">Six classrooms, a library, and a teacher’s house.</div></a>
+          <a class="chapter" href="#"><img src="thumbs/thumb-2019.webp" alt="Students at mealtime" /><div class="yr">2019</div><div class="ti">More than lessons</div><div class="dk">Buses and a food programme removed reasons to stop attending.</div></a>
+          <a class="chapter" href="#"><img src="thumbs/thumb-2026.webp" alt="Teams on the new courts" /><div class="yr">2026</div><div class="ti">A campus, finished</div><div class="dk">Two courts, every classroom renovated, grounds paved and planted.</div></a>
+        </div>
+        <div class="rail-hint">← Scroll the rail for all eight chapters →</div>
 
-      <div style="margin-top:22px"><a class="btn btn-outline" href="#">Read the full history, chapter by chapter →</a></div>
+        <div class="hteach">
+          <div class="eyebrow">Three head teachers in fifteen years</div>
+          <div class="heads">
+            <div class="head"><img src="../../crimsonacademy-site/src/assets/head-henry.jpg" alt="Portrait of Henry Ngolobe" /><div><div class="yy">2011–2015</div><div class="nn">Henry Ngolobe</div></div></div>
+            <div class="head"><img src="../../crimsonacademy-site/src/assets/head-jean-de-dieu.jpg" alt="Portrait of Jean De Dieu Nsabimana" /><div><div class="yy">2015–2017</div><div class="nn">Jean De Dieu Nsabimana</div></div></div>
+            <div class="head"><img src="../../crimsonacademy-site/src/assets/head-marie-claire.jpg" alt="Portrait of Marie Claire Mukabirinda" /><div><div class="yy">2017–Present</div><div class="nn">Marie Claire Mukabirinda</div></div></div>
+          </div>
+        </div>
+
+        <div class="cta-row"><a class="btn btn-gold" href="#">Read the full history, chapter by chapter →</a></div>
+      </div>
     </section>
 
     <!-- LEADERSHIP -->
@@ -340,9 +365,11 @@
 </div>
 
 <script>
-/* Scroll-spy for the sticky rail — see the matching note in
-   03-dossier-rail.html. Added to both dossier mockups so they aren't
-   compared unfairly on an implementation artifact. */
+/* Scroll-spy for the sticky rail. The rail's whole value is a persistent
+   "you are here", so a static active state undersells the direction being
+   evaluated. rootMargin biases the trigger band to the upper third of the
+   viewport, so the highlight changes when a section heading reaches reading
+   position rather than when it first clips the bottom edge. */
 (function () {
   var links = [].slice.call(document.querySelectorAll('.railnav a'));
   var map = {};
@@ -364,7 +391,9 @@
   sections.forEach(function (s) { obs.observe(s); });
 
   /* The last section can never scroll high enough to reach the trigger band,
-     leaving the second-to-last item highlighted at page bottom. Pin it. */
+     so on its own the observer leaves the second-to-last item highlighted
+     forever once you hit the bottom — verified: scrolling to #contact was
+     still showing "Leadership & Staff". Pin the last item at page bottom. */
   var last = sections[sections.length - 1];
   window.addEventListener('scroll', function () {
     if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 2) {
