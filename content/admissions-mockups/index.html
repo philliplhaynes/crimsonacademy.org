@@ -42,7 +42,12 @@
   .card .frame { aspect-ratio: 16/11; overflow: hidden; position: relative; background: var(--cream2); }
   .card iframe { width: 400%; height: 400%; transform: scale(.25); transform-origin: top left; border: none; pointer-events: none; }
   .card .body { padding: 20px; }
-  .card .letter { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--crimson); color: #fff; font-family: Fraunces, serif; font-weight: 700; font-size: 14px; }
+  .card .letter { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--crimson); color: #fff; font-family: Fraunces, serif; font-weight: 700; font-size: 14px; vertical-align: middle; }
+  .card .letter.c { background: var(--gold); color: hsl(0 20% 12%); }
+  .pick { display: inline-block; margin-left: 10px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: hsl(38 65% 28%); background: hsl(46 68% 47% / .2); padding: 4px 10px; border-radius: 999px; vertical-align: middle; }
+  .featured { margin-top: 36px; }
+  .featured .card { border-color: hsl(46 68% 47% / .55); border-width: 2px; }
+  .featured .frame { aspect-ratio: 16/8; }
   .card h2 { font-size: 19px; margin-top: 12px; }
   .card .sub { font-size: 12.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; color: var(--crimson); margin-top: 3px; }
   .card p { font-size: 14px; color: var(--muted); margin-top: 10px; }
@@ -55,13 +60,13 @@
 <body>
 <div class="container">
   <div class="eyebrow">Design Exploration</div>
-  <h1>Two redesign directions for the Admissions page</h1>
+  <h1>Redesign directions for the Admissions page</h1>
   <p class="intro">
-    Both follow berkeleycarroll.org/admissions — which turns out to use the same poster hero and
-    crimson slab sub-nav the Academics and About pages already have, so the furniture is shared and
-    the two directions differ in how the content is organised. Both carry the new material: fees,
-    the entrance test, the supply list, the school leaders as the admissions team, and a Why Crimson
-    Academy section.
+    All three follow berkeleycarroll.org/admissions — which turns out to use the same poster hero
+    and crimson slab sub-nav the Academics and About pages already have, so the furniture is shared
+    and the directions differ in how the content is organised. All carry the new material: fees, the
+    entrance test, the supply list, the school leaders as the admissions team, and a Why Crimson
+    Academy section. <strong style="color:var(--fg)">C is the merge of A and B — build that one.</strong>
   </p>
 
   <div class="alert">
@@ -91,6 +96,28 @@
     </p>
   </div>
 
+  <div class="featured">
+    <a class="card" href="03-merged.html">
+      <div class="frame"><iframe src="03-merged.html" title="Mockup C preview"></iframe></div>
+      <div class="body">
+        <span class="letter c">C</span>
+        <span class="pick">The merge — build this one</span>
+        <h2>Merged</h2>
+        <div class="sub">B’s structure · A’s step spine · A’s admissions team</div>
+        <p>B is the base, because fees are what families come here for and B answers that within a
+        screen of the hero: the table sits beside a worked example totalling tuition plus both meals.
+        From A it takes the full numbered step spine — kept at full size rather than compressed to a
+        strip, because the leader chips are the point — and the circular admissions team roster.</p>
+        <ul>
+          <li><strong>From B:</strong> question-led order, fee table + worked example, editorial Why spread with pull quote, crimson stat band</li>
+          <li><strong>From A:</strong> five numbered steps with a named leader at each stage, and the circular team roster</li>
+          <li>Step 3 names both testing leads — Damascene for Primary 1–3, David for Primary 4–6 — so a parent knows who to expect before they arrive</li>
+        </ul>
+      </div>
+    </a>
+  </div>
+
+  <h3 style="margin-top:44px;font-size:19px">The two it came from</h3>
   <div class="cards">
     <a class="card" href="01-path.html">
       <div class="frame"><iframe src="01-path.html" title="Mockup A preview"></iframe></div>
@@ -130,12 +157,11 @@
   </div>
 
   <p class="note">
-    <strong>My lean:</strong> B. Fees are the single thing every family comes to this page for, and
-    B answers that within one screen of the hero instead of making them scroll through the process
-    first — the worked total is the most useful thing on either page. A's step-by-step is genuinely
-    better for a first-time applicant, but its best idea, naming the leader you'll deal with at each
-    stage, can be lifted into B's roster without rebuilding the page around it. Say the word and
-    I'll merge them the way we did on About.
+    <strong>Where this landed:</strong> C. A and B are kept above as the sources, not as live
+    options. The merge keeps B's order — cost answered first, because that is what families come
+    here for — and takes A's numbered step spine at full size rather than compressing it to a strip,
+    since naming the leader at each stage only works if there is room to show them. The team roster
+    is A's circular layout.
   </p>
 
   <p class="note">
