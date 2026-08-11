@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>History Page Redesign — Comparison</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: hsl(40 50% 96%); --fg: hsl(0 12% 12%); --crimson: hsl(352 66% 33%);
+    --muted: hsl(25 10% 38%); --gold: hsl(46 68% 47%); --line: hsl(40 24% 84%);
+    --cream2: hsl(40 40% 92%);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: Inter, ui-sans-serif, system-ui, sans-serif; line-height: 1.6; }
+  h1, h2 { font-family: Fraunces, ui-serif, Georgia, serif; font-weight: 600; margin: 0; }
+  .container { max-width: 1040px; margin: 0 auto; padding: 48px 24px 80px; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: hsl(38 55% 28%); }
+  h1 { font-size: 34px; margin-top: 10px; }
+  .intro { max-width: 680px; color: var(--muted); margin-top: 14px; font-size: 16px; }
+  .current-note {
+    margin-top: 24px; padding: 14px 18px; border-radius: 8px; background: var(--cream2);
+    font-size: 14px; color: var(--muted); border-left: 3px solid var(--gold);
+  }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
+  @media (max-width: 720px) { .cards { grid-template-columns: 1fr; } }
+  .card {
+    border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #fff;
+    text-decoration: none; color: inherit; display: block; transition: box-shadow 0.15s, transform 0.15s;
+  }
+  .card:hover { box-shadow: 0 8px 24px hsl(0 12% 12% / 0.1); transform: translateY(-2px); }
+  .card .frame { aspect-ratio: 16/10; overflow: hidden; position: relative; background: var(--cream2); }
+  .card iframe { width: 400%; height: 400%; transform: scale(0.25); transform-origin: top left; border: none; pointer-events: none; }
+  .card .body { padding: 20px; }
+  .card .letter { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--crimson); color: #fff; font-family: Fraunces, serif; font-weight: 700; font-size: 14px; }
+  .card h2 { font-size: 19px; margin-top: 12px; }
+  .card .sub { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; color: var(--crimson); margin-top: 2px; }
+  .card p { font-size: 14px; color: var(--muted); margin-top: 10px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="eyebrow">Design Exploration</div>
+  <h1>Two redesign directions for the History page</h1>
+  <p class="intro">
+    The live page (<code>/about/history</code>) uses full-bleed alternating colour bands, one chapter
+    per band, two-column text + photo. These two mockups explore different layouts for the same
+    eight chapters, key dates, and head teachers — real content, real photos, same brand tokens
+    (Fraunces + Inter, crimson/gold/cream).
+  </p>
+  <div class="current-note">
+    Neither of these is meant to replace the live page outright — think of them as two different
+    bets on how people actually want to consume this content: read it start to finish, or scan for
+    a specific year.
+  </div>
+
+  <div class="cards">
+    <a class="card" href="01-rail.html">
+      <div class="frame"><iframe src="01-rail.html"></iframe></div>
+      <div class="body">
+        <span class="letter">A</span>
+        <h2>The Rail</h2>
+        <div class="sub">Compact · scannable · linear</div>
+        <p>A vertical connecting line with small nodes per year. Thumbnail photos instead of
+        full-bleed bands, one tight sentence per chapter instead of full paragraphs, functional
+        jump-to-year chips at the top. Roughly a third of the scroll length of the live page —
+        built for someone who wants the shape of the story fast, not the full narrative.</p>
+      </div>
+    </a>
+
+    <a class="card" href="02-magazine.html">
+      <div class="frame"><iframe src="02-magazine.html"></iframe></div>
+      <div class="body">
+        <span class="letter">B</span>
+        <h2>The Magazine</h2>
+        <div class="sub">Browsable · asymmetric · non-linear</div>
+        <p>An editorial photo grid, not a scroll of bands — 2013 and 2026 (the milestone years) get
+        large featured cards, the rest sit as smaller tiles. Good for someone scanning for a
+        specific year rather than reading top to bottom. A "the index" strip below covers all
+        twelve key dates at a glance.</p>
+      </div>
+    </a>
+  </div>
+</div>
+</body>
+</html>

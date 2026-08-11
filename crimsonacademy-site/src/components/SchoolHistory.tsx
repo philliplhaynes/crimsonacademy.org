@@ -1,7 +1,7 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { PhotoSlot } from "@/components/PhotoSlot";
-import { KeyDatesSlider } from "@/components/KeyDatesSlider";
 import { cn } from "@/lib/utils";
 
 // ── Photos: add imports here, then reference them in `chapters` below. ────────
@@ -15,26 +15,27 @@ import foodProgramme from "@/assets/history-2019-food-programme.jpg";
 import courts from "@/assets/history-2026-courts.jpg";
 
 /**
- * The school's history, told the way berkeleycarroll.org tells theirs: named
- * narrative chapters with period photographs, then key dates, then the
- * leadership line.
+ * The school's history as an editorial photo grid, not a scroll of full-bleed
+ * bands — replaces the earlier alternating-colour-band layout with the
+ * "Magazine" direction from the /about/history design exploration (two
+ * mockups compared, this one chosen). 2009, 2013 and 2026 — the permission
+ * that made the school possible, the first result, and the finished campus —
+ * get large featured cards; the rest sit as smaller tiles. Every card is a
+ * button that expands in place to the full chapter text, so the grid is
+ * scannable at a glance but nothing is lost — same content depth as before,
+ * just progressive rather than all visible at once.
  *
- * Like theirs, the chapters sit in alternating full-bleed colour bands
- * (they alternate a warm off-white against their burgundy). Here the three
- * crimson bands are placed deliberately rather than mechanically — 2009, 2013
- * and 2026: the permission that made it possible, the first result, and the
- * finished campus — so the colour marks the turning points instead of just
- * striping the page.
+ * Comparison board + the runner-up ("The Rail", a compact vertical timeline)
+ * live in content/history-mockups/ at the repo root, outside the app.
  */
 
-/** cream = page background · paper = warm tint · deep = crimson, inverted text */
-type Tone = "cream" | "paper" | "deep";
+type Size = "featured" | "standard";
 
 interface Chapter {
   era: string;
   title: string;
   body: string[];
-  tone: Tone;
+  size: Size;
   /**
    * TO ADD A PHOTO: import it at the top of this file, then set `photo` and
    * `alt` on the chapter below. The placeholder disappears on its own — you do
@@ -45,15 +46,16 @@ interface Chapter {
   /** Shown on the placeholder while `photo` is empty. */
   brief: string;
   source?: string;
-  /** Flips the photo to the left on wide screens. */
-  flip?: boolean;
+  /** Tailwind grid-column span, responsive. Only featured chapters need this. */
+  span: string;
 }
 
 const chapters: Chapter[] = [
   {
     era: "2009",
     title: "Before there was a school",
-    tone: "deep",
+    size: "featured",
+    span: "sm:col-span-2 lg:col-span-4",
     body: [
       "It began with a visit. In 2009 our founder travelled to Kagina for the first time and met the children of the village — most of them out of school, many of them without shoes, all of them curious about the stranger with the camera.",
       "Standing with them are the elders who made everything after this possible. Among them is the village leader who welcomed that first visit and, in time, agreed to the sale of the land the school now stands on. Nothing was built here without permission being given first.",
@@ -67,7 +69,8 @@ const chapters: Chapter[] = [
   {
     era: "2010–2011",
     title: "Breaking ground",
-    tone: "paper",
+    size: "standard",
+    span: "sm:col-span-1 lg:col-span-2",
     body: [
       "Land was purchased on the hillside and the village built the school largely by hand. Neighbours turned the ground with hoes, quarried and laid the stone footings, and raised the block walls course by course.",
       "It is worth saying plainly: the first classrooms were not delivered to Kagina. They were built by the families whose children would sit in them.",
@@ -76,12 +79,12 @@ const chapters: Chapter[] = [
     alt: "Villagers backfilling the completed stone footings of the first classroom block, with the Kagina hillside behind",
     brief: "Community clearing the site by hand, and the stone foundations going in",
     source: "CF Rwanda/CAR Land Purchase · CAR Construction/Primary 1-4",
-    flip: true,
   },
   {
     era: "2011",
     title: "Four rooms and 181 children",
-    tone: "cream",
+    size: "standard",
+    span: "sm:col-span-1 lg:col-span-2",
     body: [
       "Crimson Academy opened its doors in 2011 with four classrooms and 181 students, under our first head teacher, Henry.",
       "Four rooms meant four grades. Everything above Primary 4 was still an intention rather than a building.",
@@ -94,7 +97,8 @@ const chapters: Chapter[] = [
   {
     era: "2012–2013",
     title: "A grade a year",
-    tone: "paper",
+    size: "standard",
+    span: "sm:col-span-1 lg:col-span-2",
     body: [
       "Rather than turn students away at the top of the school, we added a classroom each year for the next two years — Primary 5, then Primary 6 — so that the first intake could finish a full primary education without leaving Kagina.",
       "By 2013 the school ran the complete national primary programme, Primary 1 through Primary 6.",
@@ -103,12 +107,12 @@ const chapters: Chapter[] = [
     alt: "Two classroom blocks facing each other across a planted courtyard, with the valley beyond",
     brief: "The Primary 5 and Primary 6 classrooms under construction",
     source: "CF Rwanda/CAR Construction/Primary 5 · CAR Construction/Primary 6",
-    flip: true,
   },
   {
     era: "2013",
     title: "First in the province",
-    tone: "deep",
+    size: "featured",
+    span: "sm:col-span-2 lg:col-span-4",
     body: [
       "The first cohort to sit the National Examination placed the school first in the Southern Province. It has held at or near the top in nearly every year since.",
       "For a rural school two years out from its founding, competing against long-established institutions, this was the moment the model stopped being a hope and became a record.",
@@ -123,7 +127,8 @@ const chapters: Chapter[] = [
   {
     era: "2016",
     title: "Room to grow",
-    tone: "cream",
+    size: "standard",
+    span: "sm:col-span-1 lg:col-span-3",
     body: [
       "With Crimson Foundation and the Jenzabar Foundation, the campus expanded in a single push: six new classrooms, a library, and a teacher's house so that staff could live on site rather than commute from far away.",
       "Jean had become head teacher the year before, in 2015, and led the school through the expansion.",
@@ -132,12 +137,12 @@ const chapters: Chapter[] = [
     alt: "The grown campus seen across the playing field: two further school buildings, a paved walkway and planted beds, with students in maroon uniform moving between them",
     brief: "The 2016 expansion — new classroom block, library, and teacher housing",
     source: "CF Rwanda/CAR Construction/School Expansion · CAR Construction/Teacher Housing",
-    flip: true,
   },
   {
     era: "2019",
     title: "More than lessons",
-    tone: "paper",
+    size: "standard",
+    span: "sm:col-span-1 lg:col-span-3",
     body: [
       "School buses began bringing in students who lived too far to walk, and a food programme started serving children through the school day. Both removed reasons a child might simply stop attending.",
       "Alongside them came the activities the school is now known for: karate, debate, gymnastics, football, and the chorus.",
@@ -150,7 +155,8 @@ const chapters: Chapter[] = [
   {
     era: "2026",
     title: "A campus, finished",
-    tone: "deep",
+    size: "featured",
+    span: "sm:col-span-2 lg:col-span-6",
     body: [
       "This year the campus received the work it had been growing into: two basketball and football courts, and a full renovation of every classroom and facility.",
       "The dirt paths between buildings were paved into proper walkways, and trees and flowers were planted across the grounds — the ordinary marks of a school that intends to be there for a long time.",
@@ -159,7 +165,6 @@ const chapters: Chapter[] = [
     alt: "Teams in kit lined up on the new courts at a schools tournament, with basketball hoops and goal nets behind them",
     brief: "The new courts, the paved walkways, and the planted grounds",
     source: "CF Rwanda/CAR Construction/Soccer Facility · CAR Construction/Campus",
-    flip: true,
   },
 ];
 
@@ -184,30 +189,106 @@ const heads: { name: string; years: string; note: string }[] = [
   { name: "MUKABIRINDA Marie Claire", years: "2017 – present", note: "Third head teacher, and the school's principal today." },
 ];
 
-/** Band colours, plus the text colours each band needs to stay readable. */
-const toneStyles: Record<Tone, { band: string; era: string; body: string; rule: string }> = {
-  cream: {
-    band: "bg-background",
-    era: "text-primary",
-    body: "text-muted-foreground",
-    rule: "bg-border",
-  },
-  paper: {
-    band: "bg-secondary/50",
-    era: "text-primary",
-    body: "text-muted-foreground",
-    rule: "bg-border",
-  },
-  deep: {
-    band: "bg-primary text-primary-foreground",
-    // text-accent (bright gold), not text-eyebrow, because --eyebrow is
-    // tuned for contrast against the cream page background — on this
-    // crimson band it would read as dark-on-dark. See the matching note on
-    // the Contact & Visit section in About.tsx.
-    era: "text-accent",
-    body: "text-primary-foreground/85",
-    rule: "bg-primary-foreground/25",
-  },
+/**
+ * A single grid card. Always shows era + title; featured cards additionally
+ * show their first paragraph as a teaser (they're already big enough to
+ * carry it). Clicking any card expands it in place to the remaining
+ * paragraphs — real content, not a link to nowhere, which is why this is a
+ * <button> rather than an <a> like the exploration mockup used.
+ *
+ * Motion is deliberately minimal: a hover/focus image zoom (transform only,
+ * ~300ms) and the expand panel's height transition, both skipped entirely
+ * under prefers-reduced-motion via Tailwind's motion-reduce: variant. No
+ * scroll-triggered reveal-on-load — the rural-mobile audience this site is
+ * built for was the reason that was left out sitewide during an earlier
+ * design pass, and this redesign doesn't reopen that decision.
+ */
+const ChapterCard = ({ chapter: c }: { chapter: Chapter }) => {
+  const [open, setOpen] = useState(false);
+  const teaserCount = c.size === "featured" ? 1 : 0;
+  const hiddenParagraphs = c.body.slice(teaserCount);
+  const hasMore = hiddenParagraphs.length > 0;
+
+  return (
+    <button
+      type="button"
+      onClick={() => hasMore && setOpen((v) => !v)}
+      aria-expanded={hasMore ? open : undefined}
+      className={cn(
+        "group relative isolate flex flex-col justify-end overflow-hidden rounded-lg text-left text-primary-foreground",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        c.size === "featured" ? "min-h-[22rem] sm:min-h-[26rem]" : "min-h-[15rem]",
+        c.span,
+        !hasMore && "cursor-default",
+      )}
+    >
+      {c.photo ? (
+        <img
+          src={c.photo}
+          alt={c.alt ?? ""}
+          loading="lazy"
+          className="absolute inset-0 -z-20 h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105 group-focus-visible:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+        />
+      ) : (
+        <PhotoSlot
+          ratio="fill"
+          brief={c.brief}
+          source={c.source}
+          compact
+          className="absolute inset-0 -z-20"
+        />
+      )}
+      {/* Ink gradient (the site's warm near-black, not raw #000) so overlaid
+          text stays readable regardless of the photo underneath. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-gradient-to-t from-foreground/90 via-foreground/15 to-transparent"
+      />
+
+      <div className={cn("relative p-5", c.size === "featured" && "sm:max-w-xl")}>
+        <div className="text-xs font-bold uppercase tracking-widest text-accent">
+          {c.era}
+          {c.size === "featured" && " — Milestone"}
+        </div>
+        <h3 className={cn("mt-1.5 font-heading font-semibold", c.size === "featured" ? "text-2xl sm:text-3xl" : "text-lg")}>
+          {c.title}
+        </h3>
+
+        {teaserCount > 0 && (
+          <p className="mt-2 text-sm leading-relaxed text-primary-foreground/85">{c.body[0]}</p>
+        )}
+
+        {hasMore && (
+          <>
+            {/* grid-template-rows 0fr→1fr: an auto-height-friendly expand,
+                unlike max-height it doesn't need a guessed cap. */}
+            <div
+              className={cn(
+                "grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none",
+                open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+              )}
+            >
+              <div className="overflow-hidden">
+                <div className="space-y-3 pt-3 text-sm leading-relaxed text-primary-foreground/85">
+                  {hiddenParagraphs.map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-2 flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-accent">
+              {open ? "Read less" : "Read more"}
+              <ChevronDown
+                className={cn("h-3.5 w-3.5 transition-transform duration-300 motion-reduce:transition-none", open && "rotate-180")}
+                aria-hidden="true"
+              />
+            </div>
+          </>
+        )}
+      </div>
+    </button>
+  );
 };
 
 export const SchoolHistory = () => (
@@ -216,62 +297,39 @@ export const SchoolHistory = () => (
   // and lede as the page's H1. A second "From one visit to a full campus."
   // heading right below it would just repeat the hero verbatim.
   <section id="history" className="scroll-mt-32">
-    {/* ---------- narrative chapters, in alternating colour bands ---------- */}
-    <div className="pt-8 sm:pt-12">
-      {chapters.map((c) => {
-        const t = toneStyles[c.tone];
-        return (
-          <article
-            key={c.era + c.title}
-            className={cn("transition-colors duration-500", t.band)}
-          >
-            <div className="container grid items-center gap-8 py-14 md:grid-cols-2 md:gap-12 md:py-20">
-              <div className={c.flip ? "md:order-2" : undefined}>
-                <div className="flex items-center gap-3">
-                  <span className={cn("font-heading text-4xl font-semibold md:text-5xl", t.era)}>
-                    {c.era}
-                  </span>
-                  <span className={cn("h-px flex-1", t.rule)} aria-hidden="true" />
-                </div>
-                <h3 className="mt-4 font-heading text-2xl font-semibold md:text-3xl">{c.title}</h3>
-                <div className={cn("mt-4 space-y-4 leading-relaxed", t.body)}>
-                  {c.body.map((p, i) => (
-                    <p key={i}>{p}</p>
-                  ))}
-                </div>
-              </div>
-
-              {c.photo ? (
-                <img
-                  src={c.photo}
-                  alt={c.alt ?? ""}
-                  className={cn(
-                    "aspect-[4/3] w-full rounded-lg object-cover shadow-sm",
-                    c.flip && "md:order-1",
-                  )}
-                  loading="lazy"
-                />
-              ) : (
-                <PhotoSlot
-                  className={c.flip ? "md:order-1" : undefined}
-                  ratio="landscape"
-                  brief={c.brief}
-                  source={c.source}
-                />
-              )}
-            </div>
-          </article>
-        );
-      })}
+    {/* ---------- narrative chapters, as an editorial photo grid ---------- */}
+    <div className="container pt-8 sm:pt-12">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
+        {chapters.map((c) => (
+          <ChapterCard key={c.era + c.title} chapter={c} />
+        ))}
+      </div>
     </div>
 
-    {/* ---------- key dates ---------- */}
+    {/* ---------- key dates, as a scannable index rather than a carousel --------- */}
     <div className="container pt-16">
       <div className="text-xs font-semibold uppercase tracking-wider text-eyebrow">Key dates</div>
       <h3 className="mt-2 font-heading text-2xl font-semibold md:text-3xl">
         Fifteen years, in short.
       </h3>
-      <KeyDatesSlider dates={keyDates} />
+      {/*
+        Per-cell right/bottom borders, not the mockup's container-background-
+        through-gaps trick — that broke when a non-round column count (5)
+        left the last row partly empty, showing a solid grey block through
+        the gaps where no cell existed. 12 key dates divides evenly at every
+        breakpoint used here (1, 2, 4 columns), so every row always fills and
+        the simpler border approach can't hit that failure mode.
+      */}
+      <div className="mt-6 overflow-hidden rounded-lg border">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          {keyDates.map((d, i) => (
+            <div key={i} className="border-b border-r p-4 [&:nth-child(4n)]:border-r-0 last:border-b-0">
+              <div className="font-heading text-xl font-bold text-primary">{d.year}</div>
+              <div className="mt-1 text-sm text-muted-foreground">{d.text}</div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
 
     {/* ---------- the leadership line ---------- */}
