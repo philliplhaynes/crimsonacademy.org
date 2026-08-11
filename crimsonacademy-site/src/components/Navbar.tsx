@@ -1,4 +1,4 @@
-import logo from "@/assets/crimson-tree.png";
+import logoHoriz from "@/assets/logo-horiz.webp";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
@@ -200,11 +200,8 @@ export const Navbar = () => {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
       <div className="container flex h-16 items-center justify-between gap-4">
-        <Link to="/" className="flex shrink-0 items-center gap-2 font-heading text-lg font-bold">
-          <img src={logo} alt="" className="h-9 w-9 object-contain" />
-          <span className="leading-none">
-            Crimson <span className="text-primary">Academy</span>
-          </span>
+        <Link to="/" className="flex shrink-0 items-center">
+          <img src={logoHoriz} alt="Crimson Academy" className="h-11 w-auto object-contain" />
         </Link>
 
         <DesktopNav />

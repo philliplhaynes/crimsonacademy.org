@@ -25,7 +25,8 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "add-photo": "node scripts/add-photo.mjs"
+    "add-photo": "node scripts/add-photo.mjs",
+    "chroma-key": "node scripts/chroma-key-white.mjs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.0",

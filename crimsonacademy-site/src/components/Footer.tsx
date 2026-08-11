@@ -1,4 +1,4 @@
-import logo from "@/assets/crimson-tree.png";
+import logoVert from "@/assets/logo-vert.webp";
 import { Link } from "react-router-dom";
 import { MapPin, Mail, Globe, ArrowUpRight } from "lucide-react";
 import { sections } from "@/nav";
@@ -50,9 +50,8 @@ export const Footer = () => {
       <div className="container py-14">
         <div className="grid gap-10 lg:grid-cols-[1.5fr_3fr]">
           <div className="space-y-4">
-            <Link to="/" className="flex items-center gap-2 font-heading text-lg font-bold">
-              <img src={logo} alt="" className="h-9 w-9 object-contain" />
-              Crimson Academy
+            <Link to="/" className="inline-flex">
+              <img src={logoVert} alt="Crimson Academy" className="h-28 w-auto object-contain" />
             </Link>
             <p className="text-sm text-muted-foreground">
               Faith, character, and academic excellence in Kagina, Rwanda. Nursery through Primary 6.
