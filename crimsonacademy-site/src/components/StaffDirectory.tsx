@@ -6,6 +6,8 @@ import marieClaire from "@/assets/staff-marie-claire.webp";
 import jeanDamascene from "@/assets/staff-jean-damascene.webp";
 import martha from "@/assets/staff-martha.webp";
 import jeanClaude from "@/assets/staff-jean-claude.webp";
+/** Watermark for a leader with no photograph on file — see the team grid. */
+import crest from "@/assets/crimson_tree.png";
 
 /**
  * School leaders (photo grid), then a searchable staff directory (text only).
@@ -331,6 +333,13 @@ const leaders: Leader[] = [
   },
 ];
 
+/**
+ * The Head Mistress leads the array and is rendered as the featured card; the
+ * rest follow as portrait cards. Order matters here — if `leaders` is ever
+ * reordered, the featured slot follows whoever is first.
+ */
+const [principal, ...team] = leaders;
+
 const StaffList = () => {
   const [query, setQuery] = useState("");
   const [group, setGroup] = useState<Group | "All">("All");
@@ -504,40 +513,70 @@ export const StaffDirectory = () => (
     </h3>
 
     {/*
-      A grid, not a carousel: there are only five leaders, and at lg they all
-      fit in one row — a carousel was hiding the fifth behind a scroll. Uses
-      square photo blocks; anyone without a photograph on file gets the same
-      heart placeholder the directory used to use, so the row stays even.
+      Five equal square photos in a row read as flat and undifferentiated —
+      the page's own leadership had no hierarchy in it. Now the Head Mistress
+      gets a featured crimson card (she runs the school; the layout should say
+      so) and the other four sit as portrait cards with the name overlaid on
+      the photo, reusing the gradient-over-photo treatment already established
+      by the history page's chapter cards rather than inventing a sixth style.
     */}
-    <ul className="mt-6 grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
-      {leaders.map((l) => (
-        <li key={l.title}>
+    <div className="mt-6 flex flex-col items-center gap-6 rounded-xl bg-primary p-6 text-center text-primary-foreground sm:flex-row sm:gap-7 sm:p-7 sm:text-left">
+      {principal.photo ? (
+        <img
+          src={principal.photo}
+          alt={`Portrait of ${principal.name}, ${principal.title}`}
+          className="h-32 w-32 shrink-0 rounded-full object-cover"
+          loading="lazy"
+          width={976}
+          height={976}
+        />
+      ) : (
+        <div className="h-32 w-32 shrink-0 rounded-full bg-primary-foreground/10" />
+      )}
+      <div className="min-w-0">
+        <div className="text-xs font-bold uppercase tracking-widest text-accent">
+          {principal.title}
+        </div>
+        <div className="mt-1.5 font-heading text-2xl font-semibold leading-tight">
+          {principal.name}
+        </div>
+        <p className="mt-2.5 max-w-prose text-sm leading-relaxed text-primary-foreground/85">
+          {principal.note}
+        </p>
+      </div>
+    </div>
+
+    <ul className="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4">
+      {team.map((l) => (
+        <li key={l.title} className="rounded-lg bg-foreground/[0.04] p-4 text-center">
           {l.photo ? (
             <img
               src={l.photo}
               alt={`Portrait of ${l.name}, ${l.title}`}
-              className="aspect-square w-full rounded-lg object-cover"
+              className="mx-auto h-20 w-20 rounded-full object-cover"
               loading="lazy"
               width={976}
               height={976}
             />
           ) : (
-            <span
-              className="flex aspect-square w-full flex-col items-center justify-center gap-2 rounded-lg bg-primary/10"
+            /* No photograph on file. A crimson disc carrying the school crest,
+               so the card keeps the same shape and weight as its neighbours
+               instead of leaving a hole where a person should be. */
+            <div
               role="img"
               aria-label={`${l.name} — photograph to come`}
+              className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-primary/10"
             >
-              <Heart className="h-9 w-9 fill-primary/60 text-primary/60" aria-hidden="true" />
-              <span className="text-[0.6rem] font-medium uppercase tracking-wide text-primary/50">
-                Photo to come
-              </span>
-            </span>
+              <img src={crest} alt="" aria-hidden="true" className="w-10 opacity-45" loading="lazy" />
+            </div>
           )}
-          <div className="mt-3 text-xs font-semibold uppercase tracking-wider text-eyebrow">
+          <div className="mt-3 text-[0.65rem] font-bold uppercase tracking-wide text-eyebrow">
             {l.title}
           </div>
-          <div className="mt-1 font-heading text-base font-semibold leading-tight">{l.name}</div>
-          <p className="mt-2 text-sm text-muted-foreground">{l.note}</p>
+          <div className="mt-1 font-heading text-sm font-semibold leading-tight text-primary">
+            {l.name}
+          </div>
+          <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{l.note}</p>
         </li>
       ))}
     </ul>

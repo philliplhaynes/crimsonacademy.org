@@ -18,7 +18,11 @@ export const sections: NavSection[] = [
     children: [
       { label: "Mission & Values", href: "/about#mission" },
       { label: "Our Christian Faith", href: "/about#faith" },
-      { label: "Our History", href: "/about/history" },
+      // The About page carries a history summary again (a milestone rail with
+      // all eight chapters), so this points at that section. The full
+      // chapter-by-chapter page at /about/history is still a route and is
+      // linked prominently from inside the panel — see HistoryPanel.tsx.
+      { label: "Our History", href: "/about#history" },
       { label: "Leadership & Staff", href: "/about#leadership" },
       { label: "Contact & Visit", href: "/about#contact" },
     ],

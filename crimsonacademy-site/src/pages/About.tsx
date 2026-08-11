@@ -1,283 +1,313 @@
 import { Link } from "react-router-dom";
-import { MapPin, Mail, Globe, Clock, ArrowRight } from "lucide-react";
-import { PageHero, Section } from "@/components/PageHero";
-import { Card, CardContent } from "@/components/ui/card";
-import { buttonVariants } from "@/components/ui/button";
+import { MapPin, Mail, Globe, Clock } from "lucide-react";
+import { PosterHero } from "@/components/PosterHero";
 import { findSection } from "@/nav";
+import { cn } from "@/lib/utils";
 import { CoreValues } from "@/components/CoreValues";
 import { StaffDirectory } from "@/components/StaffDirectory";
+import { HistoryPanel } from "@/components/HistoryPanel";
 import aboutHero from "@/assets/about-hero-team.jpg";
 import signBoy from "@/assets/crimson-sign-boy.webp";
 import pottersHands from "@/assets/faith-potters-hands.jpg";
 import contactPhoto from "@/assets/contact-students.jpg";
 
-/** Must match the `era` values of `chapters` in SchoolHistory.tsx. */
-const HISTORY_ERAS = ["2009", "2010–2011", "2011", "2012–2013", "2013", "2016", "2019", "2026"];
+/**
+ * /about — the "Dossier" content structure from content/about-mockups/ (three
+ * directions compared, C chosen), carried on the Academics page's furniture.
+ *
+ * The mockup put the section nav in a sticky left rail. That was replaced with
+ * PosterHero's crimson slab so the two big interior pages share one navigation
+ * idiom rather than each inventing its own — a visitor moving between About and
+ * Academics shouldn't have to relearn where the sub-nav lives. The dossier's
+ * actual content survives the swap: the fact strip, the history milestone rail,
+ * and the reworked leadership block.
+ *
+ * Following Academics' pattern, the poster h1 is the page name and the
+ * positioning line ("A school built on faith...") opens the body instead.
+ */
+
+/** One section of the document, with the id the sub-nav links to. */
+const Article = ({
+  id,
+  eyebrow,
+  title,
+  children,
+  className,
+}: {
+  id: string;
+  eyebrow: string;
+  title: string;
+  children: React.ReactNode;
+  className?: string;
+}) => (
+  // scroll-mt clears the 4rem navbar plus the sticky sub-nav slab beneath it.
+  <section id={id} className={cn("scroll-mt-36 border-b py-14", className)}>
+    <div className="text-xs font-semibold uppercase tracking-wider text-eyebrow">{eyebrow}</div>
+    <h2 className="mt-2 max-w-[24ch] font-heading text-2xl font-semibold leading-tight md:text-3xl">
+      {title}
+    </h2>
+    {children}
+  </section>
+);
+
+const facts = [
+  { n: "780", k: "Students" },
+  { n: "32", k: "Staff" },
+  { n: "2011", k: "Founded" },
+  { n: "#1", k: "Southern Province" },
+];
 
 const About = () => {
   const section = findSection("/about")!;
+
   return (
     <>
-      <PageHero
+      <PosterHero
         section={section}
-        title="A school built on faith, character, and academic excellence."
+        title="About us"
         lede="Crimson Academy of Kagina is a Christian primary school in Kamonyi District, Rwanda, serving 780 students from nursery through Primary 6."
         image={aboutHero}
-        imageAlt=""
-        // Tuned to this specific photo: the crop window only shows ~29% of
-        // the image's height at this band size, and the group's faces sit
-        // well below the top edge (there's a stretch of bare wall above their
-        // heads). If this photo is ever swapped, re-derive this — see the
-        // worked example in PageHero.tsx's imagePosition doc comment.
+        // Tuned to this photo: the crop shows a band of its height here and the
+        // group's faces sit well below the top edge. See the worked example in
+        // PageHero.tsx's imagePosition doc comment.
         imagePosition="50% 29%"
       />
 
-      <Section id="mission" eyebrow="Our Mission" title="Emboldening children to reach beyond impossibilities.">
-        <div className="grid gap-10 lg:grid-cols-2">
-          <div className="space-y-4 text-muted-foreground leading-relaxed">
-            <p>
-              Children carry the hopes of the future. Providing access and opportunity to educate
-              children around the world is our aim and purpose. Crimson Academy will embolden
-              children and communities to reach beyond impossibilities and transform the future for
-              the better.
+      <div className="container">
+        {/* max-w keeps a readable measure; the leadership grid and staff
+            directory below are the widest things on the page and still fit. */}
+        <div className="mx-auto max-w-5xl pb-20 pt-14">
+          {/* ---------- opening statement + facts ---------- */}
+          <div className="border-b pb-12">
+            <h2 className="max-w-[20ch] font-heading text-3xl font-semibold leading-tight text-primary sm:text-4xl">
+              A school built on faith, character, and academic excellence.
+            </h2>
+            <p className="mt-5 max-w-prose leading-relaxed text-muted-foreground">
+              Founded in 2011 with four classrooms and 181 students, on land a village agreed to
+              sell only after being asked. Today it is a full campus that has placed at or near the
+              top of the Southern Province on the National Examination in nearly every year since
+              2013.
             </p>
-            <p>
-              We are committed to facilitating learning experiences that help our students achieve
-              their greatest potential and adapt to a diverse, ever-changing society. We aspire to
-              give children a sense of understanding and compassion for others, and the courage to
-              act on their beliefs.
-            </p>
-            <p className="font-medium text-foreground">
-              We stress the total development of each child: spiritual, moral, intellectual, social,
-              emotional, and physical.
-            </p>
-          </div>
-          <div className="relative flex items-center justify-center">
-            <div
-              className="absolute inset-0 -z-10 rounded-full bg-primary/10 blur-3xl"
-              aria-hidden="true"
-            />
-            <img
-              src={signBoy}
-              alt="A Crimson Academy student joyfully holding a carved wooden school crest above his head"
-              className="w-56 drop-shadow-xl sm:w-64 lg:w-72"
-              loading="lazy"
-            />
-          </div>
-        </div>
-
-        <div className="mt-14 border-t pt-12">
-          <div className="text-xs font-semibold uppercase tracking-wider text-eyebrow">
-            Core Values
-          </div>
-          <h3 className="mt-2 font-heading text-2xl font-semibold md:text-3xl">
-            Six values, and how they fit together.
-          </h3>
-          {/*
-            Deliberately no intro paragraph here — CoreValues carries its own
-            caption ("Truth, Discipline and Service are practised...") and a
-            second explanation above it just restated the same sentence.
-          */}
-          <div className="mt-10">
-            <CoreValues />
-          </div>
-        </div>
-      </Section>
-
-      <Section id="faith" eyebrow="Our Christian Faith" title="An environment that mirrors the character of Christ." tinted>
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <div className="space-y-4 text-muted-foreground leading-relaxed">
-            <p>
-              Faith is not a subject taught in one period a week — it shapes how teachers speak to
-              children, how discipline is handled, and how the school serves the village around it.
-            </p>
-            <p>
-              The six values described under{" "}
-              <Link to="/about#mission" className="font-medium text-primary underline underline-offset-4">
-                Mission &amp; Values
-              </Link>{" "}
-              are drawn directly from scripture, and they are taught and referred to explicitly
-              rather than left implicit.
-            </p>
-            <div className="rounded-lg border-l-4 border-accent bg-background p-5 italic">
-              &ldquo;For even the Son of Man did not come to be served, but to serve, and to give
-              His life a ransom for many.&rdquo; — Mark 10:45
-            </div>
-          </div>
-
-          <div>
-            <img
-              src={pottersHands}
-              alt="A student's hands and a teacher's clay-covered hands shaping a clay pot together"
-              className="w-full rounded-lg object-cover shadow-sm"
-              loading="lazy"
-            />
-            <p className="mt-4 border-l-4 border-accent bg-background p-4 text-sm italic text-muted-foreground">
-              &ldquo;Like clay in the potter&rsquo;s hand, so are you in My hand.&rdquo;
-              <span className="mt-1 block not-italic text-xs font-medium uppercase tracking-wide text-eyebrow">
-                Jeremiah 18:6
-              </span>
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-10 max-w-3xl space-y-4 text-muted-foreground leading-relaxed">
-          <p>
-            Families of all backgrounds are welcome at Crimson Academy. Our chapel and devotional
-            life is described under{" "}
-            <Link to="/student-life#chapel" className="font-medium text-primary underline underline-offset-4">
-              Student Life
-            </Link>
-            .
-          </p>
-        </div>
-      </Section>
-
-      {/*
-        A teaser, not the full history — the eight-chapter timeline moved to
-        its own route (/about/history) because it alone is ~1.7MB of photos,
-        and someone here for Leadership or Contact shouldn't have to load it.
-        Deliberately no photo in this teaser; the point is to keep this
-        section (and this page) light.
-
-        Design review flag: a text-only teaser sitting between Faith (has a
-        photo) and Leadership (has a 5-photo grid) read as an unfinished
-        stub — the one section on the page with no visual anchor at all. The
-        era chips below fix that at zero image weight: they preview the
-        eight chapters concretely instead of just asserting a count, and give
-        the section the same rhythm as its neighbours. aria-hidden because
-        the chips are decorative — the paragraph already states the same
-        "eight chapters, 2009 to today" for screen readers.
-      */}
-      <Section id="history" eyebrow="Our History" title="From one visit to a full campus.">
-        <p className="max-w-3xl text-muted-foreground leading-relaxed">
-          Crimson Academy did not start with a building. It started with a visit, and with
-          parents in a Rwandan village asking for something their children could not otherwise
-          get. See how a hillside in Kagina became a campus — eight chapters, from 2009 to today.
-        </p>
-        <ul className="mt-5 flex flex-wrap gap-2" aria-hidden="true">
-          {HISTORY_ERAS.map((era) => (
-            <li
-              key={era}
-              className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-medium text-primary"
-            >
-              {era}
-            </li>
-          ))}
-        </ul>
-        <Link
-          to="/about/history"
-          className="mt-6 inline-flex items-center gap-2 font-medium text-primary underline underline-offset-4"
-        >
-          Read our history
-          <ArrowRight className="h-4 w-4" aria-hidden="true" />
-        </Link>
-      </Section>
-
-      <Section
-        id="leadership"
-        eyebrow="Leadership & Staff"
-        title="A team devoted to every child."
-        tinted
-      >
-        <StaffDirectory />
-      </Section>
-
-      {/*
-        Full-bleed photo + crimson overlay, matching PageHero's treatment —
-        this closes the page the way it opened. Not built with the shared
-        <Section> wrapper because that constrains its background to the
-        container; SchoolHistory's full-bleed bands use the same escape hatch.
-        The "Arrange a visit" card is opaque (not the usual translucent
-        bg-secondary/40) so it stays legible sitting directly on the photo.
-      */}
-      <section id="contact" className="relative scroll-mt-32 border-t">
-        <img
-          src={contactPhoto}
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover"
-          // Tuned to this photo: the crop window (~51% of scaled height) is
-          // shorter than the span from the kids' faces down through the
-          // crest on their shirts, so both can't fit. Biased toward the
-          // crest per the owner's request — see the worked example in
-          // PageHero.tsx's imagePosition doc comment if this photo changes.
-          style={{ objectPosition: "50% 66%" }}
-        />
-        <div className="absolute inset-0 bg-primary/75" aria-hidden="true" />
-
-        <div className="container relative py-16 sm:py-20">
-          {/*
-            text-accent (bright gold), not the usual text-eyebrow, on purpose:
-            --eyebrow is tuned for contrast against the cream page background,
-            not this section's crimson-photo overlay, where it would go
-            dark-on-dark. Same reasoning as SchoolHistory's crimson bands.
-          */}
-          <span className="text-sm font-semibold uppercase tracking-wider text-accent">
-            Contact &amp; Visit
-          </span>
-          <h2 className="mt-2 font-heading text-2xl font-semibold text-primary-foreground md:text-3xl">
-            Come and see the school for yourself.
-          </h2>
-
-          <div className="mt-6 grid gap-8 lg:grid-cols-2">
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
-                <div>
-                  <div className="font-medium text-primary-foreground">Campus</div>
-                  <div className="text-primary-foreground/80">
-                    Kagina, Kamonyi District, Southern Province, Rwanda
-                  </div>
+            <dl className="mt-8 grid grid-cols-2 gap-6 border-t pt-6 sm:grid-cols-4">
+              {facts.map((f) => (
+                <div key={f.k}>
+                  <dt className="sr-only">{f.k}</dt>
+                  <dd>
+                    <span className="block font-heading text-3xl font-bold leading-none text-primary">
+                      {f.n}
+                    </span>
+                    <span className="mt-2 block text-xs uppercase tracking-wide text-muted-foreground">
+                      {f.k}
+                    </span>
+                  </dd>
                 </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <Mail className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
-                <div>
-                  <div className="font-medium text-primary-foreground">Email</div>
-                  <div className="text-primary-foreground/80">info@crimsonacademy.org</div>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <Globe className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
-                <div>
-                  <div className="font-medium text-primary-foreground">Languages</div>
-                  <div className="text-primary-foreground/80">English · Français · Kinyarwanda</div>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <Clock className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
-                <div>
-                  <div className="font-medium text-primary-foreground">Term dates</div>
-                  <div className="text-primary-foreground/80">
-                    See{" "}
-                    <Link to="/news#calendar" className="font-medium text-accent underline underline-offset-4">
-                      Calendar &amp; Term Dates
-                    </Link>
-                  </div>
-                </div>
-              </li>
-            </ul>
+              ))}
+            </dl>
+          </div>
 
-            <Card className="border-none bg-background shadow-lg">
-              <CardContent className="p-6">
-                <h3 className="font-heading text-lg font-semibold">Arrange a visit</h3>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Prospective families are welcome to tour the campus, meet teachers, and see
-                  classrooms in session. Email us to arrange a time.
+          {/* ---------- mission & values ---------- */}
+          <Article
+            id="mission"
+            eyebrow="Our Mission"
+            title="Emboldening children to reach beyond impossibilities."
+          >
+            <div className="mt-6 grid gap-8 sm:grid-cols-[1fr_14rem] sm:items-start">
+              <div className="space-y-4 leading-relaxed text-muted-foreground">
+                <p>
+                  Children carry the hopes of the future. Providing access and opportunity to
+                  educate children around the world is our aim and purpose. Crimson Academy will
+                  embolden children and communities to reach beyond impossibilities and transform
+                  the future for the better.
                 </p>
-                <div className="mt-5 flex flex-col gap-2 sm:flex-row">
-                  <Link to="/admissions#enroll" className={buttonVariants({ variant: "default" })}>
+                <p>
+                  We are committed to facilitating learning experiences that help our students
+                  achieve their greatest potential and adapt to a diverse, ever-changing society. We
+                  aspire to give children a sense of understanding and compassion for others, and
+                  the courage to act on their beliefs.
+                </p>
+                <p className="font-medium text-foreground">
+                  We stress the total development of each child: spiritual, moral, intellectual,
+                  social, emotional, and physical.
+                </p>
+              </div>
+              <img
+                src={signBoy}
+                alt="A Crimson Academy student joyfully holding a carved wooden school crest above his head"
+                className="mx-auto w-44 drop-shadow-xl sm:w-full"
+                loading="lazy"
+              />
+            </div>
+
+            <div className="mt-12 border-t pt-10">
+              <div className="text-xs font-semibold uppercase tracking-wider text-eyebrow">
+                Core Values
+              </div>
+              <h3 className="mt-2 font-heading text-xl font-semibold md:text-2xl">
+                Six values, and how they fit together.
+              </h3>
+              <div className="mt-8">
+                <CoreValues />
+              </div>
+            </div>
+          </Article>
+
+          {/* ---------- faith ---------- */}
+          <Article
+            id="faith"
+            eyebrow="Our Christian Faith"
+            title="An environment that mirrors the character of Christ."
+          >
+            <div className="mt-6 grid gap-8 sm:grid-cols-[1fr_17rem] sm:items-start">
+              <div className="space-y-4 leading-relaxed text-muted-foreground">
+                <p>
+                  Faith is not a subject taught in one period a week — it shapes how teachers speak
+                  to children, how discipline is handled, and how the school serves the village
+                  around it.
+                </p>
+                <p>
+                  The six values above are drawn directly from scripture, and they are taught and
+                  referred to explicitly rather than left implicit. Families of all backgrounds are
+                  welcome at Crimson Academy, and our chapel and devotional life is described under{" "}
+                  <Link
+                    to="/student-life#chapel"
+                    className="font-medium text-primary underline underline-offset-4"
+                  >
+                    Student Life
+                  </Link>
+                  .
+                </p>
+                <div className="rounded-lg border-l-4 border-accent bg-secondary/50 p-4 text-sm italic">
+                  &ldquo;For even the Son of Man did not come to be served, but to serve, and to
+                  give His life a ransom for many.&rdquo;
+                  <span className="mt-1.5 block text-xs font-semibold uppercase not-italic tracking-wide text-eyebrow">
+                    Mark 10:45
+                  </span>
+                </div>
+              </div>
+              <div>
+                <img
+                  src={pottersHands}
+                  alt="A student's hands and a teacher's clay-covered hands shaping a clay pot together"
+                  className="w-full rounded-lg object-cover shadow-sm"
+                  loading="lazy"
+                />
+                <p className="mt-3 rounded-lg border-l-4 border-accent bg-secondary/50 p-3 text-xs italic text-muted-foreground">
+                  &ldquo;Like clay in the potter&rsquo;s hand, so are you in My hand.&rdquo;
+                  <span className="mt-1 block text-[0.65rem] font-semibold uppercase not-italic tracking-wide text-eyebrow">
+                    Jeremiah 18:6
+                  </span>
+                </p>
+              </div>
+            </div>
+          </Article>
+
+          {/* ---------- history ---------- */}
+          <Article id="history" eyebrow="Our History" title="From one visit to a full campus.">
+            <p className="mt-5 max-w-prose leading-relaxed text-muted-foreground">
+              Crimson Academy did not start with a building. It started with a visit, and with
+              parents in a Rwandan village asking for something their children could not otherwise
+              get.
+            </p>
+            <HistoryPanel />
+          </Article>
+
+          {/* ---------- leadership & staff ---------- */}
+          <Article
+            id="leadership"
+            eyebrow="Leadership &amp; Staff"
+            title="A team devoted to every child."
+          >
+            <div className="mt-6">
+              <StaffDirectory />
+            </div>
+          </Article>
+
+          {/* ---------- contact ---------- */}
+          <Article
+            id="contact"
+            eyebrow="Contact &amp; Visit"
+            title="Come and see the school for yourself."
+            className="border-b-0"
+          >
+            <div className="mt-6 grid overflow-hidden rounded-xl sm:grid-cols-2">
+              <div className="relative min-h-[15rem]">
+                <img
+                  src={contactPhoto}
+                  alt="Students in Crimson Academy shirts on the school grounds"
+                  className="absolute inset-0 h-full w-full object-cover"
+                  // Biased toward the crest on their shirts — see the worked
+                  // example in PageHero.tsx's imagePosition doc comment.
+                  style={{ objectPosition: "50% 66%" }}
+                  loading="lazy"
+                />
+              </div>
+              <div className="bg-primary p-6 text-primary-foreground sm:p-7">
+                <div className="text-xs font-semibold uppercase tracking-wider text-accent">
+                  Arrange a visit
+                </div>
+                <h3 className="mt-1.5 font-heading text-xl font-semibold">
+                  We&rsquo;d love to show you around.
+                </h3>
+                <ul className="mt-5 space-y-3.5 text-sm">
+                  <li className="flex items-start gap-2.5">
+                    <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                    <div>
+                      <div className="font-medium">Campus</div>
+                      <div className="text-primary-foreground/80">
+                        Kagina, Kamonyi District, Southern Province, Rwanda
+                      </div>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                    <div>
+                      <div className="font-medium">Email</div>
+                      <a
+                        href="mailto:info@crimsonacademy.org"
+                        className="text-accent underline underline-offset-4"
+                      >
+                        info@crimsonacademy.org
+                      </a>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Globe className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                    <div>
+                      <div className="font-medium">Languages</div>
+                      <div className="text-primary-foreground/80">
+                        English · Français · Kinyarwanda
+                      </div>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Clock className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                    <div>
+                      <div className="font-medium">Term dates</div>
+                      <Link to="/news#calendar" className="text-accent underline underline-offset-4">
+                        Calendar &amp; Term Dates
+                      </Link>
+                    </div>
+                  </li>
+                </ul>
+                <div className="mt-6 flex flex-wrap gap-2.5">
+                  <Link
+                    to="/admissions#enroll"
+                    className="rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent/90"
+                  >
                     How to Enroll
                   </Link>
-                  <Link to="/admissions#visit" className={buttonVariants({ variant: "outline" })}>
+                  <Link
+                    to="/admissions#visit"
+                    className="rounded-md border border-primary-foreground/40 px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-primary-foreground/10"
+                  >
                     Plan a Visit
                   </Link>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
+            </div>
+          </Article>
         </div>
-      </section>
+      </div>
     </>
   );
 };
