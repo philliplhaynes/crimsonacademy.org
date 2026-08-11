@@ -10,11 +10,20 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { findSection } from "@/nav";
-import { PhotoSlot } from "@/components/PhotoSlot";
 import { cn } from "@/lib/utils";
 
-import heroPhoto from "@/assets/contact-students.jpg";
-import whyPhoto from "@/assets/graduation-p6.jpg";
+import heroPhoto from "@/assets/admissions-hero.jpg";
+import whyPhoto from "@/assets/admissions-why.jpg";
+/*
+  NOT a photograph — a promotional flyer for the graduation ceremony, with
+  the school's logo, the event location and the motto set as baked-in
+  artwork. It is therefore rendered object-contain on a panel rather than
+  cropped like the photographs, and its alt text carries the words in the
+  image, since nothing else can. Worth replacing with an actual photograph
+  of a graduation if one exists: text inside a JPEG is invisible to search
+  engines, cannot be translated, and goes soft on a high-DPI screen.
+*/
+import graduationPoster from "@/assets/graduation.jpg";
 import marieClaire from "@/assets/staff-marie-claire.webp";
 import martha from "@/assets/staff-martha.webp";
 import damascene from "@/assets/staff-jean-damascene.webp";
@@ -252,7 +261,21 @@ const Admissions = () => {
         image={heroPhoto}
         // Biased toward the crest on their shirts, same crop reasoning as the
         // About page's contact photo.
-        imagePosition="50% 60%"
+        /*
+          Only the Y value does anything here, and it is worth knowing why
+          before anyone tries to fix the framing by nudging X. The hero band is
+          a far wider aspect (~1360x450) than this photo (4752x3168), so
+          object-cover scales the image to the container's WIDTH and the
+          overflow is entirely vertical — X has nothing to slide along.
+
+          Y=55% centres the three students in the band. The poster type does
+          clip the leftmost of them, and that cannot be solved from here: the
+          band is 450px of a 907px scaled image, and every Y that clears the
+          type pushes the other two faces out of the bottom. If that bothers
+          you, the fix is a wider or looser-framed photograph, not a crop
+          value.
+        */
+        imagePosition="50% 55%"
       />
 
       {/* ---------- why crimson ---------- */}
@@ -277,7 +300,7 @@ const Admissions = () => {
           </div>
           <img
             src={whyPhoto}
-            alt="A Primary 6 graduating class in red caps and gowns at the graduation ceremony"
+            alt="Two young Crimson Academy students seated in class, one grinning and making a peace sign at the camera"
             className="aspect-[4/3] w-full rounded-xl object-cover"
             loading="lazy"
           />
@@ -573,11 +596,16 @@ const Admissions = () => {
               </CardContent>
             </Card>
           </div>
-          <PhotoSlot
-            ratio="landscape"
-            brief="Wide shot of the campus: the classroom block with the crest on the wall"
-            size="1600px wide"
-          />
+          {/* Contained, not cropped: this is a flyer whose text is part of the
+              artwork, so object-cover would slice the wording off. */}
+          <div className="flex items-center justify-center rounded-xl bg-background p-4">
+            <img
+              src={graduationPoster}
+              alt="Poster for the Crimson Academy School of Kagina Graduation Ceremony, held at Runda, Kagina, under the school motto “Reaching Beyond Impossibility”"
+              className="w-full rounded-lg object-contain"
+              loading="lazy"
+            />
+          </div>
         </div>
       </Band>
 

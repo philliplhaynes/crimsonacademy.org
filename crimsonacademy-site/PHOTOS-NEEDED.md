@@ -78,8 +78,8 @@ camera files and must not ship as-is.
 
 | # | Where | Shot | Size |
 |---|-------|------|------|
-| 1 | `/admissions` hero | A parent and child at the school gate, or a family touring the campus | 2000px wide |
-| 2 | `/admissions#visit` | Wide shot of the campus — the classroom block with the crest on the wall | 1600px |
+| ~~1~~ | ~~`/admissions` hero~~ | **Done** — three students in uniform (`admissions-hero.jpg`, from `IMG_2475`) | — |
+| 2 | `/admissions#visit` | Wide shot of the campus — the classroom block with the crest on the wall. **Slot is occupied but not satisfied:** it currently shows the graduation ceremony flyer (`graduation.jpg`), which is promotional artwork with baked-in text, not a photograph of the campus. Still wanted. | 1600px |
 | 3 | `/student-life#sports` | Karate or acrobatics practice, or a football match on the school pitch | 1600px |
 | 4 | `/academics#lower-primary` | A P1–P3 classroom mid-lesson: children at desks, teacher at the board | 1200px |
 | 5 | `/academics#upper-primary` | The computer lab in use, or a P6 class sitting an exam | 1200px |
