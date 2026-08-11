@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crimson — Reaching Beyond Impossibilities</title>
+<meta name="description" content="Crimson: a family of schools and organisations in education. Crimson Academy campuses in Rwanda, Uganda, South America and Asia, supported by Crimson Investments and the Crimson Foundation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night:#14090a; --ember:#f0cd82; --gold:#d9a441;
+    --crimson:#b3122a; --ash:#efe6d6; --ash-dim:#a8988a;
+    --serif:'Cormorant Garamond',Georgia,serif;
+    --sans:'Jost',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--night);color:var(--ash);font-family:var(--sans);font-weight:300;
+    line-height:1.65;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(1.25rem,4vw,3rem);}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+    white-space:nowrap;}
+
+  .atmos{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(ellipse 46% 40% at 50% 32%,rgba(179,18,42,.30),transparent 64%),
+      radial-gradient(ellipse 58% 48% at 50% 30%,rgba(217,164,65,.13),transparent 62%),
+      radial-gradient(circle at 50% 32%,#2a1012,var(--night) 72%);}
+  #embers{position:fixed;inset:0;z-index:1;pointer-events:none;}
+  .grain{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.05;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+  .content{position:relative;z-index:3;}
+
+  .mast{position:sticky;top:0;z-index:60;
+    background:linear-gradient(to bottom,rgba(20,9,10,.94),rgba(20,9,10,.5) 70%,transparent);
+    backdrop-filter:blur(6px);}
+  .mast .wrap{display:flex;align-items:center;justify-content:space-between;height:74px;gap:2rem;}
+  .brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;}
+  .brand img{height:30px;filter:drop-shadow(0 0 10px rgba(217,164,65,.5));}
+  .brand span{font-family:var(--serif);font-size:1.35rem;letter-spacing:.07em;color:var(--ember);}
+  .mast nav{display:flex;gap:1.9rem;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;}
+  .mast nav a{text-decoration:none;color:var(--ash-dim);transition:color .2s;}
+  .mast nav a:hover{color:var(--ember);}
+  @media(max-width:860px){.mast nav{display:none;}}
+
+  .hero{text-align:center;padding:clamp(2.5rem,7vh,5rem) 0 clamp(1.5rem,4vh,2.5rem);}
+  .eyebrow{font-size:.7rem;letter-spacing:.36em;text-transform:uppercase;color:var(--gold);}
+  .hero h1{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;
+    font-size:clamp(2.4rem,6.4vw,4.6rem);line-height:1.04;margin:1.4rem auto 0;max-width:20ch;
+    text-shadow:0 2px 40px rgba(0,0,0,.7);}
+  .hero h1 em{font-style:italic;color:var(--ember);}
+  .hero .lede{max-width:56ch;margin:1.6rem auto 0;color:var(--ash-dim);font-size:1.01rem;}
+
+  /* ---------- the interactive tree ---------- */
+  .stage{display:flex;justify-content:center;padding:clamp(1rem,3vh,2rem) 0 clamp(2.5rem,6vh,4rem);}
+  .treewrap{position:relative;width:min(84vw,520px);}
+  .treewrap img.base{width:100%;display:block;
+    filter:drop-shadow(0 10px 40px rgba(0,0,0,.6)) drop-shadow(0 0 26px rgba(217,164,65,.26));}
+  @keyframes breathe{
+    0%,100%{filter:drop-shadow(0 10px 40px rgba(0,0,0,.6)) drop-shadow(0 0 22px rgba(217,164,65,.22));}
+    50%    {filter:drop-shadow(0 12px 46px rgba(0,0,0,.6)) drop-shadow(0 0 38px rgba(217,164,65,.46));}}
+  .treewrap img.base{animation:breathe 6s ease-in-out infinite;}
+  .glow{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;
+    transition:opacity .3s;pointer-events:none;
+    filter:brightness(1.5) saturate(1.4) drop-shadow(0 0 20px var(--ember));}
+  .glow.on{opacity:1;}
+
+  /* Each node is a real <button> placed over its leaf: keyboard reachable,
+     labelled, and it works on touch. No hover dependency anywhere. */
+  .hot{position:absolute;translate:-50% -50%;border:0;padding:0;cursor:pointer;
+    background:transparent;border-radius:50%;display:grid;place-items:center;}
+  .hot .dot{width:1.6rem;height:1.6rem;border-radius:50%;display:grid;place-items:center;
+    font-size:.64rem;letter-spacing:.02em;color:var(--night);background:var(--ember);
+    box-shadow:0 0 0 4px rgba(240,205,130,.18),0 2px 10px rgba(0,0,0,.6);
+    transition:scale .25s,box-shadow .25s;}
+  .hot:hover .dot,.hot:focus-visible .dot,.hot.active .dot{
+    scale:1.22;box-shadow:0 0 0 8px rgba(240,205,130,.26),0 0 22px rgba(240,205,130,.7);}
+  .hot:focus-visible{outline:2px solid var(--ember);outline-offset:6px;}
+  .hot .pin{position:absolute;white-space:nowrap;font-size:.62rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ember);text-shadow:0 2px 12px rgba(0,0,0,.95);
+    pointer-events:none;opacity:0;transition:opacity .25s;}
+  .hot:hover .pin,.hot:focus-visible .pin,.hot.active .pin{opacity:1;}
+  .hot.up   .pin{bottom:calc(100% + .35rem);}
+  .hot.down .pin{top:calc(100% + .35rem);}
+  @media(max-width:560px){
+    .hot .dot{width:1.3rem;height:1.3rem;font-size:.56rem;}
+    .hot .pin{display:none;}
+  }
+
+  /* ---------- cards ---------- */
+  h2.sec{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,3vw,2.2rem);
+    margin-top:.7rem;}
+  .secline{display:flex;justify-content:space-between;align-items:baseline;gap:1.5rem;
+    border-bottom:1px solid rgba(217,164,65,.2);padding-bottom:1rem;
+    margin-bottom:clamp(1.5rem,3vw,2.2rem);}
+  .secline .count{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ash-dim);text-align:right;}
+
+  .tiers{display:grid;gap:1.1rem;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));}
+  .tier{position:relative;display:flex;flex-direction:column;text-decoration:none;
+    padding:clamp(1.4rem,2.6vw,1.9rem);border:1px solid rgba(217,164,65,.22);
+    background:linear-gradient(160deg,rgba(240,205,130,.055),rgba(20,9,10,.5));
+    transition:border-color .3s,transform .3s,background .3s;}
+  a.tier:hover,a.tier:focus-visible{border-color:rgba(240,205,130,.6);transform:translateY(-3px);
+    background:linear-gradient(160deg,rgba(240,205,130,.1),rgba(20,9,10,.5));outline:none;}
+  .tier.lit{border-color:rgba(240,205,130,.75);}
+  .tier .no{position:absolute;top:1rem;right:1.15rem;font-size:.66rem;color:var(--gold);
+    opacity:.75;}
+  .tier .rank{font-size:.63rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);}
+  .tier h3{font-family:var(--serif);font-weight:500;font-size:clamp(1.25rem,2.1vw,1.6rem);
+    line-height:1.15;margin:.55rem 0 .5rem;color:var(--ember);}
+  .tier p{font-size:.88rem;color:var(--ash-dim);flex:1;}
+  .tier .go{margin-top:1.1rem;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+    display:inline-flex;gap:.5rem;align-items:center;}
+  .tier .arw{transition:transform .3s;}
+  a.tier:hover .arw{transform:translateX(5px);}
+  .soon{margin-top:1.1rem;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--gold);border:1px dashed rgba(217,164,65,.5);padding:.4rem .7rem;
+    align-self:flex-start;}
+  /* crown card: two destinations */
+  .pair{margin-top:1.1rem;display:grid;gap:.5rem;}
+  .pair a{text-decoration:none;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+    display:inline-flex;gap:.5rem;align-items:center;color:var(--ember);
+    border-bottom:1px solid rgba(240,205,130,.3);padding-bottom:.25rem;}
+  .pair a:hover{border-bottom-color:var(--ember);}
+  .pair .soon{margin-top:0;}
+
+  footer{border-top:1px solid rgba(217,164,65,.18);padding:clamp(2.5rem,6vh,3.5rem) 0 2.5rem;
+    margin-top:clamp(3rem,7vh,5rem);}
+  footer .grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2rem;
+    align-items:center;}
+  footer .sites{display:flex;flex-wrap:wrap;gap:1.6rem;font-size:.82rem;}
+  footer .sites a{text-decoration:none;color:var(--ember);opacity:.85;}
+  footer .sites a:hover{opacity:1;}
+  footer .fine{margin-top:2.2rem;font-size:.7rem;color:var(--ash-dim);}
+
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .treewrap img.base{animation:none;}
+    *{transition-duration:.01ms !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="atmos"></div>
+<canvas id="embers" aria-hidden="true"></canvas>
+<div class="grain"></div>
+
+<div class="content">
+  <header class="mast">
+    <div class="wrap">
+      <a class="brand" href="#top"><img src="tree.png" alt=""><span>Crimson</span></a>
+      <nav>
+        <a href="#canopy">Schools</a>
+        <a href="#support">Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap">
+      <div class="eyebrow">Est. 2011 &middot; Kagina, Rwanda</div>
+      <h1>Reaching beyond <em>impossibilities</em>.</h1>
+      <p class="lede">
+        Five leaves in the canopy — four campuses and our sister schools. Capital through the
+        trunk. A foundation at the roots. Touch a leaf, or choose from below.
+      </p>
+    </section>
+
+    <section class="stage">
+      <div class="treewrap" id="treewrap">
+        <img class="base" src="tree.png"
+             alt="The Crimson tree: five leaves in the canopy above a broad trunk and spreading roots. Each leaf is a school.">
+      </div>
+    </section>
+
+    <section class="wrap" id="canopy">
+      <div class="secline">
+        <div>
+          <div class="eyebrow">The Canopy</div>
+          <h2 class="sec">The schools</h2>
+        </div>
+        <div class="count">Five leaves<br>01&ndash;05</div>
+      </div>
+      <div class="tiers" id="canopy-cards"></div>
+    </section>
+
+    <section class="wrap" id="support" style="margin-top:clamp(2.5rem,6vh,4rem)">
+      <div class="secline">
+        <div>
+          <div class="eyebrow">The Trunk &amp; Roots</div>
+          <h2 class="sec">What holds it up</h2>
+        </div>
+        <div class="count">06&ndash;07</div>
+      </div>
+      <div class="tiers" id="support-cards"></div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="grid">
+        <a class="brand" href="#top"><img src="tree.png" alt=""><span>Crimson</span></a>
+        <div class="sites">
+          <a href="https://crimsonacademy.org">crimsonacademy.org &nearr;</a>
+          <a href="https://crimsonfoundation.org">crimsonfoundation.org &nearr;</a>
+          <a href="https://crimsontradeswarm.fly.dev/">crimsontradeswarm.fly.dev &nearr;</a>
+        </div>
+      </div>
+      <div class="fine">
+        &copy; <span id="yr"></span> Crimson. Crimson Foundation is a registered 501(c)(3)
+        non-profit organisation.
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+/* ============================================================================
+   ONE PLACE TO EDIT. A filled url makes the node a live link; "" renders it
+   as "Link to come" rather than a dead link.
+   ========================================================================= */
+const URLS = {
+  kagina:      "https://crimsonacademy.org",
+  uganda:      "",                              // TODO: Crimson Academy of Uganda
+  southAmerica:"",                              // TODO: Crimson Academy of South America
+  asia:        "",                              // TODO: Crimson Academy of Asia
+  sisterA:     "",                              // TODO: sister school 1
+  sisterB:     "",                              // TODO: sister school 2
+  investments: "investments.html",
+  foundation:  "https://crimsonfoundation.org",
+};
+
+/* at:[x%,y%] is measured against the artwork so every dot sits on its own leaf. */
+const NODES = [
+  { key:"sisters", no:"01", tier:"canopy", pin:"Sister Schools", dir:"up",
+    rank:"The Crown", name:"Sister Schools",
+    desc:"Placement links for our two partner schools — where Crimson graduates continue their "+
+         "education.",
+    pair:[{label:"Sister school one", url:URLS.sisterA},
+          {label:"Sister school two", url:URLS.sisterB}],
+    at:[50,11] },
+
+  { key:"southAmerica", no:"02", tier:"canopy", pin:"South America", dir:"up",
+    rank:"Middle Left", name:"Crimson Academy of South America",
+    desc:"Carrying the Crimson model into a new hemisphere.",
+    url:URLS.southAmerica, at:[28,23] },
+
+  { key:"asia", no:"03", tier:"canopy", pin:"Asia", dir:"up",
+    rank:"Middle Right", name:"Crimson Academy of Asia",
+    desc:"The newest branch of the canopy, extending the network across a third continent.",
+    url:URLS.asia, at:[71,22] },
+
+  { key:"kagina", no:"04", tier:"canopy", pin:"Rwanda", dir:"down",
+    rank:"Lower Left", name:"Crimson Academy of Kagina",
+    desc:"The founding school. Ranked first in the Southern Province on the National "+
+         "Examinations in nearly every year since 2013.",
+    url:URLS.kagina, at:[18,47] },
+
+  { key:"uganda", no:"05", tier:"canopy", pin:"Uganda", dir:"down",
+    rank:"Lower Right", name:"Crimson Academy of Uganda",
+    desc:"Extending mentorship, craft, and opportunity to a fast-rising generation.",
+    url:URLS.uganda, at:[80,47] },
+
+  { key:"investments", no:"06", tier:"support", pin:"Investments", dir:"down",
+    rank:"The Trunk", name:"Crimson Investments",
+    desc:"Patient, long-horizon capital that carries resources upward from root to branch — "+
+         "the strength that lifts the mission and holds the canopy aloft.",
+    url:URLS.investments, at:[49,67] },
+
+  { key:"foundation", no:"07", tier:"support", pin:"Foundation", dir:"down",
+    rank:"The Roots", name:"Crimson Foundation",
+    desc:"A 501(c)(3) non-profit funding schools, sponsorships, teacher training, and food "+
+         "programmes. Nothing above ground grows without what happens below it.",
+    url:URLS.foundation, at:[49,88] },
+];
+
+const wrap = document.getElementById("treewrap");
+
+/* ---- cards ---- */
+const cardHtml = n => {
+  const head = `<div class="no">${n.no}</div>
+    <div class="rank">${n.rank}</div><h3>${n.name}</h3><p>${n.desc}</p>`;
+  if (n.pair) {
+    const links = n.pair.map(p => p.url
+      ? `<a href="${p.url}">${p.label} <span class="arw">&rarr;</span></a>`
+      : `<span class="soon">${p.label} — link to come</span>`).join("");
+    return `<div class="tier" id="c-${n.key}" tabindex="-1">${head}
+              <div class="pair">${links}</div></div>`;
+  }
+  if (!n.url) {
+    return `<div class="tier" id="c-${n.key}" tabindex="-1">${head}
+              <span class="soon">Link to come</span></div>`;
+  }
+  return `<a class="tier" id="c-${n.key}" href="${n.url}">${head}
+            <span class="go">Visit <span class="arw">&rarr;</span></span></a>`;
+};
+document.getElementById("canopy-cards").innerHTML =
+  NODES.filter(n => n.tier === "canopy").map(cardHtml).join("");
+document.getElementById("support-cards").innerHTML =
+  NODES.filter(n => n.tier === "support").map(cardHtml).join("");
+
+/* ---- tree overlays: a glow + a numbered button per node ---- */
+NODES.forEach(n => {
+  const g = document.createElement("img");
+  g.className = "glow"; g.src = "tree.png"; g.alt = ""; g.setAttribute("aria-hidden","true");
+  // ellipse radii per node type: leaves are broad, the trunk narrow, the roots wide
+  const r = n.key === "investments" ? [9,13]
+          : n.key === "foundation"  ? [24,11]
+          : n.no === "01"           ? [12,11]
+          : n.at[1] < 30            ? [16,14] : [17,13];
+  g.style.clipPath = `ellipse(${r[0]}% ${r[1]}% at ${n.at[0]}% ${n.at[1]}%)`;
+  wrap.appendChild(g);
+
+  const card = document.getElementById("c-" + n.key);
+  const b = document.createElement("button");
+  b.className = "hot " + n.dir;
+  b.style.left = n.at[0] + "%"; b.style.top = n.at[1] + "%";
+  b.innerHTML = `<span class="dot">${n.no}</span><span class="pin">${n.pin}</span>
+                 <span class="sr">${n.name}</span>`;
+  wrap.appendChild(b);
+
+  const set = on => {
+    g.classList.toggle("on", on);
+    b.classList.toggle("active", on);
+    card.classList.toggle("lit", on);
+  };
+  ["pointerenter","focus"].forEach(e => b.addEventListener(e, () => set(true)));
+  ["pointerleave","blur"].forEach(e => b.addEventListener(e, () => set(false)));
+  b.addEventListener("click", () => {
+    card.scrollIntoView({behavior:"smooth", block:"center"});
+    card.focus({preventScroll:true});
+  });
+
+  /* and the reverse: hovering a card lights its leaf */
+  ["pointerenter","focusin"].forEach(e => card.addEventListener(e, () => set(true)));
+  ["pointerleave","focusout"].forEach(e => card.addEventListener(e, () => set(false)));
+});
+
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+/* ---- embers: skipped entirely under reduced motion, paused in hidden tabs ---- */
+(function(){
+  const cv = document.getElementById("embers");
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { cv.remove(); return; }
+  const ctx = cv.getContext("2d");
+  let W, H, parts = [], raf = null;
+  const size = () => { W = cv.width = innerWidth; H = cv.height = innerHeight; };
+  size(); addEventListener("resize", size);
+  const mk = () => ({x:Math.random()*W, y:H+Math.random()*40, r:Math.random()*1.8+.4,
+    vy:-(Math.random()*.5+.2), vx:(Math.random()-.5)*.25, l:Math.random(),
+    h:Math.random()>.5?38:16});
+  for (let i=0;i<60;i++){ const e=mk(); e.y=Math.random()*H; parts.push(e); }
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    for (const e of parts){
+      e.x+=e.vx; e.y+=e.vy; e.l+=.008; e.vx+=(Math.random()-.5)*.02;
+      const fl=.5+Math.sin(e.l*7)*.4, a=Math.max(0,Math.min(1,e.y/H))*.72*fl;
+      ctx.beginPath(); ctx.arc(e.x,e.y,e.r,0,7);
+      ctx.fillStyle=`hsla(${e.h+Math.random()*12},95%,${58+fl*14}%,${a})`;
+      ctx.shadowBlur=10; ctx.shadowColor="rgba(240,180,90,.8)"; ctx.fill();
+      if (e.y<-20) Object.assign(e, mk());
+    }
+    raf = requestAnimationFrame(tick);
+  }
+  const start = () => { if (!raf) tick(); };
+  const stop  = () => { if (raf) { cancelAnimationFrame(raf); raf = null; } };
+  document.addEventListener("visibilitychange", () => document.hidden ? stop() : start());
+  start();
+})();
+</script>
+</body>
+</html>

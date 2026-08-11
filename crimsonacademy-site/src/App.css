@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========== Crimson Academy theme =========== */
+@layer base {
+  :root {
+    --background: 40 50% 96%;        /* warm cream */
+    --foreground: 0 12% 12%;         /* warm ink */
+    --card: 40 55% 99%;
+    --card-foreground: 0 12% 12%;
+    --popover: 40 55% 99%;
+    --popover-foreground: 0 12% 12%;
+    --primary: 352 66% 33%;          /* crimson */
+    --primary-foreground: 40 46% 97%;
+    --secondary: 40 40% 92%;         /* soft cream */
+    --secondary-foreground: 352 55% 28%;
+    --muted: 40 34% 90%;
+    --muted-foreground: 25 10% 38%;
+    --accent: 46 68% 47%;            /* gold */
+    --accent-foreground: 0 20% 12%;
+    /* Standalone label colour. Gold itself fails 4.5:1 on cream, so light mode
+       uses a darkened bronze; dark mode can use the gold directly. */
+    --eyebrow: 38 55% 28%;
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 40 46% 97%;
+    --border: 40 24% 84%;
+    --input: 40 24% 84%;
+    --ring: 352 66% 40%;
+    --radius: 0.6rem;
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-heading: 'Fraunces', ui-serif, Georgia, serif;
+  }
+
+  .dark {
+    --background: 350 28% 7%;         /* deep maroon-black */
+    --foreground: 40 30% 92%;
+    --card: 350 24% 10%;
+    --card-foreground: 40 30% 92%;
+    --popover: 350 24% 10%;
+    --popover-foreground: 40 30% 92%;
+    --primary: 352 74% 52%;           /* bright crimson */
+    --primary-foreground: 40 40% 97%;
+    --secondary: 350 18% 16%;
+    --secondary-foreground: 40 30% 92%;
+    --muted: 350 16% 16%;
+    --muted-foreground: 40 12% 66%;
+    --accent: 46 72% 55%;             /* gold */
+    --accent-foreground: 350 30% 8%;
+    --eyebrow: 46 72% 62%;
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 40 40% 97%;
+    --border: 350 16% 18%;
+    --input: 350 16% 18%;
+    --ring: 46 72% 55%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02","cv03","cv04","cv11";
+  }
+  h1, h2, h3, h4, .font-heading {
+    font-family: var(--font-heading);
+    font-optical-sizing: auto;
+    letter-spacing: -0.01em;
+  }
+}

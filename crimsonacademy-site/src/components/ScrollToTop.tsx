@@ -1,0 +1,32 @@
+import { useState, useEffect } from "react";
+import { Button } from "./ui/button";
+import { ArrowUpToLine } from "lucide-react";
+import { scrollToTop } from "@/lib/motion";
+
+export const ScrollToTop = () => {
+  const [showTopBtn, setShowTopBtn] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 400) {
+        setShowTopBtn(true);
+      } else {
+        setShowTopBtn(false);
+      }
+    });
+  }, []);
+
+  return (
+    <>
+      {showTopBtn && (
+        <Button
+          onClick={scrollToTop}
+          className="fixed bottom-4 right-4 opacity-90 shadow-md"
+          size="icon"
+        >
+          <ArrowUpToLine className="h-4 w-4" />
+        </Button>
+      )}
+    </>
+  );
+};

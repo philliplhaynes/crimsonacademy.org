@@ -1,0 +1,6 @@
+# gstack local tool state (machine-local, not project content)
+.gstack/
+
+# OS/editor cruft
+.DS_Store
+Thumbs.db

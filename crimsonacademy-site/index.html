@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!--
+      Sets the theme class before React mounts, so there's no flash of the
+      wrong theme for a visitor whose stored/system preference differs from
+      the default. Must stay in sync with the ThemeProvider props in
+      main.tsx (storageKey, defaultTheme) and its "system" resolution logic.
+    -->
+    <script>
+      (function () {
+        try {
+          var storageKey = "ca-theme";
+          var theme = localStorage.getItem(storageKey) || "light";
+          if (theme === "system") {
+            theme = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          }
+          document.documentElement.classList.add(theme);
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="icon" type="image/png" href="/crimson-tree.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crimson Academy of Kagina — Faith, Character & Academic Excellence</title>
+    <meta name="title" content="Crimson Academy of Kagina" />
+    <meta name="description" content="Crimson Academy of Kagina is a Christian primary school in Kamonyi District, Rwanda — consistently the #1 school in the Southern Province on the Rwanda National Exams. Nursery through Primary 6, taught in English, French, and Kinyarwanda." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://crimsonacademy.org" />
+    <meta property="og:title" content="Crimson Academy of Kagina" />
+    <meta property="og:description" content="Faith, character, and academic excellence in the heart of Rwanda. #1 in the Southern Province on the National Exams." />
+    <meta property="og:image" content="/crimson-tree.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
