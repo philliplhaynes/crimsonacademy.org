@@ -33,31 +33,42 @@ import crest from "@/assets/crimson_tree.png";
 
 /*
  ═══════════════════════════════════════════════════════════════════════════
- FEES — tuition confirmed by the owner, billing period still open.
+ FEES — confirmed by the owner.
 
- CONFIRMED: General Tuition is 50,000.00, and there is no separate nursery
- rate — every student pays the same tuition, nursery through Primary 6.
- (An earlier fee table showed 40,000.00 and a separate Nursery Tuition
- line; both are superseded. Do not reinstate them from that table.)
+   • General Tuition is 50,000.00, and there is no separate nursery rate:
+     every student pays the same, nursery through Primary 6. (An earlier
+     fee table showed 40,000.00 plus a Nursery Tuition line. Both are
+     superseded — do not reinstate them from that table.)
+   • Charged PER TERM, three terms per academic year. The per-year column
+     below is that multiplied by three, computed here rather than left to
+     the reader.
 
- STILL OPEN, and the reason this page shows amounts without a period:
-   • BILLING PERIOD is stated nowhere. Per term or per year? The school
-     runs three terms and Rwandan primaries usually bill per term, but
-     nothing supplied says so, so nothing here claims one. Add it to the
-     table header and the worked example once confirmed — a fee table
-     without a period is confusing; one with the wrong period is worse.
-   • CURRENCY is not stated either. RWF is used as the obvious reading for
-     a Rwandan school.
+ Two standing assumptions, both minor but worth knowing if a figure is
+ ever queried:
+   • The owner confirmed the per-term cadence for TUITION specifically.
+     Breakfast and lunch are shown on the same cadence, since they sit in
+     the same supplied fee table and are served each school day. If meals
+     are actually billed annually, the food rows and every total that
+     includes them are three times too high.
+   • Currency is nowhere stated; RWF is the obvious reading for a Rwandan
+     school.
  ═══════════════════════════════════════════════════════════════════════════
 */
-const feeGroups: { group: string; note?: string; rows: { item: string; sub: string; amount: string }[] }[] = [
+const TERMS_PER_YEAR = 3;
+
+const feeGroups: {
+  group: string;
+  note?: string;
+  rows: { item: string; sub: string; term: string; year: string }[];
+}[] = [
   {
     group: "Tuition",
     rows: [
       {
         item: "General Tuition",
         sub: "Every student, nursery through Primary 6",
-        amount: "50,000.00",
+        term: "50,000.00",
+        year: "150,000.00",
       },
     ],
   },
@@ -65,8 +76,18 @@ const feeGroups: { group: string; note?: string; rows: { item: string; sub: stri
     group: "Food",
     note: "optional",
     rows: [
-      { item: "Breakfast", sub: "Served on campus each school day", amount: "15,000.00" },
-      { item: "Lunch", sub: "Served on campus each school day", amount: "45,000.00" },
+      {
+        item: "Breakfast",
+        sub: "Served on campus each school day",
+        term: "15,000.00",
+        year: "45,000.00",
+      },
+      {
+        item: "Lunch",
+        sub: "Served on campus each school day",
+        term: "45,000.00",
+        year: "135,000.00",
+      },
     ],
   },
 ];
@@ -297,9 +318,10 @@ const Admissions = () => {
       <Band id="fees" ground="tint">
         <Head eyebrow="What It Costs" title="Fees, in full, with nothing hidden." />
         <p className="mt-4 max-w-[65ch] text-muted-foreground">
-          Tuition and meals are billed separately, so you can take the meal plan or not. If fees are
-          the thing standing in the way, tell us — sponsorship through the Crimson Foundation exists
-          for exactly that.
+          Fees are charged <b className="text-foreground">each term</b>, and the academic year runs
+          in three terms from September to July. Tuition and meals are billed separately, so you can
+          take the meal plan or not. If fees are the thing standing in the way, tell us —
+          sponsorship through the Crimson Foundation exists for exactly that.
         </p>
 
         <div className="mt-7 grid gap-6 lg:grid-cols-[1.35fr_1fr] lg:items-start">
@@ -310,8 +332,14 @@ const Admissions = () => {
                   <th className="px-4 py-3 text-[0.7rem] font-bold uppercase tracking-wide text-muted-foreground">
                     Item
                   </th>
+                  <th className="px-3 py-3 text-right text-[0.7rem] font-bold uppercase tracking-wide text-muted-foreground">
+                    Per term
+                  </th>
                   <th className="px-4 py-3 text-right text-[0.7rem] font-bold uppercase tracking-wide text-muted-foreground">
-                    Amount (RWF)
+                    Per year
+                    <span className="block font-normal normal-case tracking-normal">
+                      ×{TERMS_PER_YEAR} terms
+                    </span>
                   </th>
                 </tr>
               </thead>
@@ -321,7 +349,7 @@ const Admissions = () => {
                 {feeGroups.map((g) => (
                   <Fragment key={g.group}>
                     <tr className="bg-secondary/35">
-                      <td colSpan={2} className="px-4 py-2.5 font-heading font-bold text-primary">
+                      <td colSpan={3} className="px-4 py-2.5 font-heading font-bold text-primary">
                         {g.group}
                         {g.note && (
                           <span className="ml-2 text-xs font-normal text-muted-foreground">
@@ -332,12 +360,17 @@ const Admissions = () => {
                     </tr>
                     {g.rows.map((r) => (
                       <tr key={r.item} className="border-t">
-                        <td className="px-4 py-3 text-sm">
+                        <td className="px-3 py-3 text-sm sm:px-4">
                           {r.item}
                           <span className="mt-0.5 block text-xs text-muted-foreground">{r.sub}</span>
                         </td>
-                        <td className="whitespace-nowrap px-4 py-3 text-right font-heading font-bold tabular-nums">
-                          {r.amount}
+                        <td className="whitespace-nowrap px-2 py-3 text-right font-heading font-bold tabular-nums sm:px-3">
+                          {r.term}
+                        </td>
+                        {/* The per-year figure is the one families budget
+                            against, so it carries the emphasis. */}
+                        <td className="whitespace-nowrap px-3 py-3 text-right font-heading font-bold tabular-nums text-primary sm:px-4">
+                          {r.year}
                         </td>
                       </tr>
                     ))}
@@ -369,15 +402,22 @@ const Admissions = () => {
                 </div>
               ))}
             </dl>
-            <div className="mt-3 flex justify-between gap-4 border-t-2 border-accent pt-3">
-              <span className="font-heading">Total</span>
+            <div className="mt-3 flex items-baseline justify-between gap-4 border-t-2 border-accent pt-3">
+              <span className="font-heading">Per term</span>
               <span className="font-heading text-2xl font-bold tabular-nums text-accent">
                 110,000.00
               </span>
             </div>
-            <p className="mt-3 text-xs leading-relaxed text-primary-foreground/70">
-              Tuition only, without the meal plan: <b className="text-accent">50,000.00</b>. With
-              breakfast but no lunch: <b className="text-accent">65,000.00</b>.
+            <div className="mt-2 flex items-baseline justify-between gap-4">
+              <span className="text-sm text-primary-foreground/80">
+                Per year <span className="text-xs">(×{TERMS_PER_YEAR} terms)</span>
+              </span>
+              <span className="font-heading text-lg font-bold tabular-nums">330,000.00</span>
+            </div>
+            <p className="mt-4 text-xs leading-relaxed text-primary-foreground/70">
+              Tuition only, without the meal plan: <b className="text-accent">50,000.00</b> a term,{" "}
+              <b className="text-accent">150,000.00</b> a year. With breakfast but no lunch:{" "}
+              <b className="text-accent">65,000.00</b> a term.
             </p>
           </div>
         </div>
