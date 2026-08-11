@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Academics Redesign — Comparison</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: hsl(40 50% 96%); --fg: hsl(0 12% 12%); --crimson: hsl(352 66% 33%);
+    --muted: hsl(25 10% 38%); --gold: hsl(46 68% 47%); --line: hsl(40 24% 84%);
+    --cream2: hsl(40 40% 92%); --eyebrow-c: hsl(38 55% 28%);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: Inter, ui-sans-serif, system-ui, sans-serif; line-height: 1.6; }
+  h1,h2,h3 { font-family: Fraunces, ui-serif, Georgia, serif; font-weight: 600; margin: 0; }
+  .container { max-width: 1120px; margin: 0 auto; padding: 48px 24px 80px; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--eyebrow-c); }
+  h1 { font-size: 34px; margin-top: 10px; }
+  .intro { max-width: 740px; color: var(--muted); margin-top: 14px; font-size: 16px; }
+
+  .verdict { margin-top: 28px; border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 10px; padding: 20px 22px; background: #fff; }
+  .verdict + .verdict { margin-top: 16px; }
+  .verdict.flag { border-left-color: var(--crimson); }
+  .verdict h3 { font-size: 17px; }
+  .verdict p { font-size: 14.5px; color: var(--muted); margin: 10px 0 0; }
+  table.w { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 13.5px; }
+  table.w th, table.w td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.w th { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; }
+  table.w td.num { font-family: Fraunces, serif; font-weight: 700; white-space: nowrap; }
+  .good { color: hsl(150 45% 30%); }
+  .bad { color: var(--crimson); }
+
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
+  @media (max-width: 780px) { .cards { grid-template-columns: 1fr; } }
+  .card { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #fff; text-decoration: none; color: inherit; display: block; transition: box-shadow .15s, transform .15s; }
+  .card:hover { box-shadow: 0 8px 24px hsl(0 12% 12% / .1); transform: translateY(-2px); }
+  .card .frame { aspect-ratio: 16/11; overflow: hidden; position: relative; background: var(--cream2); }
+  .card iframe { width: 400%; height: 400%; transform: scale(.25); transform-origin: top left; border: none; pointer-events: none; }
+  .card .body { padding: 20px; }
+  .card .letter { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--crimson); color: #fff; font-family: Fraunces, serif; font-weight: 700; font-size: 14px; }
+  .card h2 { font-size: 19px; margin-top: 12px; }
+  .card .sub { font-size: 12.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; color: var(--crimson); margin-top: 3px; }
+  .card p { font-size: 14px; color: var(--muted); margin-top: 10px; }
+  .card ul { margin: 10px 0 0; padding-left: 18px; font-size: 13.5px; color: var(--muted); }
+  .card li { margin-bottom: 4px; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: 3px 8px; border-radius: 999px; background: hsl(46 68% 47% / .18); color: hsl(38 65% 28%); margin-top: 12px; }
+  code { background: var(--cream2); padding: 1px 5px; border-radius: 4px; font-size: .92em; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="eyebrow">Design Exploration</div>
+  <h1>Two redesign directions for the Academics page</h1>
+  <p class="intro">
+    Both are modelled on <a href="https://www.berkeleycarroll.org/learning/lower-school">Berkeley Carroll’s
+    Lower School page</a> — poster-scale display type over a full-bleed photo, a pill sub-nav for the sibling
+    divisions, alternating cream-and-colour bands with rounded photos, a division leader’s voice as a pull
+    quote with a circular portrait, and a three-card grid at the foot. Both are built in Crimson’s own palette
+    and typefaces, not Berkeley Carroll’s.
+  </p>
+  <p class="intro">
+    The content in both is <strong>real</strong>, pulled from <code>CAR-Annual-School-Report_2024-2025</code>:
+    the six pre-primary learning areas, the seven Lower School and eight Upper School subjects with their
+    national curriculum weightings and periods per week, contact hours, class sizes, the five National Exam
+    papers, and the MINEDUC benchmark set.
+  </p>
+
+  <div class="verdict">
+    <h3>The structural problem this page has, that Berkeley Carroll’s doesn’t</h3>
+    <p>
+      Berkeley Carroll gives each division its own page. Crimson has one Academics page that has to carry all
+      three — nursery, lower, upper — plus the National Exam. So the Berkeley Carroll pattern can’t be copied
+      wholesale; it has to be adapted. That adaptation is the actual difference between A and B:
+    </p>
+    <table class="w">
+      <tr><th>Question</th><th>Mockup A</th><th>Mockup B</th></tr>
+      <tr><td>How do the three divisions get equal weight?</td><td>One full-width band each, alternating cream → crimson → cream → ink</td><td>One dossier each, hung off a single vertical progression spine</td></tr>
+      <tr><td>What holds the page together?</td><td>Narrative: you read down and the child gets older</td><td>Structure: a visible ladder from age 3 to secondary, stated in the hero</td></tr>
+      <tr><td>How are subjects shown?</td><td>Full period table per division, with weight bars — P1/P2/P3 columns</td><td>Horizontal weighting bars plus an explicit “what changes when a child moves up” delta</td></tr>
+      <tr><td>Who is the reader?</td><td>A parent deciding whether to enrol</td><td>A parent, sponsor, or partner checking the school against its own standards</td></tr>
+    </table>
+  </div>
+
+  <div class="verdict flag">
+    <h3>One decision you need to make: how much of the benchmark data goes public</h3>
+    <p>
+      The 2024–2025 report is honest about numbers the live site currently doesn’t mention — overall average
+      <strong>66.5%</strong> against a 70% target, repetition <strong>23%</strong> against 20%, transition
+      <strong>78%</strong> against 90%. Mockup B publishes all eight benchmarks with target-vs-actual and
+      colour-codes the misses; Mockup A shows only the exam results and the pillars, as the live page does today.
+    </p>
+    <table class="w">
+      <tr><th>Benchmark</th><th>Target</th><th>2024–25</th><th>In A</th><th>In B</th></tr>
+      <tr><td>Enrollment rate</td><td class="num">100%</td><td class="num good">100%</td><td>—</td><td>shown</td></tr>
+      <tr><td>Dropout rate</td><td class="num">≤ 15%</td><td class="num good">1%</td><td>—</td><td>shown</td></tr>
+      <tr><td>Gender parity (students)</td><td class="num">40–60%</td><td class="num good">47 / 53</td><td>—</td><td>shown</td></tr>
+      <tr><td>Average marks</td><td class="num">&gt; 70%</td><td class="num bad">66.5%</td><td>—</td><td>shown</td></tr>
+      <tr><td>Repetition rate</td><td class="num">≤ 20%</td><td class="num bad">23%</td><td>—</td><td>shown</td></tr>
+      <tr><td>Transition rate</td><td class="num">≥ 90%</td><td class="num bad">78%</td><td>—</td><td>shown</td></tr>
+    </table>
+    <p>
+      I built B with them in because for a school funded by sponsors, publishing the standard you set yourself
+      and the distance you still are from it reads as credibility, not weakness — and the story it tells is
+      genuinely coherent (nursery clears everything, P6 is first in the province, P1–P3 is where children fall
+      behind). But it is your call, not mine. Deleting the <code>#benchmarks</code> section from B is a
+      one-block change if you'd rather it stayed internal.
+    </p>
+  </div>
+
+  <div class="verdict">
+    <h3>Two smaller notes on the source data</h3>
+    <p>
+      <strong>Teacher-to-class assignments have moved since the report.</strong> The 2024–2025 report maps
+      teachers to classes (Patrick → P3B, Martha → Nursery Middle, and so on) but the site’s own staff
+      directory has them elsewhere now (Patrick → P6, Martha → Nursery C). I used the site’s directory as the
+      authority and left teacher names off the class rosters entirely — only the three division leaders are
+      named. The class sizes and averages are from the report.
+    </p>
+    <p>
+      <strong>Nursery class naming.</strong> The report calls them Middle / Top A / Top B; the site calls them
+      Nursery A / B / C. I used the site’s names and the national age bands (3–4, 4–5, 5–6) without asserting
+      which letter maps to which band — worth confirming with the school before this ships. Also:
+      <em>David</em>, the Upper School Leader, still has no photograph on file, so both mockups show a monogram.
+    </p>
+  </div>
+
+  <div class="cards">
+    <a class="card" href="01-three-schools.html">
+      <div class="frame"><iframe src="01-three-schools.html" title="Mockup A preview"></iframe></div>
+      <div class="body">
+        <span class="letter">A</span>
+        <h2>Three Schools</h2>
+        <div class="sub">Narrative · poster hero · one band per division</div>
+        <p>The closest read of the Berkeley Carroll page. A full-bleed photo hero with <strong>ACADEMICS</strong>
+        set at poster scale under a gold swash, the six-item division nav riding up over it as a crimson slab,
+        then the Head Mistress in a pull quote with her portrait on a solid crimson disc. Each division gets a
+        full-width band — nursery in crimson, lower school on cream, upper school in near-black ink — with
+        full-bleed photo strips between them, and the page closes on the three-card grid.</p>
+        <ul>
+          <li>Reads top to bottom as a child growing up</li>
+          <li>Photo-led and emotional — best for a first-time visitor</li>
+          <li>Six nursery learning areas as a 2×3 card grid; full period tables for both primary divisions</li>
+          <li>Keeps the current page’s optimistic framing</li>
+        </ul>
+        <span class="tag">7 photos · no JS</span>
+      </div>
+    </a>
+
+    <a class="card" href="02-ladder.html">
+      <div class="frame"><iframe src="02-ladder.html" title="Mockup B preview"></iframe></div>
+      <div class="body">
+        <span class="letter">B</span>
+        <h2>The Ladder</h2>
+        <div class="sub">Reference · progression spine · data dossiers</div>
+        <p>Same visual language, different spine. The hero states the whole journey as a five-rung ladder —
+        age 3 → Nursery → P1–P3 → P4–P6 → National Exam → secondary on scholarship — and then every division
+        hangs off one continuous vertical rail as a numbered station. Each station is a dossier: stat strip,
+        subject weighting bars, class roster, how the week is built, division leader. Upper School carries an
+        explicit <strong>delta panel</strong> showing exactly what changes at P4 (Science 7→17, Kinyarwanda
+        27→13, French enters). Ends with the full benchmark scorecard.</p>
+        <ul>
+          <li>Answers “where is my child in all this?” in the first screen</li>
+          <li>Far more scannable — you can compare divisions side by side</li>
+          <li>Publishes the MINEDUC benchmarks with target vs actual</li>
+          <li>Best for sponsors and partners as well as parents</li>
+        </ul>
+        <span class="tag">5 photos · no JS</span>
+      </div>
+    </a>
+  </div>
+
+  <p class="intro" style="margin-top:34px">
+    <strong style="color:var(--fg)">My lean:</strong> B. The one thing a parent actually wants from this page is
+    to locate their own child on a path and see what the next few years hold, and A never states the path — it
+    only implies it by scroll order. B puts the ladder in the hero and then earns the rest of the page with the
+    period-level detail that makes “we follow the national curriculum” a checkable claim rather than a slogan.
+    A is the better pick if the priority is warmth over legibility, or if you’d rather not publish the
+    benchmark misses — it’s also the smaller departure from what’s live now.
+  </p>
+</div>
+</body>
+</html>

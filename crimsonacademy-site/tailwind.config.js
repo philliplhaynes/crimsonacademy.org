@@ -19,6 +19,7 @@ module.exports = {
       fontFamily: {
         sans: ["Inter","ui-sans-serif","system-ui","sans-serif"],
         heading: ["Fraunces","ui-serif","Georgia","serif"],
+        hand: ["Caveat","ui-rounded","cursive"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -47,6 +48,7 @@ module.exports = {
           foreground: "hsl(var(--accent-foreground))",
         },
         eyebrow: "hsl(var(--eyebrow))",
+        ink: "hsl(var(--ink))",
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",

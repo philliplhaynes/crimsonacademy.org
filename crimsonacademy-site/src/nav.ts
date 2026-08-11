@@ -27,12 +27,20 @@ export const sections: NavSection[] = [
     label: "Academics",
     href: "/academics",
     blurb: "A pathway from the first day of nursery to the National Exam.",
+    /*
+       Labels follow the school's own three-division language (Nursery / Lower /
+       Upper School) rather than the curriculum's ("Lower Primary"), but the
+       hrefs are deliberately unchanged: Footer.tsx, HowItWorks.tsx and
+       Support.tsx all link to #lower-primary / #upper-primary / #results, and
+       renaming the anchors would silently break those.
+    */
     children: [
       { label: "Our Approach", href: "/academics#approach" },
-      { label: "Nursery", href: "/academics#nursery" },
-      { label: "Lower Primary (P1–P3)", href: "/academics#lower-primary" },
-      { label: "Upper Primary (P4–P6)", href: "/academics#upper-primary" },
-      { label: "Exam Results & Placement", href: "/academics#results" },
+      { label: "Nursery School", href: "/academics#nursery" },
+      { label: "Lower School", href: "/academics#lower-primary" },
+      { label: "Upper School", href: "/academics#upper-primary" },
+      { label: "The National Exam", href: "/academics#results" },
+      { label: "Beyond Crimson", href: "/academics#beyond" },
     ],
   },
   {

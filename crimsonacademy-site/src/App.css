@@ -22,6 +22,10 @@
     /* Standalone label colour. Gold itself fails 4.5:1 on cream, so light mode
        uses a darkened bronze; dark mode can use the gold directly. */
     --eyebrow: 38 55% 28%;
+    /* A fourth band colour, darker than --primary, so a page that alternates
+       cream → crimson → cream → ink doesn't have to reuse crimson twice and
+       lose the rhythm. Used by the Academics division bands. */
+    --ink: 352 40% 13%;
     --destructive: 0 72% 45%;
     --destructive-foreground: 40 46% 97%;
     --border: 40 24% 84%;
@@ -48,6 +52,9 @@
     --accent: 46 72% 55%;             /* gold */
     --accent-foreground: 350 30% 8%;
     --eyebrow: 46 72% 62%;
+    /* Lighter than the dark --background (7%), not darker — an "ink" band has
+       to still read as a distinct band when the page itself is near-black. */
+    --ink: 350 24% 13%;
     --destructive: 0 62% 40%;
     --destructive-foreground: 40 40% 97%;
     --border: 350 16% 18%;
