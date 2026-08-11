@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mockup B — The Dossier | About Us Redesign</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --background: 40 50% 96%;
+    --foreground: 0 12% 12%;
+    --primary: 352 66% 33%;
+    --primary-foreground: 40 46% 97%;
+    --secondary: 40 40% 92%;
+    --muted-foreground: 25 10% 38%;
+    --accent: 46 68% 47%;
+    --eyebrow: 38 55% 28%;
+    --border: 40 24% 84%;
+    --bg: hsl(var(--background));
+    --fg: hsl(var(--foreground));
+    --crimson: hsl(var(--primary));
+    --crimson-fg: hsl(var(--primary-foreground));
+    --cream2: hsl(var(--secondary));
+    --muted: hsl(var(--muted-foreground));
+    --gold: hsl(var(--accent));
+    --eyebrow-c: hsl(var(--eyebrow));
+    --line: hsl(var(--border));
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: Inter, ui-sans-serif, system-ui, sans-serif; line-height: 1.65; }
+  h1,h2,h3,h4 { font-family: Fraunces, ui-serif, Georgia, serif; font-weight: 600; margin: 0; }
+  a { color: inherit; }
+  img { display: block; max-width: 100%; }
+
+  .mockup-tag { background: hsl(0 12% 12%); color: #fff; font-size: 12px; font-weight: 600; text-align: center; padding: 8px; letter-spacing: .04em; text-transform: uppercase; }
+  .mockup-tag a { color: var(--gold); margin-left: 12px; }
+
+  .topbar { border-bottom: 1px solid var(--line); background: var(--bg); }
+  .topbar .inner { max-width: 1220px; margin: 0 auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; height: 62px; }
+  .topbar img { height: 40px; width: auto; }
+  .topnav { display: flex; gap: 20px; font-size: 14px; font-weight: 500; color: var(--muted); }
+  @media (max-width: 900px) { .topnav { display: none; } }
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 7px; font-size: 13px; font-weight: 600; text-decoration: none; }
+  .btn-solid { background: var(--crimson); color: var(--crimson-fg); }
+  .btn-gold { background: var(--gold); color: hsl(0 20% 12%); }
+  .btn-outline { border: 1.5px solid currentColor; color: var(--crimson); }
+
+  /* ===== the dossier shell: sticky rail + editorial column ===== */
+  .shell { max-width: 1220px; margin: 0 auto; padding: 0 28px; display: grid; grid-template-columns: 232px minmax(0, 1fr); gap: 56px; align-items: start; }
+  @media (max-width: 940px) { .shell { grid-template-columns: minmax(0, 1fr); gap: 0; } }
+
+  /* min-width: 0 is load-bearing, not decoration. On mobile .railnav becomes a
+     horizontally scrolling strip, but a grid child defaults to min-width: auto —
+     so the rail refused to shrink below its 5-item content width (~704px) and
+     blew the whole page out to a horizontal scroll at 390px instead of
+     scrolling internally. */
+  .rail { position: sticky; top: 24px; padding: 40px 0; min-width: 0; }
+  .doc { min-width: 0; }
+  @media (max-width: 940px) {
+    .rail { position: sticky; top: 0; z-index: 30; padding: 0; background: hsl(var(--background) / .95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); margin: 0 -28px; }
+  }
+  .rail .who { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--eyebrow-c); }
+  .rail h2 { font-size: 21px; margin-top: 8px; line-height: 1.2; }
+  .rail .sub { font-size: 13px; color: var(--muted); margin-top: 10px; }
+  .railnav { list-style: none; margin: 26px 0 0; padding: 0; display: flex; flex-direction: column; gap: 2px; border-left: 2px solid var(--line); }
+  .railnav a { display: block; text-decoration: none; font-size: 14px; padding: 7px 0 7px 16px; margin-left: -2px; border-left: 2px solid transparent; color: var(--muted); }
+  .railnav a.on { color: var(--crimson); font-weight: 600; border-left-color: var(--crimson); }
+  .rail .cta { margin-top: 26px; display: flex; flex-direction: column; gap: 8px; }
+  @media (max-width: 940px) {
+    .rail .who, .rail h2, .rail .sub, .rail .cta { display: none; }
+    .railnav { flex-direction: row; overflow-x: auto; border-left: 0; border-top: 0; margin: 0; padding: 0 28px; gap: 4px; }
+    .railnav a { white-space: nowrap; padding: 14px 10px; border-left: 0; border-bottom: 2px solid transparent; margin-left: 0; }
+    .railnav a.on { border-bottom-color: var(--crimson); }
+  }
+
+  .doc { padding: 40px 0 80px; max-width: 760px; }
+
+  /* compact hero — inset, not full-bleed. The dossier opens like a report cover. */
+  .cover { border-radius: 12px; overflow: hidden; position: relative; isolation: isolate; color: var(--crimson-fg); }
+  .cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 29%; z-index: -2; }
+  .cover::before { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, hsl(var(--primary) / .92), hsl(var(--primary) / .70)); z-index: -1; }
+  .cover .pad { padding: 40px 34px; }
+  .cover h1 { font-size: clamp(26px, 3.4vw, 38px); line-height: 1.12; max-width: 18ch; }
+  .cover p { margin: 14px 0 0; font-size: 15px; color: hsl(var(--primary-foreground) / .88); max-width: 48ch; }
+  .facts { display: flex; flex-wrap: wrap; gap: 26px; margin-top: 26px; padding-top: 20px; border-top: 1px solid hsl(var(--primary-foreground) / .22); }
+  .facts .n { font-family: Fraunces, serif; font-size: 24px; font-weight: 700; color: var(--gold); line-height: 1; }
+  .facts .k { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: hsl(var(--primary-foreground) / .75); margin-top: 5px; }
+
+  /* article sections */
+  .art { padding: 46px 0; border-bottom: 1px solid var(--line); }
+  .art:last-of-type { border-bottom: 0; }
+  .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--eyebrow-c); }
+  .art h2 { font-size: clamp(22px, 2.6vw, 29px); margin-top: 9px; line-height: 1.18; max-width: 24ch; }
+  .art p { color: var(--muted); margin: 14px 0 0; }
+  .art p.strong { color: var(--fg); font-weight: 500; }
+  .split { display: grid; grid-template-columns: 1fr 220px; gap: 30px; align-items: start; margin-top: 20px; }
+  @media (max-width: 680px) { .split { grid-template-columns: 1fr; } }
+
+  .verse { border-left: 3px solid var(--gold); background: hsl(var(--secondary) / .55); padding: 14px 16px; font-style: italic; color: var(--muted); border-radius: 0 8px 8px 0; margin-top: 18px; font-size: 14px; }
+  .verse .cite { display: block; font-style: normal; font-size: 11px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--eyebrow-c); margin-top: 5px; }
+
+  /* values as a compact table — dossier idiom, not a big diagram */
+  .vtable { margin-top: 20px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .vrow { display: grid; grid-template-columns: 130px 1fr; gap: 16px; padding: 13px 16px; border-bottom: 1px solid var(--line); }
+  .vrow:last-child { border-bottom: 0; }
+  .vrow.inter { background: hsl(var(--accent) / .07); }
+  @media (max-width: 560px) { .vrow { grid-template-columns: 1fr; gap: 4px; } }
+  .vrow .nm { font-family: Fraunces, serif; font-weight: 600; font-size: 16px; color: var(--crimson); }
+  .vrow.inter .nm { color: var(--eyebrow-c); }
+  .vrow .ref { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-top: 2px; }
+  .vrow .vs { font-size: 13.5px; color: var(--muted); }
+  .vrow .btw { font-size: 11px; color: var(--eyebrow-c); font-weight: 600; }
+  /* 320px, not 260px: at 260 the viewBox scaled to 0.62, rendering the
+     Faith/Hope/Love intersection labels at an effective 11.1px — under the
+     12px floor for caption text. 320px puts them at ~13.7px. */
+  .venn-mini { max-width: 320px; margin: 18px 0 0; }
+  .venn-cap { font-size: 12px; color: var(--muted); margin-top: 8px; max-width: 340px; }
+
+  /* ===== HISTORY — inline vertical timeline, full 8 chapters ===== */
+  .tl { margin-top: 24px; }
+  .tl-item { display: grid; grid-template-columns: 62px 90px 1fr; gap: 16px; align-items: start; padding: 14px 0; border-bottom: 1px dashed var(--line); }
+  .tl-item:last-child { border-bottom: 0; }
+  @media (max-width: 620px) { .tl-item { grid-template-columns: 56px 1fr; } .tl-item img { display: none; } }
+  .tl-yr { font-family: Fraunces, serif; font-weight: 700; font-size: 15px; color: var(--crimson); padding-top: 2px; }
+  .tl-item.mile .tl-yr { color: hsl(38 65% 30%); }
+  .tl-item img { width: 90px; height: 68px; object-fit: cover; border-radius: 6px; }
+  .tl-ti { font-family: Fraunces, serif; font-weight: 600; font-size: 15px; }
+  .tl-dk { font-size: 13.5px; color: var(--muted); margin-top: 3px; }
+  .tl-badge { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: hsl(38 65% 30%); background: hsl(var(--accent) / .18); padding: 1px 6px; border-radius: 4px; margin-left: 6px; vertical-align: 1px; }
+  .heads { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px; }
+  @media (max-width: 620px) { .heads { grid-template-columns: 1fr; } }
+  .head { display: flex; gap: 10px; align-items: center; }
+  .head img { width: 42px; height: 42px; border-radius: 999px; object-fit: cover; flex-shrink: 0; }
+  .head .yy { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--eyebrow-c); }
+  .head .nn { font-family: Fraunces, serif; font-weight: 600; font-size: 13.5px; line-height: 1.2; }
+
+  /* leaders — compact rows, dossier style */
+  .lgrid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 20px; }
+  @media (max-width: 760px) { .lgrid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 480px) { .lgrid { grid-template-columns: repeat(2, 1fr); } }
+  .lgrid img, .lgrid .ph { aspect-ratio: 1; width: 100%; object-fit: cover; border-radius: 8px; }
+  .lgrid .ph { background: hsl(var(--primary) / .1); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; text-transform: uppercase; color: hsl(var(--primary) / .55); text-align: center; padding: 6px; }
+  .lgrid .rl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--eyebrow-c); margin-top: 9px; }
+  .lgrid .nm { font-family: Fraunces, serif; font-weight: 600; font-size: 13.5px; margin-top: 2px; line-height: 1.2; }
+  .statbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-top: 20px; padding: 14px 16px; background: hsl(var(--secondary) / .55); border-radius: 9px; }
+
+  /* contact — a card, not a full-bleed band */
+  .cwrap { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: 12px; overflow: hidden; margin-top: 20px; }
+  @media (max-width: 680px) { .cwrap { grid-template-columns: 1fr; } }
+  .cwrap .photo { position: relative; min-height: 240px; }
+  .cwrap .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 66%; }
+  .cwrap .info { background: var(--crimson); color: var(--crimson-fg); padding: 26px; }
+  .cwrap .info ul { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 13px; }
+  .cwrap .info .lbl { font-weight: 600; font-size: 13px; }
+  .cwrap .info .val { font-size: 13px; color: hsl(var(--primary-foreground) / .82); }
+  .cwrap .info .eyebrow { color: var(--gold); }
+  .cwrap .info h2 { color: var(--crimson-fg); font-size: 21px; margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<div class="mockup-tag">MOCKUP B — “THE DOSSIER” — sticky rail + editorial column, history inline as a full timeline <a href="index.html">← back to comparison</a></div>
+
+<header class="topbar">
+  <div class="inner">
+    <img src="../../crimsonacademy-site/src/assets/logo-horiz.webp" alt="Crimson Academy" />
+    <nav class="topnav"><span>About</span><span>Academics</span><span>Student Life</span><span>Admissions</span><span>News &amp; Events</span><span>Support Us</span></nav>
+    <a class="btn btn-solid" href="#">Enroll</a>
+  </div>
+</header>
+
+<div class="shell">
+
+  <!-- STICKY RAIL -->
+  <aside class="rail">
+    <div class="who">About</div>
+    <h2>Crimson Academy of Kagina</h2>
+    <div class="sub">A Christian primary school in Kamonyi District, Rwanda. Nursery through Primary 6.</div>
+    <nav>
+      <ul class="railnav">
+        <li><a class="on" href="#mission">Mission &amp; Values</a></li>
+        <li><a href="#faith">Our Christian Faith</a></li>
+        <li><a href="#history">Our History</a></li>
+        <li><a href="#leadership">Leadership &amp; Staff</a></li>
+        <li><a href="#contact">Contact &amp; Visit</a></li>
+      </ul>
+    </nav>
+    <div class="cta">
+      <a class="btn btn-solid" href="#" style="justify-content:center">Enroll Your Child</a>
+      <a class="btn btn-outline" href="#" style="justify-content:center">Sponsor a Student</a>
+    </div>
+  </aside>
+
+  <!-- DOCUMENT -->
+  <main class="doc">
+
+    <div class="cover">
+      <img src="../../crimsonacademy-site/src/assets/about-hero-team.jpg" alt="" />
+      <div class="pad">
+        <h1>A school built on faith, character, and academic excellence.</h1>
+        <p>Founded in 2011 with four classrooms and 181 students. Today, a full campus serving a village that asked for it first.</p>
+        <div class="facts">
+          <div><div class="n">780</div><div class="k">Students</div></div>
+          <div><div class="n">32</div><div class="k">Staff</div></div>
+          <div><div class="n">2011</div><div class="k">Founded</div></div>
+          <div><div class="n">#1</div><div class="k">Southern Province</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MISSION -->
+    <section class="art" id="mission">
+      <div class="eyebrow">Our Mission</div>
+      <h2>Emboldening children to reach beyond impossibilities.</h2>
+      <div class="split">
+        <div>
+          <p>Children carry the hopes of the future. Providing access and opportunity to educate children around the world is our aim and purpose. Crimson Academy will embolden children and communities to reach beyond impossibilities and transform the future for the better.</p>
+          <p>We are committed to facilitating learning experiences that help our students achieve their greatest potential and adapt to a diverse, ever-changing society.</p>
+          <p class="strong">We stress the total development of each child: spiritual, moral, intellectual, social, emotional, and physical.</p>
+        </div>
+        <img src="../../crimsonacademy-site/src/assets/crimson-sign-boy.webp" alt="A Crimson Academy student holding a carved wooden school crest above his head" style="filter:drop-shadow(0 10px 20px hsl(var(--foreground)/.16))" />
+      </div>
+
+      <div style="margin-top:34px" class="eyebrow">Core Values</div>
+      <h2 style="font-size:22px">Six values, and how they fit together.</h2>
+      <svg class="venn-mini" viewBox="0 0 420 400" aria-hidden="true">
+        <circle cx="210" cy="142" r="112" fill="hsl(var(--primary))" opacity=".40"/>
+        <circle cx="156" cy="235" r="112" fill="hsl(var(--eyebrow))" opacity=".25"/>
+        <circle cx="264" cy="235" r="112" fill="hsl(var(--accent))" opacity=".45"/>
+        <circle cx="210" cy="142" r="112" fill="none" stroke="hsl(var(--foreground)/.2)" stroke-width="1.5"/>
+        <circle cx="156" cy="235" r="112" fill="none" stroke="hsl(var(--foreground)/.2)" stroke-width="1.5"/>
+        <circle cx="264" cy="235" r="112" fill="none" stroke="hsl(var(--foreground)/.2)" stroke-width="1.5"/>
+        <g text-anchor="middle" font-family="Fraunces, serif">
+          <text x="210" y="96" font-size="26" font-weight="600" fill="hsl(var(--foreground))">Truth</text>
+          <text x="118" y="288" font-size="26" font-weight="600" fill="hsl(var(--foreground))">Discipline</text>
+          <text x="302" y="288" font-size="26" font-weight="600" fill="hsl(var(--foreground))">Service</text>
+          <text x="176" y="190" font-size="18" fill="hsl(var(--foreground)/.8)">Faith</text>
+          <text x="244" y="190" font-size="18" fill="hsl(var(--foreground)/.8)">Hope</text>
+          <text x="210" y="252" font-size="18" fill="hsl(var(--foreground)/.8)">Love</text>
+        </g>
+      </svg>
+      <p class="venn-cap">Truth, Discipline and Service are practised. Faith, Hope and Love are what grows where they meet.</p>
+
+      <div class="vtable">
+        <div class="vrow"><div><div class="nm">Truth</div><div class="ref">John 3:21</div></div><div class="vs">But whoever lives by the truth comes into the light, so that it may be seen plainly that what they have done has been done in the sight of God.</div></div>
+        <div class="vrow inter"><div><div class="nm">Faith</div><div class="ref">Hebrews 11:1</div><div class="btw">Truth × Discipline</div></div><div class="vs">Now faith is the substance of things hoped for, the evidence of things not seen.</div></div>
+        <div class="vrow"><div><div class="nm">Discipline</div><div class="ref">1 Cor. 9:27</div></div><div class="vs">But I discipline my body and bring it into subjection, lest, when I have preached to others, I myself should become disqualified.</div></div>
+        <div class="vrow inter"><div><div class="nm">Hope</div><div class="ref">Psalm 31:24</div><div class="btw">Truth × Service</div></div><div class="vs">Be of good courage, And He shall strengthen your heart, All you who hope in the Lord.</div></div>
+        <div class="vrow"><div><div class="nm">Service</div><div class="ref">Mark 10:45</div></div><div class="vs">For even the Son of Man did not come to be served, but to serve, and to give His life a ransom for many.</div></div>
+        <div class="vrow inter"><div><div class="nm">Love</div><div class="ref">1 Cor. 13</div><div class="btw">Discipline × Service</div></div><div class="vs">These three abide, faith, hope, and love; but the greatest of these is love.</div></div>
+      </div>
+    </section>
+
+    <!-- FAITH -->
+    <section class="art" id="faith">
+      <div class="eyebrow">Our Christian Faith</div>
+      <h2>An environment that mirrors the character of Christ.</h2>
+      <div class="split">
+        <div>
+          <p>Faith is not a subject taught in one period a week — it shapes how teachers speak to children, how discipline is handled, and how the school serves the village around it.</p>
+          <p>The six values above are drawn directly from scripture, and they are taught and referred to explicitly rather than left implicit. Families of all backgrounds are welcome at Crimson Academy.</p>
+          <div class="verse">“For even the Son of Man did not come to be served, but to serve, and to give His life a ransom for many.”<span class="cite">Mark 10:45</span></div>
+        </div>
+        <div>
+          <img src="../../crimsonacademy-site/src/assets/faith-potters-hands.jpg" alt="A student's hands and a teacher's clay-covered hands shaping a clay pot together" style="border-radius:9px" />
+          <div class="verse" style="margin-top:12px;font-size:13px">“Like clay in the potter’s hand, so are you in My hand.”<span class="cite">Jeremiah 18:6</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HISTORY — inline, all eight chapters, dossier density -->
+    <section class="art" id="history">
+      <div class="eyebrow">Our History</div>
+      <h2>From one visit to a full campus.</h2>
+      <p>Crimson Academy did not start with a building. It started with a visit, and with parents in a Rwandan village asking for something their children could not otherwise get.</p>
+
+      <div class="tl">
+        <div class="tl-item mile"><div class="tl-yr">2009</div><img src="thumbs/thumb-2009.webp" alt="The village of Kagina gathered on open ground in 2009" /><div><div class="tl-ti">Before there was a school<span class="tl-badge">Milestone</span></div><div class="tl-dk">A first visit to Kagina. No classroom to see, because there was no school — what there was, plainly, was demand.</div></div></div>
+        <div class="tl-item"><div class="tl-yr">2010–11</div><img src="thumbs/thumb-2010.webp" alt="Villagers laying the stone footings by hand" /><div><div class="tl-ti">Breaking ground</div><div class="tl-dk">Land purchased; the village built the first classrooms largely by hand.</div></div></div>
+        <div class="tl-item"><div class="tl-yr">2011</div><img src="thumbs/thumb-2011.webp" alt="The finished four-classroom block" /><div><div class="tl-ti">Four rooms and 181 children</div><div class="tl-dk">Doors open under our first head teacher, Henry Ngolobe.</div></div></div>
+        <div class="tl-item"><div class="tl-yr">2012–13</div><img src="thumbs/thumb-2012.webp" alt="Two classroom blocks facing a planted courtyard" /><div><div class="tl-ti">A grade a year</div><div class="tl-dk">A classroom added each year so the first intake could finish primary school without leaving Kagina.</div></div></div>
+        <div class="tl-item mile"><div class="tl-yr">2013</div><img src="thumbs/thumb-2013.webp" alt="A Primary 6 graduating class in red caps and gowns" /><div><div class="tl-ti">First in the province<span class="tl-badge">Milestone</span></div><div class="tl-dk">The first cohort to sit the National Examination placed first in the Southern Province.</div></div></div>
+        <div class="tl-item"><div class="tl-yr">2016</div><img src="thumbs/thumb-2016.webp" alt="The grown campus seen across the playing field" /><div><div class="tl-ti">Room to grow</div><div class="tl-dk">Six new classrooms, a library, and a teacher’s house, with Crimson Foundation.</div></div></div>
+        <div class="tl-item"><div class="tl-yr">2019</div><img src="thumbs/thumb-2019.webp" alt="Students at mealtime" /><div><div class="tl-ti">More than lessons</div><div class="tl-dk">Buses and a food programme removed reasons a child might stop attending.</div></div></div>
+        <div class="tl-item mile"><div class="tl-yr">2026</div><img src="thumbs/thumb-2026.webp" alt="Teams on the new courts" /><div><div class="tl-ti">A campus, finished<span class="tl-badge">Milestone</span></div><div class="tl-dk">Two courts, every classroom renovated, grounds paved and planted.</div></div></div>
+      </div>
+
+      <div style="margin-top:26px" class="eyebrow">Head teachers</div>
+      <div class="heads">
+        <div class="head"><img src="../../crimsonacademy-site/src/assets/head-henry.jpg" alt="Portrait of Henry Ngolobe" /><div><div class="yy">2011–2015</div><div class="nn">Henry Ngolobe</div></div></div>
+        <div class="head"><img src="../../crimsonacademy-site/src/assets/head-jean-de-dieu.jpg" alt="Portrait of Jean De Dieu Nsabimana" /><div><div class="yy">2015–2017</div><div class="nn">Jean De Dieu Nsabimana</div></div></div>
+        <div class="head"><img src="../../crimsonacademy-site/src/assets/head-marie-claire.jpg" alt="Portrait of Marie Claire Mukabirinda" /><div><div class="yy">2017–Present</div><div class="nn">Marie Claire Mukabirinda</div></div></div>
+      </div>
+
+      <div style="margin-top:22px"><a class="btn btn-outline" href="#">Read the full history, chapter by chapter →</a></div>
+    </section>
+
+    <!-- LEADERSHIP -->
+    <section class="art" id="leadership">
+      <div class="eyebrow">Leadership &amp; Staff</div>
+      <h2>A team devoted to every child.</h2>
+      <div class="lgrid">
+        <div><img src="../../crimsonacademy-site/src/assets/staff-marie-claire.webp" alt="Portrait of Marie Claire Mukabirinda" /><div class="rl">Head Mistress</div><div class="nm">Marie Claire Mukabirinda</div></div>
+        <div><span class="ph">Photo to come</span><div class="rl">Upper School</div><div class="nm">David</div></div>
+        <div><img src="../../crimsonacademy-site/src/assets/staff-jean-damascene.webp" alt="Portrait of Damascene" /><div class="rl">Lower School</div><div class="nm">Damascene</div></div>
+        <div><img src="../../crimsonacademy-site/src/assets/staff-martha.webp" alt="Portrait of Martha Niyotwagira" /><div class="rl">Nursery School</div><div class="nm">Martha Niyotwagira</div></div>
+        <div><img src="../../crimsonacademy-site/src/assets/staff-jean-claude.webp" alt="Portrait of Jean Claude Twizeyimana" /><div class="rl">Accountant</div><div class="nm">Jean Claude Twizeyimana</div></div>
+      </div>
+      <div class="statbar">
+        <div><strong style="font-family:Fraunces,serif;font-size:17px">32 staff</strong> <span style="color:var(--muted);font-size:13.5px">across Nursery, Lower, Upper School, Languages, Activities and Operations. 31 named.</span></div>
+        <a class="btn btn-outline" href="#">Full directory</a>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="art" id="contact">
+      <div class="eyebrow">Contact &amp; Visit</div>
+      <h2>Come and see the school for yourself.</h2>
+      <div class="cwrap">
+        <div class="photo"><img src="../../crimsonacademy-site/src/assets/contact-students.jpg" alt="Three students in Crimson Academy shirts" /></div>
+        <div class="info">
+          <div class="eyebrow">Arrange a visit</div>
+          <h2>We’d love to show you around.</h2>
+          <ul>
+            <li><div class="lbl">Campus</div><div class="val">Kagina, Kamonyi District, Southern Province, Rwanda</div></li>
+            <li><div class="lbl">Email</div><div class="val">info@crimsonacademy.org</div></li>
+            <li><div class="lbl">Languages</div><div class="val">English · Français · Kinyarwanda</div></li>
+          </ul>
+          <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:20px">
+            <a class="btn btn-gold" href="#">How to Enroll</a>
+            <a class="btn" style="border:1.5px solid hsl(var(--primary-foreground)/.5);color:var(--crimson-fg)" href="#">Plan a Visit</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+</body>
+</html>

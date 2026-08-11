@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About Us Redesign — Comparison</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: hsl(40 50% 96%); --fg: hsl(0 12% 12%); --crimson: hsl(352 66% 33%);
+    --muted: hsl(25 10% 38%); --gold: hsl(46 68% 47%); --line: hsl(40 24% 84%);
+    --cream2: hsl(40 40% 92%); --eyebrow-c: hsl(38 55% 28%);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: Inter, ui-sans-serif, system-ui, sans-serif; line-height: 1.6; }
+  h1,h2,h3 { font-family: Fraunces, ui-serif, Georgia, serif; font-weight: 600; margin: 0; }
+  .container { max-width: 1120px; margin: 0 auto; padding: 48px 24px 80px; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--eyebrow-c); }
+  h1 { font-size: 34px; margin-top: 10px; }
+  .intro { max-width: 720px; color: var(--muted); margin-top: 14px; font-size: 16px; }
+
+  /* the history verdict box — the actual question that was asked */
+  .verdict { margin-top: 28px; border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 10px; padding: 20px 22px; background: #fff; }
+  .verdict h3 { font-size: 17px; }
+  .verdict p { font-size: 14.5px; color: var(--muted); margin: 10px 0 0; }
+  table.w { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 13.5px; }
+  table.w th, table.w td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  table.w th { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; }
+  table.w td.num { font-family: Fraunces, serif; font-weight: 700; }
+  .good { color: hsl(150 45% 30%); }
+  .bad { color: var(--crimson); }
+
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
+  @media (max-width: 780px) { .cards { grid-template-columns: 1fr; } }
+  .card { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #fff; text-decoration: none; color: inherit; display: block; transition: box-shadow .15s, transform .15s; }
+  .card:hover { box-shadow: 0 8px 24px hsl(0 12% 12% / .1); transform: translateY(-2px); }
+  .card .frame { aspect-ratio: 16/11; overflow: hidden; position: relative; background: var(--cream2); }
+  .card iframe { width: 400%; height: 400%; transform: scale(.25); transform-origin: top left; border: none; pointer-events: none; }
+  .card .body { padding: 20px; }
+  .card .letter { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--crimson); color: #fff; font-family: Fraunces, serif; font-weight: 700; font-size: 14px; }
+  .card h2 { font-size: 19px; margin-top: 12px; }
+  .card .sub { font-size: 12.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; color: var(--crimson); margin-top: 3px; }
+  .card p { font-size: 14px; color: var(--muted); margin-top: 10px; }
+  .card ul { margin: 10px 0 0; padding-left: 18px; font-size: 13.5px; color: var(--muted); }
+  .card li { margin-bottom: 4px; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: 3px 8px; border-radius: 999px; background: hsl(46 68% 47% / .18); color: hsl(38 65% 28%); margin-top: 12px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="eyebrow">Design Exploration</div>
+  <h1>Two redesign directions for the About page</h1>
+  <p class="intro">
+    Both use the real content — same mission text, same six core values with verses, same faith
+    section, same five leaders, same contact details — and both <strong>bring the history content
+    back onto the About page</strong>, which is the question that prompted this. They differ in how.
+  </p>
+
+  <div class="verdict">
+    <h3>On adding history back: yes, but not the way it left</h3>
+    <p>
+      History was split out to <code>/about/history</code> earlier precisely because it was heavy —
+      eight full-size chapter photos. Putting those back as-is would nearly quadruple the About
+      page's image weight, which is the wrong trade for a rural-mobile audience. But re-exporting
+      those same eight photos as 440px thumbnails costs almost nothing:
+    </p>
+    <table class="w">
+      <tr><th>What</th><th>Image weight</th><th>Verdict</th></tr>
+      <tr><td>About page today (no history)</td><td class="num">671 KB</td><td>baseline</td></tr>
+      <tr><td>+ history at full size (the naive move)</td><td class="num bad">2,319 KB</td><td class="bad">3.5× — don't</td></tr>
+      <tr><td>+ history as 440px thumbnails</td><td class="num good">884 KB</td><td class="good">+32% — fine</td></tr>
+    </table>
+    <p>
+      All eight thumbnails together are <strong>213 KB</strong> instead of 1,648 KB — an 87%
+      reduction, generated and measured, not estimated. The full-size photos stay where they belong:
+      on the dedicated history page, which both mockups still link to. So About gets the story;
+      <code>/about/history</code> keeps the depth.
+    </p>
+  </div>
+
+  <div class="cards">
+    <a class="card" href="01-thread.html">
+      <div class="frame"><iframe src="01-thread.html" title="Mockup A preview"></iframe></div>
+      <div class="body">
+        <span class="letter">A</span>
+        <h2>The Thread</h2>
+        <div class="sub">Narrative · full-bleed · one continuous scroll</div>
+        <p>Keeps the current page's shape but makes it read as a single argument rather than five
+        stacked panels. History arrives as a full-bleed <strong>crimson milestone rail</strong> — a
+        horizontally scrolling strip of all eight chapters — placed between Faith and Leadership, so
+        the story lands where "how we got here" belongs in the narrative.</p>
+        <ul>
+          <li>Closest to what's live now — lowest-risk change</li>
+          <li>History becomes the page's visual centrepiece</li>
+          <li>Best for first-time visitors reading top to bottom</li>
+        </ul>
+        <span class="tag">+213 KB · 8 thumbnails</span>
+      </div>
+    </a>
+
+    <a class="card" href="02-dossier.html">
+      <div class="frame"><iframe src="02-dossier.html" title="Mockup B preview"></iframe></div>
+      <div class="body">
+        <span class="letter">B</span>
+        <h2>The Dossier</h2>
+        <div class="sub">Reference · sticky rail · editorial column</div>
+        <p>A structural rethink: the horizontal sub-nav becomes a <strong>sticky left rail</strong>
+        with a persistent "you are here", and content sits in a narrower editorial column. Opens on a
+        report-style cover with key facts (780 students · 32 staff · 2011 · #1 in province). History
+        is an <strong>inline vertical timeline</strong> — all eight chapters plus the three head
+        teachers, at dossier density.</p>
+        <ul>
+          <li>Far more scannable — you can see the whole page's shape at once</li>
+          <li>Reads like an institutional profile or annual report</li>
+          <li>Best for parents comparing schools and scanning for specifics</li>
+        </ul>
+        <span class="tag">+213 KB · 8 thumbnails</span>
+      </div>
+    </a>
+  </div>
+
+  <p class="intro" style="margin-top:34px">
+    <strong style="color:var(--fg)">My lean:</strong> B, if you want the About page to do work for
+    prospective parents — the sticky rail solves the real problem that this page is long and
+    currently gives no sense of its own shape, and the fact strip up top answers the four questions
+    every parent asks before they read a word. A is the safer pick if you'd rather keep the current
+    feel and just fix the weakest section (the history teaser), which it does well.
+  </p>
+</div>
+</body>
+</html>
