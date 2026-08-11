@@ -11,6 +11,9 @@ import signBoy from "@/assets/crimson-sign-boy.webp";
 import pottersHands from "@/assets/faith-potters-hands.jpg";
 import contactPhoto from "@/assets/contact-students.jpg";
 
+/** Must match the `era` values of `chapters` in SchoolHistory.tsx. */
+const HISTORY_ERAS = ["2009", "2010–2011", "2011", "2012–2013", "2013", "2016", "2019", "2026"];
+
 const About = () => {
   const section = findSection("/about")!;
   return (
@@ -136,6 +139,15 @@ const About = () => {
         and someone here for Leadership or Contact shouldn't have to load it.
         Deliberately no photo in this teaser; the point is to keep this
         section (and this page) light.
+
+        Design review flag: a text-only teaser sitting between Faith (has a
+        photo) and Leadership (has a 5-photo grid) read as an unfinished
+        stub — the one section on the page with no visual anchor at all. The
+        era chips below fix that at zero image weight: they preview the
+        eight chapters concretely instead of just asserting a count, and give
+        the section the same rhythm as its neighbours. aria-hidden because
+        the chips are decorative — the paragraph already states the same
+        "eight chapters, 2009 to today" for screen readers.
       */}
       <Section id="history" eyebrow="Our History" title="From one visit to a full campus.">
         <p className="max-w-3xl text-muted-foreground leading-relaxed">
@@ -143,6 +155,16 @@ const About = () => {
           parents in a Rwandan village asking for something their children could not otherwise
           get. See how a hillside in Kagina became a campus — eight chapters, from 2009 to today.
         </p>
+        <ul className="mt-5 flex flex-wrap gap-2" aria-hidden="true">
+          {HISTORY_ERAS.map((era) => (
+            <li
+              key={era}
+              className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-medium text-primary"
+            >
+              {era}
+            </li>
+          ))}
+        </ul>
         <Link
           to="/about/history"
           className="mt-6 inline-flex items-center gap-2 font-medium text-primary underline underline-offset-4"
