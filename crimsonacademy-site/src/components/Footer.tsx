@@ -37,11 +37,6 @@ const family = [
     href: "https://crimsonfoundation.org",
     title: "Crimson Foundation — 501(c)(3) non-profit",
   },
-  {
-    label: "Jenzabar Foundation",
-    href: "https://jenzabar.com/jenzabar-foundation",
-    title: "The Jenzabar Foundation",
-  },
 ];
 
 export const Footer = () => {
@@ -190,7 +185,7 @@ export const Footer = () => {
         <div className="container flex flex-col justify-between gap-3 py-6 text-xs text-primary-foreground/70 sm:flex-row">
           <span>© {new Date().getFullYear()} Crimson Academy of Kagina. All rights reserved.</span>
           <span className="text-primary-foreground/60">
-            In partnership with the Crimson Foundation &amp; the Jenzabar Foundation
+            In partnership with the Crimson Foundation
           </span>
         </div>
       </div>

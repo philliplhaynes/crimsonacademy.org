@@ -18,10 +18,6 @@ const partners = [
     name: "Crimson Foundation",
     text: "Our founding partner. The Foundation supports the school's operations, sponsorship program, and capital projects, and has been part of Crimson Academy since its establishment in 2011.",
   },
-  {
-    name: "Jenzabar Foundation",
-    text: "Partnered with the school on the 2016 expansion, which added six classrooms, a library, a computer lab, and teacher and missionary housing to the Kagina campus.",
-  },
 ];
 
 const Support = () => {
@@ -131,7 +127,9 @@ const Support = () => {
       </Section>
 
       <Section id="partners" eyebrow="Our Partners" title="Who we build this with">
-        <div className="grid gap-6 md:grid-cols-2">
+        {/* Single card now that Jenzabar Foundation was removed — was
+            md:grid-cols-2, which left an awkward empty half with one card. */}
+        <div className="grid gap-6 max-w-md">
           {partners.map((p) => (
             <Card key={p.name}>
               <CardContent className="p-6">

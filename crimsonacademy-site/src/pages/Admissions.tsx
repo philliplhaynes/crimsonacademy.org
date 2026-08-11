@@ -160,8 +160,7 @@ const Admissions = () => {
             </p>
             <p>
               Our campus includes classrooms built between 2011 and 2016, a library, a computer lab,
-              and teacher housing — built with the support of the Crimson Foundation and the Jenzabar
-              Foundation.
+              and teacher housing — built with the support of the Crimson Foundation.
             </p>
           </div>
           <PhotoSlot

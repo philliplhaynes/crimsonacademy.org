@@ -138,7 +138,7 @@ const chapters: Chapter[] = [
     size: "standard",
     span: "sm:col-span-1 lg:col-span-3",
     body: [
-      "With Crimson Foundation and the Jenzabar Foundation, the campus expanded in a single push: six new classrooms, a library, and a teacher's house so that staff could live on site rather than commute from far away.",
+      "With Crimson Foundation, the campus expanded in a single push: six new classrooms, a library, and a teacher's house so that staff could live on site rather than commute from far away.",
       "Jean De Dieu Nsabimana had become head teacher the year before, in 2015, and led the school through the expansion.",
     ],
     photo: expansion,
