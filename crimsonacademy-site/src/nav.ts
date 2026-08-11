@@ -51,11 +51,19 @@ export const sections: NavSection[] = [
     label: "Student Life",
     href: "/student-life",
     blurb: "Character formed in worship, in service, on the field, and on the stage.",
+    /*
+       Labels follow the page's three activity clusters, but the hrefs are
+       deliberately reused rather than renamed: About.tsx and Academics.tsx both
+       link to #chapel, Academics.tsx links to #wellbeing, and renaming the
+       anchors would break those silently. #arts is now "On the Stage" (dance
+       and music), #sports is "On the Court", #day is the practicalities panel.
+    */
     children: [
-      { label: "A Day at Crimson", href: "/student-life#day" },
-      { label: "Sports & Activities", href: "/student-life#sports" },
-      { label: "Arts & Music", href: "/student-life#arts" },
-      { label: "Chapel & Devotions", href: "/student-life#chapel" },
+      { label: "On the Stage", href: "/student-life#arts" },
+      { label: "On the Court", href: "/student-life#sports" },
+      { label: "At the Table", href: "/student-life#table" },
+      { label: "Where & When", href: "/student-life#day" },
+      { label: "Faith & Service", href: "/student-life#chapel" },
       { label: "Health & Wellbeing", href: "/student-life#wellbeing" },
     ],
   },
@@ -63,11 +71,20 @@ export const sections: NavSection[] = [
     label: "Admissions",
     href: "/admissions",
     blurb: "How to enroll your child, what it costs, and how to visit us.",
+    /*
+       #enroll, #fees and #visit are load-bearing anchors and must keep those
+       ids: Navbar, Hero, Footer, About and Academics all link straight to
+       them. Only the labels and the two new sections (#why, #entry, #team)
+       changed when this page was rebuilt.
+    */
     children: [
-      { label: "How to Enroll", href: "/admissions#enroll" },
+      { label: "Why Crimson", href: "/admissions#why" },
       { label: "Fees", href: "/admissions#fees" },
+      { label: "Getting In", href: "/admissions#entry" },
+      { label: "The Process", href: "/admissions#enroll" },
+      { label: "Our Team", href: "/admissions#team" },
       { label: "Visit Us", href: "/admissions#visit" },
-      { label: "Frequently Asked Questions", href: "/admissions#faq" },
+      { label: "FAQ", href: "/admissions#faq" },
     ],
   },
   {
