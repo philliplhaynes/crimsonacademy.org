@@ -18,7 +18,7 @@ export const Team = () => {
             </div>
             <div>
               <div className="text-sm uppercase tracking-wider text-eyebrow">Principal</div>
-              <div className="font-heading text-2xl font-semibold">MUKABIRINDA Marie Claire</div>
+              <div className="font-heading text-2xl font-semibold">Marie Claire Mukabirinda</div>
               <p className="text-muted-foreground text-sm mt-2">
                 Leading Crimson Academy&apos;s mission of faith, character, and academic
                 excellence in the Kamonyi District.

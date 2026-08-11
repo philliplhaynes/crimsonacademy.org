@@ -185,7 +185,7 @@ const keyDates: { year: string; text: string }[] = [
   { year: "2013", text: "Ranked first in the Southern Province on the National Examinations for the first time." },
   { year: "2015", text: "Jean De Dieu Nsabimana becomes the second head teacher." },
   { year: "2016", text: "Six new classrooms, a library, and a teacher's house are built." },
-  { year: "2017", text: "MUKABIRINDA Marie Claire becomes the third head teacher, and leads the school today." },
+  { year: "2017", text: "Marie Claire Mukabirinda becomes the third head teacher, and leads the school today." },
   { year: "2019", text: "Transport and food programmes begin; karate, debate, gymnastics, football, and chorus are offered." },
   { year: "2024", text: "The Primary 6 class averages 90.4%, every graduate placing in Division A." },
   { year: "2026", text: "Two courts built, all classrooms and facilities renovated, grounds paved and planted." },
@@ -201,7 +201,7 @@ interface Head {
 const heads: Head[] = [
   { name: "Henry Ngolobe", years: "2011 – 2015", note: "Opened the school and took it from four classrooms to a full primary programme.", photo: headHenry },
   { name: "Jean De Dieu Nsabimana", years: "2015 – 2017", note: "Led the school through the 2016 expansion.", photo: headJeanDeDieu },
-  { name: "MUKABIRINDA Marie Claire", years: "2017 – present", note: "Third head teacher, and the school's principal today.", photo: headMarieClaire },
+  { name: "Marie Claire Mukabirinda", years: "2017 – present", note: "Third head teacher, and the school's principal today.", photo: headMarieClaire },
 ];
 
 /**
