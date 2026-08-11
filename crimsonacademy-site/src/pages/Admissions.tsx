@@ -33,35 +33,32 @@ import crest from "@/assets/crimson_tree.png";
 
 /*
  ═══════════════════════════════════════════════════════════════════════════
- FEES ARE NOT CONFIRMED. Do not publish this page until they are.
+ FEES — tuition confirmed by the owner, billing period still open.
 
- Two sources were supplied and they disagree:
-   • A fee table (screenshot) showing General Tuition  40,000.00
-   • A written brief             saying General Tuition 50,000.00
- The written brief is used below because it came later. That is a
- tie-break, not a confirmation.
+ CONFIRMED: General Tuition is 50,000.00, and there is no separate nursery
+ rate — every student pays the same tuition, nursery through Primary 6.
+ (An earlier fee table showed 40,000.00 and a separate Nursery Tuition
+ line; both are superseded. Do not reinstate them from that table.)
 
- Two further gaps, both unresolved:
+ STILL OPEN, and the reason this page shows amounts without a period:
    • BILLING PERIOD is stated nowhere. Per term or per year? The school
      runs three terms and Rwandan primaries usually bill per term, but
-     nothing supplied says so — so this page deliberately does NOT claim a
-     period. It shows amounts only. Add the period here once confirmed;
-     a fee table without one is confusing, a fee table with the wrong one
-     is worse.
+     nothing supplied says so, so nothing here claims one. Add it to the
+     table header and the worked example once confirmed — a fee table
+     without a period is confusing; one with the wrong period is worse.
    • CURRENCY is not stated either. RWF is used as the obvious reading for
      a Rwandan school.
-
- Nursery Tuition appears in the screenshot but not the written brief, and
- is carried through unchanged at 40,000.00 — confirm it did not move when
- General Tuition did.
  ═══════════════════════════════════════════════════════════════════════════
 */
 const feeGroups: { group: string; note?: string; rows: { item: string; sub: string; amount: string }[] }[] = [
   {
     group: "Tuition",
     rows: [
-      { item: "Nursery Tuition", sub: "Nursery A, B, C and Nursery Top", amount: "40,000.00" },
-      { item: "General Tuition", sub: "Primary 1 through Primary 6", amount: "50,000.00" },
+      {
+        item: "General Tuition",
+        sub: "Every student, nursery through Primary 6",
+        amount: "50,000.00",
+      },
     ],
   },
   {
@@ -354,7 +351,9 @@ const Admissions = () => {
             <div className="text-xs font-semibold uppercase tracking-wider text-accent">
               Worked example
             </div>
-            <h3 className="mt-2 font-heading text-lg font-semibold">A Primary 3 child, both meals</h3>
+            {/* Not grade-specific any more: tuition is uniform nursery
+                through P6, so one worked example covers every family. */}
+            <h3 className="mt-2 font-heading text-lg font-semibold">One student, both meals</h3>
             <dl className="mt-4">
               {[
                 ["General Tuition", "50,000.00"],
@@ -377,9 +376,8 @@ const Admissions = () => {
               </span>
             </div>
             <p className="mt-3 text-xs leading-relaxed text-primary-foreground/70">
-              Tuition only, without the meal plan:{" "}
-              <b className="text-accent">50,000.00</b>. A nursery child with both meals:{" "}
-              <b className="text-accent">100,000.00</b>.
+              Tuition only, without the meal plan: <b className="text-accent">50,000.00</b>. With
+              breakfast but no lunch: <b className="text-accent">65,000.00</b>.
             </p>
           </div>
         </div>
