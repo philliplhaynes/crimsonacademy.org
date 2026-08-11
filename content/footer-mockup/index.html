@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Footer Redesign — Before / After</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --background: 40 50% 96%;
+    --foreground: 0 12% 12%;
+    --primary: 352 66% 33%;
+    --primary-foreground: 40 46% 97%;
+    --secondary: 40 40% 92%;
+    --muted-foreground: 25 10% 38%;
+    --accent: 46 68% 47%;
+    --eyebrow: 38 55% 28%;
+    --border: 40 24% 84%;
+    --bg: hsl(var(--background));
+    --fg: hsl(var(--foreground));
+    --crimson: hsl(var(--primary));
+    --crimson-fg: hsl(var(--primary-foreground));
+    --cream2: hsl(var(--secondary));
+    --muted: hsl(var(--muted-foreground));
+    --gold: hsl(var(--accent));
+    --eyebrow-c: hsl(var(--eyebrow));
+    --line: hsl(var(--border));
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: Inter, ui-sans-serif, system-ui, sans-serif; line-height: 1.6; }
+  h1, h2, h3, h4 { font-family: Fraunces, ui-serif, Georgia, serif; font-weight: 600; margin: 0; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  a { color: inherit; text-decoration: none; }
+
+  /* page chrome around the two demo footers */
+  .intro { max-width: 780px; margin: 0 auto; padding: 56px 24px 32px; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--eyebrow-c); }
+  .intro h1 { font-size: 32px; margin-top: 10px; }
+  .intro p { color: var(--muted); margin-top: 14px; font-size: 16px; }
+  .label-bar {
+    max-width: 1180px; margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: center; gap: 10px; margin-top: 48px;
+  }
+  .label-bar .tag {
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+    padding: 4px 10px; border-radius: 999px;
+  }
+  .tag.current { background: hsl(var(--foreground) / 0.08); color: var(--muted); }
+  .tag.proposed { background: var(--gold); color: hsl(0 20% 12%); }
+  .label-bar h2 { font-size: 18px; }
+  .note {
+    max-width: 1180px; margin: 8px auto 0; padding: 0 24px;
+    font-size: 14px; color: var(--muted);
+  }
+
+  /* ============ shared footer layout ============ */
+  footer { margin-top: 24px; }
+  .foot-main { padding: 56px 0; }
+  .foot-grid { display: grid; gap: 40px; grid-template-columns: 1.5fr 3fr; }
+  @media (max-width: 900px) { .foot-grid { grid-template-columns: 1fr; } }
+  .brand-col p.tagline { font-size: 14px; margin-top: 16px; max-width: 32ch; }
+  .brand-col ul.contact { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+  .brand-col ul.contact li { display: flex; align-items: flex-start; gap: 8px; }
+  .brand-col svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; }
+
+  .sitemap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 24px; }
+  @media (max-width: 620px) { .sitemap { grid-template-columns: 1fr 1fr; } }
+  .sitemap h4 { font-size: 14px; }
+  .sitemap ul { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+
+  .foot-row { margin-top: 28px; padding-top: 20px; border-top: 1px solid; }
+  .foot-row h4 { font-size: 14px; margin-bottom: 12px; }
+  .foot-row ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 14px; }
+
+  .sub-bar { padding: 20px 0; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 12px; }
+
+  /* ============ CURRENT (cream) ============ */
+  .footer-current { background: var(--cream2); border-top: 1px solid var(--line); }
+  .footer-current .foot-row { border-color: var(--line); }
+  .footer-current a { color: var(--muted); }
+  .footer-current .sitemap h4 a, .footer-current .brand-col a.mail { color: var(--fg); }
+  .footer-current .sub-bar { border-top: 1px solid var(--line); color: var(--muted); }
+  .footer-current svg { stroke: var(--muted); }
+
+  /* ============ PROPOSED (crimson + gold) ============ */
+  .footer-proposed { background: var(--crimson); color: var(--crimson-fg); }
+
+  /* CTA band — the "one CTA moment" this design was missing */
+  .cta-band { padding: 48px 0 40px; border-bottom: 1px solid hsl(var(--primary-foreground) / 0.15); text-align: center; }
+  .cta-band .eyebrow-light { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
+  .cta-band h2 { font-size: 30px; color: var(--crimson-fg); margin-top: 10px; max-width: 40ch; margin-left: auto; margin-right: auto; }
+  .cta-band p { color: hsl(var(--primary-foreground) / 0.8); margin-top: 12px; max-width: 46ch; margin-left: auto; margin-right: auto; font-size: 15px; }
+  .cta-buttons { margin-top: 24px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 11px 22px; border-radius: 8px; font-size: 14px; font-weight: 600; }
+  .btn-solid { background: var(--gold); color: hsl(0 20% 12%); }
+  .btn-outline { border: 1.5px solid hsl(var(--primary-foreground) / 0.5); color: var(--crimson-fg); }
+
+  /* logo on a light plate — the dark-maroon lockup has no light variant,
+     so it needs a light backdrop to read on a crimson field */
+  .logo-plate {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: hsl(var(--primary-foreground) / 0.95);
+    border-radius: 12px; padding: 14px 20px;
+  }
+  .logo-plate img { height: 76px; width: auto; display: block; }
+
+  .footer-proposed .brand-col p.tagline { color: hsl(var(--primary-foreground) / 0.85); }
+  .footer-proposed .brand-col ul.contact { color: hsl(var(--primary-foreground) / 0.85); }
+  .footer-proposed .brand-col svg { stroke: var(--gold); }
+  .footer-proposed .brand-col a { color: var(--gold); }
+
+  .footer-proposed .sitemap h4, .footer-proposed .foot-row h4 { color: var(--crimson-fg); }
+  /* This is the whole point of the redesign — every link gold, not just a
+     few. Was accidentally cream/white here on the first pass, which is
+     the opposite of "every link/icon carries the gold accent." */
+  .footer-proposed .sitemap ul a, .footer-proposed .foot-row ul a { color: var(--gold); }
+  .footer-proposed .sitemap h4 a { color: var(--crimson-fg); }
+  .footer-proposed .foot-row { border-color: hsl(var(--primary-foreground) / 0.15); }
+  .footer-proposed svg.ext { width: 12px; height: 12px; }
+
+  .footer-proposed .sub-bar-wrap { background: hsl(352 66% 26%); }
+  .footer-proposed .sub-bar { color: hsl(var(--primary-foreground) / 0.7); }
+
+  /* annotation callouts on the proposed version */
+  .callout {
+    position: relative;
+  }
+  .callout::before {
+    content: attr(data-note);
+    position: absolute;
+    bottom: calc(100% + 8px); left: 0;
+    background: hsl(0 12% 12%); color: #fff;
+    font-size: 11px; font-weight: 600; line-height: 1.4; padding: 6px 10px; border-radius: 6px;
+    /* Was white-space: nowrap with long annotation text — an invisible
+       (opacity: 0) tooltip still counts toward the page's scrollable
+       area at its full unwrapped width, which is what caused horizontal
+       overflow on mobile. Capped width + wrapping fixes it at the root
+       instead of just hiding the symptom. */
+    width: max-content;
+    max-width: min(260px, calc(100vw - 32px));
+    white-space: normal;
+    opacity: 0; pointer-events: none; transition: opacity 0.15s;
+    z-index: 20;
+  }
+  .callout:hover::before { opacity: 1; }
+
+  /* Capping max-width wasn't enough — an absolutely positioned child still
+     inflates its positioned ancestor's scrollable overflow at its full box
+     size regardless of opacity or viewport clamping, so a wide tooltip on a
+     narrow button still overflowed the page. :hover doesn't fire on touch
+     anyway, so these annotations are desktop-only review aids — cut them
+     entirely below the breakpoint where they'd cause trouble. */
+  @media (max-width: 640px) {
+    .callout::before { content: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="intro">
+  <div class="eyebrow">Design Exploration</div>
+  <h1>Footer redesign — crimson + gold, with a CTA moment</h1>
+  <p>
+    Following up on "I'd do it with your existing gold accent token carrying every link/icon,
+    and I'd consider adding one CTA moment rather than just recoloring the current link columns
+    as-is." Same real content both times — same sitemap, same contact info, same partner links —
+    only the treatment changes. Hover any gold link below for a note on what changed and why.
+  </p>
+</div>
+
+<div class="label-bar">
+  <span class="tag current">Current</span>
+  <h2>What's live today</h2>
+</div>
+<footer class="footer-current">
+  <div class="container foot-main">
+    <div class="foot-grid">
+      <div class="brand-col">
+        <img src="../../crimsonacademy-site/src/assets/logo-vert.webp" alt="Crimson Academy" style="height:112px;width:auto;" />
+        <p class="tagline">Faith, character, and academic excellence in Kagina, Rwanda. Nursery through Primary 6.</p>
+        <ul class="contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg> Kagina, Kamonyi District, Southern Province, Rwanda</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg> <a class="mail" href="mailto:info@crimsonacademy.org">info@crimsonacademy.org</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg> English · Français · Kinyarwanda</li>
+        </ul>
+      </div>
+
+      <div>
+        <nav class="sitemap" aria-label="Site map">
+          <div><h4><a href="#">About</a></h4><ul><li><a href="#">Mission &amp; Values</a></li><li><a href="#">Our Christian Faith</a></li><li><a href="#">Our History</a></li><li><a href="#">Leadership &amp; Staff</a></li><li><a href="#">Contact &amp; Visit</a></li></ul></div>
+          <div><h4><a href="#">Academics</a></h4><ul><li><a href="#">Our Approach</a></li><li><a href="#">Nursery</a></li><li><a href="#">Lower Primary (P1–P3)</a></li><li><a href="#">Upper Primary (P4–P6)</a></li><li><a href="#">Exam Results &amp; Placement</a></li></ul></div>
+          <div><h4><a href="#">Student Life</a></h4><ul><li><a href="#">A Day at Crimson</a></li><li><a href="#">Sports &amp; Activities</a></li><li><a href="#">Arts &amp; Music</a></li><li><a href="#">Chapel &amp; Devotions</a></li><li><a href="#">Health &amp; Wellbeing</a></li></ul></div>
+          <div><h4><a href="#">Admissions</a></h4><ul><li><a href="#">How to Enroll</a></li><li><a href="#">Fees</a></li><li><a href="#">Visit Us</a></li><li><a href="#">Frequently Asked Questions</a></li></ul></div>
+          <div><h4><a href="#">News &amp; Events</a></h4><ul><li><a href="#">School News</a></li><li><a href="#">Calendar &amp; Term Dates</a></li></ul></div>
+          <div><h4><a href="#">Support Us</a></h4><ul><li><a href="#">Sponsor a Student</a></li><li><a href="#">Make a Gift</a></li><li><a href="#">Our Partners</a></li><li><a href="#">Annual Report</a></li></ul></div>
+        </nav>
+
+        <div class="foot-row">
+          <h4>Quick links</h4>
+          <ul><li><a href="#">Term Dates</a></li><li><a href="#">Fees</a></li><li><a href="#">How to Enroll</a></li><li><a href="#">Exam Results</a></li><li><a href="#">Leadership &amp; Staff</a></li><li><a href="#">Sponsor a Student</a></li></ul>
+        </div>
+
+        <div class="foot-row">
+          <h4>The Crimson family</h4>
+          <ul><li><a href="#">Crimson Foundation ↗</a></li><li><a href="#">Jenzabar Foundation ↗</a></li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sub-bar-wrap">
+    <div class="container sub-bar">
+      <span>© 2026 Crimson Academy of Kagina. All rights reserved.</span>
+      <span>In partnership with the Crimson Foundation &amp; the Jenzabar Foundation</span>
+    </div>
+  </div>
+</footer>
+
+<div class="label-bar">
+  <span class="tag proposed">Proposed</span>
+  <h2>Crimson + gold, with a CTA moment</h2>
+</div>
+<div class="note">
+  Hover the gold "Enroll Your Child" / "Sponsor a Student" buttons, the logo, and any link column
+  for what changed. Same sitemap, same six sections, same contact info — nothing was cut.
+</div>
+<footer class="footer-proposed">
+
+  <div class="cta-band">
+    <div class="container">
+      <div class="eyebrow-light">Every child deserves a chance to grow</div>
+      <h2>Give a child in Kagina their next chapter.</h2>
+      <p>Sponsorship covers tuition, meals, and materials. Top graduates earn scholarships to leading secondary boarding schools.</p>
+      <div class="cta-buttons">
+        <a class="btn btn-solid callout" href="#" data-note="New — the CTA moment. Berkeley Carroll closes on Inquire/Apply; this closes on Enroll/Sponsor, the two actions this site already asks for elsewhere.">Enroll Your Child</a>
+        <a class="btn btn-outline callout" href="#" data-note="Same destination as the existing Sponsor button in the navbar — repeated here as the footer's closing beat, not a new page.">Sponsor a Student</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container foot-main">
+    <div class="foot-grid">
+      <div class="brand-col">
+        <span class="logo-plate callout" data-note="Logo unchanged, but it needs a light plate to read here — the lockup is dark maroon with no light-color variant, so it disappears directly on crimson.">
+          <img src="../../crimsonacademy-site/src/assets/logo-vert.webp" alt="Crimson Academy" />
+        </span>
+        <p class="tagline">Faith, character, and academic excellence in Kagina, Rwanda. Nursery through Primary 6.</p>
+        <ul class="contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg> Kagina, Kamonyi District, Southern Province, Rwanda</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg> <a class="callout" href="mailto:info@crimsonacademy.org" data-note="Gold, not white — every clickable thing in this footer is gold now, so 'what can I click' stays obvious at a glance.">info@crimsonacademy.org</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg> English · Français · Kinyarwanda</li>
+        </ul>
+      </div>
+
+      <div>
+        <nav class="sitemap" aria-label="Site map">
+          <div><h4><a class="callout" href="#" data-note="Section headings stay white/bold, not gold — keeps one visual tier above the links they head, same hierarchy the current cream footer already has.">About</a></h4><ul><li><a href="#">Mission &amp; Values</a></li><li><a href="#">Our Christian Faith</a></li><li><a href="#">Our History</a></li><li><a href="#">Leadership &amp; Staff</a></li><li><a href="#">Contact &amp; Visit</a></li></ul></div>
+          <div><h4><a href="#">Academics</a></h4><ul><li><a href="#">Our Approach</a></li><li><a href="#">Nursery</a></li><li><a href="#">Lower Primary (P1–P3)</a></li><li><a href="#">Upper Primary (P4–P6)</a></li><li><a href="#">Exam Results &amp; Placement</a></li></ul></div>
+          <div><h4><a href="#">Student Life</a></h4><ul><li><a href="#">A Day at Crimson</a></li><li><a href="#">Sports &amp; Activities</a></li><li><a href="#">Arts &amp; Music</a></li><li><a href="#">Chapel &amp; Devotions</a></li><li><a href="#">Health &amp; Wellbeing</a></li></ul></div>
+          <div><h4><a href="#">Admissions</a></h4><ul><li><a href="#">How to Enroll</a></li><li><a href="#">Fees</a></li><li><a href="#">Visit Us</a></li><li><a href="#">Frequently Asked Questions</a></li></ul></div>
+          <div><h4><a href="#">News &amp; Events</a></h4><ul><li><a href="#">School News</a></li><li><a href="#">Calendar &amp; Term Dates</a></li></ul></div>
+          <div><h4><a href="#">Support Us</a></h4><ul><li><a href="#">Sponsor a Student</a></li><li><a href="#">Make a Gift</a></li><li><a href="#">Our Partners</a></li><li><a href="#">Annual Report</a></li></ul></div>
+        </nav>
+
+        <div class="foot-row">
+          <h4>Quick links</h4>
+          <ul><li><a href="#">Term Dates</a></li><li><a href="#">Fees</a></li><li><a href="#">How to Enroll</a></li><li><a href="#">Exam Results</a></li><li><a href="#">Leadership &amp; Staff</a></li><li><a href="#">Sponsor a Student</a></li></ul>
+        </div>
+
+        <div class="foot-row">
+          <h4>The Crimson family</h4>
+          <ul><li><a href="#">Crimson Foundation ↗</a></li><li><a href="#">Jenzabar Foundation ↗</a></li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-bar-wrap callout" data-note="Slightly darker crimson than the main footer — same two-tone trick Berkeley Carroll uses, gives the copyright line its own quiet register instead of blending into the main block.">
+    <div class="container sub-bar">
+      <span>© 2026 Crimson Academy of Kagina. All rights reserved.</span>
+      <span>In partnership with the Crimson Foundation &amp; the Jenzabar Foundation</span>
+    </div>
+  </div>
+</footer>
+
+<div style="max-width:1180px;margin:40px auto 80px;padding:0 24px;font-size:14px;color:var(--muted);">
+  <strong style="color:var(--fg);">Open question before this goes live:</strong> the logo lockup only exists in dark maroon, so it sits on a light plate above rather than directly on the crimson field. A true light/cream-colored version of the mark (matching how the crest's tree lines would look if drawn in cream instead of maroon) would let it sit directly on the crimson like the sitemap text does — worth commissioning if this direction moves forward, otherwise the plate is a fine permanent solution.
+</div>
+
+</body>
+</html>
