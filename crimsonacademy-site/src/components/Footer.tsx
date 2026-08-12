@@ -1,6 +1,6 @@
 import logoHorizWhite from "@/assets/logo-horiz-white.webp";
 import { Link } from "react-router-dom";
-import { MapPin, Mail, Globe, ArrowUpRight } from "lucide-react";
+import { MapPin, Mail, Globe } from "lucide-react";
 import { SocialLinks } from "@/components/SocialLinks";
 import { cn } from "@/lib/utils";
 
@@ -20,33 +20,6 @@ const quickLinks = [
   { label: "Portal Sign In", href: "/portal#login" },
 ];
 
-/**
- * Sister sites. Absolute URLs — these leave the Academy site.
- *
- * TODO(owner): GROUP_HOME is the new Crimson group landing page
- * (content/home-mockups/). Set this once you decide where it is hosted — its own
- * domain, or a path such as https://crimsonacademy.org/crimson. Until then the
- * link is omitted rather than pointed at a guessed URL.
- */
-const GROUP_HOME = "";
-
-const family = [
-  ...(GROUP_HOME
-    ? [
-        {
-          label: "Crimson (group)",
-          href: GROUP_HOME,
-          title: "The Crimson group home — Foundation, Investments, and Academy",
-        },
-      ]
-    : []),
-  {
-    label: "Crimson Foundation",
-    href: "https://crimsonfoundation.org",
-    title: "Crimson Foundation — 501(c)(3) non-profit",
-  },
-];
-
 export const Footer = () => {
   return (
     <footer className="bg-primary text-primary-foreground">
@@ -55,16 +28,23 @@ export const Footer = () => {
         site on the same two actions the navbar already offers (Enroll,
         Sponsor), not a new destination. Approved via the mockup at
         content/footer-mockup/index.html before landing here.
+
+        Given the site's own tan/cream (bg-secondary, "soft cream" in
+        App.css) rather than inheriting the crimson <footer> background —
+        every text and button colour below is set explicitly rather than
+        relying on the footer's default text-primary-foreground, since that
+        default is cream-on-crimson and would be nearly invisible cream-on-
+        cream here.
       */}
-      <div className="border-b border-primary-foreground/15 py-12 sm:py-14">
+      <div className="border-b border-foreground/10 bg-secondary py-12 text-foreground sm:py-14">
         <div className="container text-center">
-          <span className="text-sm font-semibold uppercase tracking-wider text-accent">
+          <span className="text-sm font-semibold uppercase tracking-wider text-eyebrow">
             Every child deserves a chance to grow
           </span>
-          <h2 className="mt-2.5 font-heading text-2xl font-semibold sm:text-3xl">
+          <h2 className="mt-2.5 font-heading text-2xl font-semibold text-primary sm:text-3xl">
             Give a child in Kagina their next chapter.
           </h2>
-          <p className="mx-auto mt-3 max-w-md text-sm text-primary-foreground/80">
+          <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground">
             Sponsorship covers tuition, meals, and materials. Top graduates earn scholarships to
             leading secondary boarding schools.
           </p>
@@ -77,7 +57,7 @@ export const Footer = () => {
             </Link>
             <Link
               to="/crimson-for-life#sponsor"
-              className="rounded-md border border-primary-foreground/40 px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-foreground/10"
+              className="rounded-md border border-primary/40 px-6 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary/10"
             >
               Sponsor a Student
             </Link>
@@ -178,32 +158,6 @@ export const Footer = () => {
         </div>
       </div>
 
-      {/*
-        The multi-column sitemap that used to live here is gone on request —
-        it moved to its own page, /site-map (one of the three legal links
-        below), rather than being deleted outright. "The Crimson family"
-        credit is kept, folded into this one line instead of its own titled
-        section now that it's the only thing left in this band.
-      */}
-      <div className="border-b border-primary-foreground/15 py-6">
-        <div className="container text-center text-sm text-primary-foreground/70">
-          In partnership with the{" "}
-          {family.map((f, i) => (
-            <span key={f.href}>
-              {i > 0 && " · "}
-              <a
-                href={f.href}
-                className="inline-flex items-center gap-1 text-accent transition-colors hover:text-primary-foreground"
-                title={f.title}
-              >
-                {f.label}
-                <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
-              </a>
-            </span>
-          ))}
-        </div>
-      </div>
-
       {/* Decorative dot texture, reused verbatim from Band's crimson/ink
           treatment in PosterHero.tsx rather than a new pattern. */}
       <div
@@ -215,29 +169,39 @@ export const Footer = () => {
       />
 
       {/*
-        Bottom bar: social icons and the three legal links sit together as one
-        centered group — not split to the two ends the way berkeleycarroll.org
-        arranges its own bottom bar — per the redesign asking for this specific
-        layout. Copyright drops to its own centered line underneath rather than
-        competing for the same line.
+        Bottom bar: social icons, the three legal links, and the copyright
+        line all sit together as one centered group, on one row where it
+        fits (lg+) and wrapping onto as many lines as it needs below that —
+        not split to opposite ends the way berkeleycarroll.org arranges its
+        own bottom bar, per what was asked for specifically.
       */}
       <div className="border-t border-primary-foreground/15 bg-foreground/10">
-        <div className="container flex flex-col items-center gap-4 py-6 text-xs text-primary-foreground/70">
-          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
-            <SocialLinks />
-            <span className="hidden h-4 w-px bg-primary-foreground/25 sm:block" aria-hidden="true" />
-            <nav aria-label="Legal" className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
-              {legalLinks.map((l) => (
-                <Link
-                  key={l.href}
-                  to={l.href}
-                  className="text-[0.75rem] font-semibold uppercase tracking-wide text-primary-foreground/80 transition-colors hover:text-accent"
-                >
-                  {l.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
+        {/*
+          pb-16 below sm: ScrollToTop is a fixed bottom-4 right-4 button, so
+          it always hovers over whatever sits in the viewport's bottom-right
+          corner once scrolled to the page's actual end — there's no document
+          height past the footer for the page to keep scrolling. Centering
+          everything onto wrapped lines put the copyright text's last line
+          exactly there at narrow widths (verified visually, not just via the
+          scrollWidth overflow check, which doesn't catch fixed-position
+          overlap at all). Extra bottom padding gives the button empty
+          background to float over instead of covering text.
+        */}
+        <div className="container flex flex-wrap items-center justify-center gap-x-5 gap-y-3 py-6 pb-16 text-xs text-primary-foreground/70 sm:pb-6">
+          <SocialLinks />
+          <span className="hidden h-4 w-px bg-primary-foreground/25 sm:block" aria-hidden="true" />
+          <nav aria-label="Legal" className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+            {legalLinks.map((l) => (
+              <Link
+                key={l.href}
+                to={l.href}
+                className="text-[0.75rem] font-semibold uppercase tracking-wide text-primary-foreground/80 transition-colors hover:text-accent"
+              >
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+          <span className="hidden h-4 w-px bg-primary-foreground/25 sm:block" aria-hidden="true" />
           <span>© {new Date().getFullYear()} Crimson Academy of Kagina. All rights reserved.</span>
         </div>
       </div>
