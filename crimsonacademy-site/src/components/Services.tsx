@@ -2,7 +2,7 @@ import { SectionHead } from "./SectionHead";
 import footballPhoto from "@/assets/sl-football.webp";
 import karatePhoto from "@/assets/sl-karate.webp";
 import outreachPhoto from "@/assets/family-outreach-visit.jpg";
-import graduationPhoto from "@/assets/graduation-p6.jpg";
+import graduationPhoto from "@/assets/p6-graduates-gifts.jpg";
 
 /**
  * Student Life — a tall photo collage under a centred two-tone head.
@@ -10,6 +10,16 @@ import graduationPhoto from "@/assets/graduation-p6.jpg";
  * Portrait frames rather than the squares mockup B used: at four across
  * they give the section vertical presence between two dense text sections,
  * which is the job this section is doing on the page.
+ *
+ * p6-graduates-gifts.jpg is pre-cropped to 3:4 before optimising, unlike
+ * every other photo here. Its source (P6_Graduates2) is a wide 4:3 group
+ * shot, and 4:3 is proportionally WIDER than this tile's 3:4 — so
+ * object-fit: cover shows the image's FULL height with no vertical
+ * cropping at all, and object-position's Y value has nothing to slide
+ * (verified in the browser: changing it did nothing). At full height, most
+ * of the tile filled with roof and sky above the crest, and the graduating
+ * class — the actual subject — was reduced to a sliver at the bottom. The
+ * source is cropped by hand instead, centred on the crowd.
  */
 const frames = [
   {
@@ -29,7 +39,7 @@ const frames = [
   },
   {
     photo: graduationPhoto,
-    alt: "Primary 6 graduates in caps and gowns at their graduation ceremony",
+    alt: "Primary 6 graduates in caps and gowns holding gift bags at their graduation ceremony",
     caption: "22 sponsored to secondary school",
   },
 ];
