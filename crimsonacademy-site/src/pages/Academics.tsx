@@ -12,7 +12,7 @@ import stripDancing from "@/assets/dancing.jpeg";
 import stripCampus from "@/assets/history-2016-expansion.jpg";
 import nurseryPhoto from "@/assets/nursery-graduation-2026.jpg";
 import lowerPhoto from "@/assets/contact-students.jpg";
-import upperPhoto from "@/assets/graduation-p6.jpg";
+import upperPhoto from "@/assets/p6-graduation-cake.jpg";
 import beyondPhoto from "@/assets/history-2013-graduates.jpg";
 import foodPhoto from "@/assets/history-2019-food-programme.jpg";
 import staffPhoto from "@/assets/staff-group.jpg";
@@ -689,7 +689,7 @@ const Academics = () => {
               ]}
             />
           </div>
-          <Shot src={upperPhoto} alt="Primary 6 graduates at the leaving ceremony" />
+          <Shot src={upperPhoto} alt="Primary 6 graduates in caps and gowns gathered around a cake at the leaving ceremony" />
         </div>
 
         <SubjectTable subjects={upperSubjects} grades={["P4", "P5", "P6"]} dark />
