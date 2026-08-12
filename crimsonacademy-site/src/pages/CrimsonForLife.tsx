@@ -5,7 +5,7 @@ import { findSection } from "@/nav";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-import heroPhoto from "@/assets/cfl-hero-students.webp";
+import heroPhoto from "@/assets/cfl-hero-class.jpg";
 import then2009 from "@/assets/cfl-then-2009.webp";
 import shoesPhoto from "@/assets/cfl-shoes.webp";
 import teachersPhoto from "@/assets/cfl-teachers.webp";
