@@ -1,0 +1,65 @@
+# fly.io deployment for crimsonacademy.org
+#
+# Create the app once, then deploy:
+#
+#   fly auth login
+#   fly launch --no-deploy --name crimson-academy   # reads this file
+#   fly deploy --remote-only                        # builds on Fly's builders
+#
+# --remote-only means Docker does not have to be running on your machine.
+#
+# NOTE ON THE APP NAME: it must be globally unique across all of fly.io, so
+# "crimson-academy" may already be taken by someone else. `fly launch` will say
+# so and let you pick another; whatever you choose goes here.
+
+app = "crimson-academy"
+
+# Kigali is not a Fly region. Johannesburg (jnb) is the closest one to Rwanda
+# and is the right primary for an audience that is mostly in-country.
+#
+# VERIFY THIS BEFORE DEPLOYING: run `fly platform regions` and confirm jnb is
+# still offered. I could not check it from here — flyctl is installed on this
+# machine but not logged in, and I am not going to ask you for a token. If jnb
+# has gone, `fra` (Frankfurt) is the usual second choice for East Africa.
+primary_region = "jnb"
+
+# Empty, but required: it tells Fly to build the Dockerfile in this directory
+# rather than look for a buildpack.
+[build]
+
+[http_service]
+  # nginx listens on 80 inside the container; Fly's edge handles TLS.
+  internal_port = 80
+
+  # Redirect http:// to https:// at the edge.
+  force_https = true
+
+  # Stop the machine when idle and start it on the next request. Costs almost
+  # nothing while nobody is visiting.
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+
+  # Deliberately 1, not 0.
+  #
+  # With 0 the site sleeps completely and the first visitor after an idle period
+  # waits for a cold start. For a school site that asks people for donations,
+  # making that visitor wait is a bad trade for a couple of dollars a month —
+  # the Crimson for Life page is the last place you want a slow first byte.
+  #
+  # Set this to 0 if cost matters more than that first impression.
+  min_machines_running = 1
+
+  # Serving static files needs no concurrency headroom; nginx handles far more
+  # than this, but these are the values Fly uses to decide when to add a
+  # machine, and a school site will never reach them.
+  [http_service.concurrency]
+    type = "requests"
+    soft_limit = 200
+    hard_limit = 250
+
+# A static site is nginx plus a few megabytes of files. The smallest VM is
+# generously sized for that; there is nothing to gain from more.
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "256mb"
+  cpus = 1
