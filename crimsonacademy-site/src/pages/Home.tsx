@@ -4,28 +4,48 @@ import { FAQ } from "@/components/FAQ";
 import { Hero } from "@/components/Hero";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Services } from "@/components/Services";
+import { StatementBand } from "@/components/StatementBand";
+import { Statistics } from "@/components/Statistics";
 import { Team } from "@/components/Team";
 import { Testimonials } from "@/components/Testimonials";
 
 /**
- * / — mockup B ("Editorial Front Door") from content/home-redesign-mockups/,
- * rebuilt on the design language the rest of the site converged on.
+ * / — mockup C ("The Statement") from content/home-redesign-mockups/.
  *
- * Two sections are gone rather than restyled, and the components with them:
- *   • Statistics — the four proof points now sit inside Hero, the way the
- *     About page's dossier cover carries its own fact strip.
- *   • Features ("Five pillars") — merged into HowItWorks, which was making
- *     the adjacent claim one section earlier with its own header and grid.
+ * The home page is centred, full-bleed and typographic, while the interior
+ * pages stay left-aligned and container-bound. That is a deliberate split,
+ * not drift: berkeleycarroll.org draws exactly the same line on its own
+ * site, and the reason holds here — an interior page opens with a
+ * breadcrumb and a sticky sub-nav slab, and a home page has neither to make
+ * room for.
  *
- * The component filenames are inherited from the original template (About,
- * HowItWorks, Services, Testimonials) and no longer describe what they
- * render — they are Mission, How We Teach, Student Life, and Stories from
- * Kagina respectively. Left as-is deliberately: renaming eight files across
- * an active branch buys nothing this change needs.
+ * The two devices C introduced — two-tone display headings and full-bleed
+ * statement bands — are now shared components (DisplayHeading,
+ * StatementBand) used across the site, so the home page is the fullest
+ * expression of the language rather than an exception to it.
+ *
+ * Two sections mockup C did not draw are kept anyway, restyled to its
+ * language rather than deleted: Mission (the six scriptural values are
+ * central to a Christian school's front page) and the FAQ (five real
+ * answers, and the only admissions entry point above the footer). Their
+ * absence from the mockup was a gap in a focused sketch, not a decision.
+ *
+ * Component filenames are inherited from the original template and no
+ * longer describe what they render — About is Mission, HowItWorks is
+ * Academics, Services is Student Life, Testimonials is Stories from Kagina.
+ * Left alone deliberately: renaming eight files across an active branch
+ * buys nothing this change needs.
  */
 const Home = () => (
   <>
     <Hero />
+    <Statistics />
+    <StatementBand
+      eyebrow="This is a school built on"
+      lead="Faith. Character."
+      pop="Academic excellence."
+      body="Founded in 2011 with four classrooms and 181 students, on a hillside the village cleared by hand. Fourteen years on, Crimson Academy still admits the children of the families who built it."
+    />
     <About />
     <HowItWorks />
     <Services />

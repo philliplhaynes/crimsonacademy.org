@@ -262,7 +262,8 @@ const StudentLife = () => {
     <>
       <PosterHero
         section={section}
-        title="Student Life"
+        title="Student"
+        titleAccent="Life"
         lede="Eight things a child can join at Crimson, and one that finds them. Character is formed on the stage, on the court, at the table, and in the village."
         image={heroPhoto}
         imagePosition="50% 38%"

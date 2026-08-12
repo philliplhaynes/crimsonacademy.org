@@ -826,7 +826,12 @@ const Academics = () => {
               alt: "Crimson Academy teaching staff",
               eb: "Our Teachers",
               t: "Twenty-three teachers, four of them language specialists",
-              p: "Thirty-four staff in all: 2 administrators, 1 pastor, 3 nursery teachers with 3 assistants, 6 lower and 6 upper school class teachers, 4 language teachers, and instructors in karate and football.",
+              // The headline number is the verified directory count (32). The
+// breakdown that follows is PARTIAL — it sums to roughly 27 and omits
+// non-teaching roles (cooks, drivers, accountant, head mistress), so
+// it has never reconciled with the total. Left as supplied rather than
+// invented; needs the school to confirm the full split.
+              p: "Thirty-two staff in all: 2 administrators, 1 pastor, 3 nursery teachers with 3 assistants, 6 lower and 6 upper school class teachers, 4 language teachers, and instructors in karate and football.",
               href: "/about#leadership",
               cta: "Meet the staff",
             },

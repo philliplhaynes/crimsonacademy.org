@@ -210,7 +210,8 @@ const CrimsonForLife = () => {
     <>
       <PosterHero
         section={section}
-        title="Crimson for Life"
+        title="Crimson for"
+        titleAccent="Life"
         lede="A school year at Crimson costs about $65 a child. This page shows you exactly where that goes — and what your gift changes."
         image={heroPhoto}
         imagePosition="50% 32%"
@@ -225,7 +226,7 @@ const CrimsonForLife = () => {
           <p>
             Crimson Academy began in 2011 with four classrooms and 181 children in a village where
             most families could not pay for school. Fourteen years later there are{" "}
-            <strong className="text-foreground">780 students</strong>, thirty-four staff, a library, a
+            <strong className="text-foreground">780 students</strong>, thirty-two staff, a library, a
             computer lab, a pitch and a hard court — and a Primary 6 class that has finished first in
             the Southern Province in twelve of the last thirteen years.
           </p>
@@ -530,7 +531,7 @@ const CrimsonForLife = () => {
                 about it.
               </p>
               <p>
-                The school is also the largest employer in the villages around it — thirty-four staff,
+                The school is also the largest employer in the villages around it — thirty-two staff,
                 from teachers to cooks to bus drivers, all local. A gift to Crimson Academy does not
                 land in Kagina. It circulates there.
               </p>
@@ -553,7 +554,13 @@ const CrimsonForLife = () => {
           which passes on 100% of your gift — there is no platform fee taken out of it.
         </p>
 
-        <div className="mt-8 grid gap-5 lg:grid-cols-3">
+        {/* [min-w-0] on the grid: a grid item's default min-width is auto,
+            i.e. its min-content width, so the "Donate to change lives"
+            button (240px of unbreakable label + padding) held these cards
+            at 300px inside a 272px column at 320px viewport and pushed the
+            whole page into a horizontal scroll. Pre-existing; found by the
+            responsive sweep for this change. */}
+        <div className="mt-8 grid gap-5 [&>*]:min-w-0 lg:grid-cols-3">
           <div className="flex flex-col rounded-2xl border bg-card p-6">
             <span className="text-[0.7rem] font-bold uppercase tracking-[0.06em] text-eyebrow">
               One-off or monthly

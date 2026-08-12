@@ -1,6 +1,7 @@
 import { Lock, ExternalLink, HelpCircle } from "lucide-react";
 import { PosterHero, Band } from "@/components/PosterHero";
 import { findSection } from "@/nav";
+import { SectionHead } from "@/components/SectionHead";
 
 import heroPhoto from "@/assets/portal-hero.jpg";
 import studentsPhoto from "@/assets/contact-students.jpg";
@@ -83,16 +84,6 @@ const steps = [
   },
 ];
 
-/** Section heading, matching Admissions.tsx's Head helper exactly. */
-const Head = ({ eyebrow, title }: { eyebrow: string; title: string }) => (
-  <>
-    <div className="text-xs font-semibold uppercase tracking-wider text-eyebrow">{eyebrow}</div>
-    <h2 className="mt-2 max-w-[26ch] font-heading text-2xl font-semibold leading-tight md:text-3xl">
-      {title}
-    </h2>
-  </>
-);
-
 const Portal = () => {
   const section = findSection("/portal")!;
 
@@ -108,7 +99,7 @@ const Portal = () => {
 
       {/* ---------- overview + sign in ---------- */}
       <Band id="overview">
-        <Head eyebrow="Portal" title="One account, everything about your child's education." />
+        <SectionHead eyebrow="Portal" title="One account, everything about" pop="your child's education." />
 
         <div className="mt-7 grid gap-7 lg:grid-cols-[1.1fr_1fr] lg:items-start">
           <div className="leading-relaxed text-muted-foreground">
@@ -167,7 +158,7 @@ const Portal = () => {
 
       {/* ---------- who can access ---------- */}
       <Band id="roles" ground="tint">
-        <Head eyebrow="Who Can Access the Portal" title="Built for four different people, in one place." />
+        <SectionHead eyebrow="Who Can Access the Portal" title="Built for four different people," pop="in one place." />
         <p className="mt-4 max-w-[65ch] text-muted-foreground">
           Everyone signs in to the same Portal — what you see depends on who you are.
         </p>
@@ -195,7 +186,7 @@ const Portal = () => {
 
       {/* ---------- getting started ---------- */}
       <Band id="getting-started">
-        <Head eyebrow="First Time Here" title="Three things to know before you sign in." />
+        <SectionHead eyebrow="First Time Here" title="Three things to know" pop="before you sign in." />
         <ol className="mt-7 grid gap-7 sm:grid-cols-3">
           {steps.map((s) => (
             <li key={s.n} className="border-t-[3px] border-primary pt-4">

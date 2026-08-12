@@ -24,6 +24,17 @@ interface PosterHeroProps {
   section: NavSection;
   /** The poster word(s). Rendered uppercase — pass it in sentence case. */
   title: string;
+  /**
+   * Optional second clause of the title, rendered in gold — the two-tone
+   * display treatment used across the site (see DisplayHeading.tsx).
+   *
+   * Optional because it only works where a title has a natural break.
+   * "Academics" and "Portal" are single words with nowhere to split, so
+   * they stay single-tone rather than being forced into a division that
+   * reads as a mistake. Where the emphasis falls is an editorial call, so
+   * there is no auto-splitting on the last word.
+   */
+  titleAccent?: string;
   lede: string;
   image: string;
   /** Alt text. Leave as "" when the photo is decorative, which it usually is here. */
@@ -35,6 +46,7 @@ interface PosterHeroProps {
 export const PosterHero = ({
   section,
   title,
+  titleAccent,
   lede,
   image,
   imageAlt = "",
@@ -108,6 +120,12 @@ export const PosterHero = ({
           */}
           <h1 className="mt-3 w-fit max-w-full font-heading text-[clamp(2.25rem,6.4vw,4.75rem)] font-black uppercase leading-[0.95] tracking-[-0.015em]">
             {title}
+            {titleAccent && (
+              <>
+                {" "}
+                <span className="text-accent">{titleAccent}</span>
+              </>
+            )}
             {/*
               Inside the h1, not beside it, so `em` resolves against the clamped
               title size — the rule thickness tracks the type automatically and

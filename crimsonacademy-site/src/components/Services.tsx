@@ -5,13 +5,11 @@ import outreachPhoto from "@/assets/students-outreach.webp";
 import graduationPhoto from "@/assets/graduation-p6.jpg";
 
 /**
- * Student Life — a photo collage instead of four icon-and-text cards.
+ * Student Life — a tall photo collage under a centred two-tone head.
  *
- * The four cards this replaces said "arts, athletics, service, scholarships"
- * in words on a page that already had two other card grids, while the school
- * has actual photographs of all four. The captions carry the same facts the
- * card copy did; the full detail lives on /student-life, which is where the
- * section links.
+ * Portrait frames rather than the squares mockup B used: at four across
+ * they give the section vertical presence between two dense text sections,
+ * which is the job this section is doing on the page.
  */
 const frames = [
   {
@@ -38,38 +36,35 @@ const frames = [
 
 export const Services = () => {
   return (
-    <section className="border-b py-14 sm:py-16">
+    <section className="border-b bg-secondary/40 py-16 sm:py-20">
       <div className="container">
         <SectionHead
           eyebrow="Student Life"
-          title="More than a school — a community."
-          lede="At Crimson Academy, character is formed in worship, in service, on the field, and on the stage. Our students learn what it means to lead with humility and to give back to the village that surrounds them."
+          title="More than a school —"
+          pop="a community."
+          align="center"
+          size="display"
+          swash
+          lede="Character is formed in worship, in service, on the field, and on the stage. “For even the Son of Man did not come to be served, but to serve.” — Mark 10:45"
         />
 
-        <blockquote className="mt-6 max-w-[65ch] rounded-lg border-l-4 border-accent bg-secondary/50 p-4 text-sm italic text-muted-foreground">
-          &ldquo;For even the Son of Man did not come to be served, but to serve.&rdquo;
-          <span className="mt-1 block text-xs font-semibold uppercase not-italic tracking-wide text-eyebrow">
-            Mark 10:45
-          </span>
-        </blockquote>
-
-        <ul className="mt-7 grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <ul className="mt-11 grid grid-cols-2 gap-3 lg:grid-cols-4">
           {frames.map((f) => (
-            <li key={f.caption} className="relative isolate overflow-hidden rounded-xl">
+            <li key={f.caption} className="relative isolate overflow-hidden rounded-2xl">
               <img
                 src={f.photo}
                 alt={f.alt}
-                className="aspect-square w-full object-cover"
+                className="aspect-[3/4] w-full object-cover"
                 loading="lazy"
               />
-              {/* Warm near-black rather than raw black, the same gradient the
-                  history chapter cards and staff portraits use, so overlaid
-                  captions stay readable on any of these photographs. */}
+              {/* Warm near-black, the same gradient the history chapter cards
+                  and staff portraits use, so overlaid captions stay readable
+                  on any of these photographs. */}
               <div
                 aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/15 to-transparent"
+                className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/10 to-transparent"
               />
-              <span className="absolute inset-x-0 bottom-0 p-3 text-xs font-semibold leading-snug text-primary-foreground">
+              <span className="absolute inset-x-0 bottom-0 p-3.5 text-xs font-bold leading-snug text-primary-foreground">
                 {f.caption}
               </span>
             </li>

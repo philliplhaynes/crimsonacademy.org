@@ -35,7 +35,8 @@ const News = () => {
     <>
       <PosterHero
         section={section}
-        title="News & Events"
+        title="News"
+        titleAccent="& Events"
         lede="What is happening at Crimson Academy, and the dates that matter for the school year."
         image={heroPhoto}
         imagePosition="50% 46%"

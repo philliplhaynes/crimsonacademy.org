@@ -64,7 +64,8 @@ const About = () => {
     <>
       <PosterHero
         section={section}
-        title="About us"
+        title="About"
+        titleAccent="us"
         lede="Crimson Academy of Kagina is a Christian primary school in Kamonyi District, Rwanda, serving 780 students from nursery through Primary 6."
         image={aboutHero}
         // Tuned to this photo: the crop shows a band of its height here and the

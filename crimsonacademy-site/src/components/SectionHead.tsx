@@ -1,34 +1,47 @@
+import { DisplayHeading } from "./DisplayHeading";
 import { cn } from "@/lib/utils";
 
 /**
- * Eyebrow + title + optional lede, left-aligned — the header shape every
- * dedicated page on the site uses.
+ * Eyebrow + heading + optional lede — the section header used across the
+ * site.
  *
- * This exists because the home page was the one place that couldn't keep it
- * straight: HowItWorks, Features, Testimonials and FAQ all centred their
- * headers inside a `max-w-2xl mx-auto`, while About and Team left-aligned,
- * so the page alternated between two conventions as you scrolled. Six home
- * sections sharing one component makes that class of drift impossible.
+ * Built on DisplayHeading so the two-tone treatment and the type scale live
+ * in one place. `pop` is optional throughout: a heading with no natural
+ * emphasis renders single-tone rather than being forced into a split.
  *
- * Admissions.tsx and Portal.tsx each still define a local `Head` with the
- * same markup. Consolidating those onto this component is a safe follow-up,
- * deliberately not done here to keep this change to the home page.
+ * `align` exists because the home page centres its headers (following
+ * berkeleycarroll.org's home page) while the interior pages left-align
+ * theirs (following its interior pages). That difference is deliberate, not
+ * drift — see the note in Home.tsx.
  */
 export const SectionHead = ({
   eyebrow,
   title,
+  pop,
   lede,
+  align = "left",
   light = false,
+  swash = false,
+  size = "section",
   className,
 }: {
   eyebrow: string;
   title: string;
+  /** Emphasised clause of the heading, in the accent colour. */
+  pop?: string;
   lede?: string;
-  /** For crimson/dark grounds, where the muted foreground colours invert. */
+  align?: "left" | "center";
+  /** For crimson/ink grounds, where the muted foreground colours invert. */
   light?: boolean;
+  swash?: boolean;
+  /**
+   * `section` (sentence case) is the default and what every interior page
+   * uses. The home page passes `display` for its centred uppercase heads.
+   */
+  size?: "display" | "section";
   className?: string;
 }) => (
-  <div className={className}>
+  <div className={cn(align === "center" && "text-center", className)}>
     <div
       className={cn(
         "text-xs font-semibold uppercase tracking-wider",
@@ -37,18 +50,20 @@ export const SectionHead = ({
     >
       {eyebrow}
     </div>
-    <h2
-      className={cn(
-        "mt-2 max-w-[26ch] font-heading text-2xl font-semibold leading-tight md:text-3xl",
-        light && "text-primary-foreground",
-      )}
-    >
-      {title}
-    </h2>
+    <DisplayHeading
+      lead={title}
+      pop={pop}
+      align={align}
+      light={light}
+      swash={swash}
+      size={size}
+      className="mt-3"
+    />
     {lede && (
       <p
         className={cn(
-          "mt-4 max-w-[65ch] leading-relaxed",
+          "mt-5 max-w-[62ch] leading-relaxed",
+          align === "center" && "mx-auto",
           light ? "text-primary-foreground/85" : "text-muted-foreground",
         )}
       >

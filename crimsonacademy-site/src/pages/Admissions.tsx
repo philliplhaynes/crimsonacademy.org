@@ -10,7 +10,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { findSection } from "@/nav";
-import { cn } from "@/lib/utils";
+import { SectionHead } from "@/components/SectionHead";
 
 import heroPhoto from "@/assets/admissions-hero.jpg";
 import whyPhoto from "@/assets/admissions-why.jpg";
@@ -214,23 +214,6 @@ const faqs = [
   },
 ];
 
-/** Section heading, matching the Academics page's band rhythm. */
-const Head = ({ eyebrow, title, light }: { eyebrow: string; title: string; light?: boolean }) => (
-  <>
-    <div
-      className={cn(
-        "text-xs font-semibold uppercase tracking-wider",
-        light ? "text-accent" : "text-eyebrow",
-      )}
-    >
-      {eyebrow}
-    </div>
-    <h2 className="mt-2 max-w-[24ch] font-heading text-2xl font-semibold leading-tight md:text-3xl">
-      {title}
-    </h2>
-  </>
-);
-
 /** A leader chip: small portrait, or the crest where no photo exists. */
 const PersonChip = ({ name, role, photo }: { name: string; role: string; photo?: string }) => (
   <span className="mr-2 mt-3 inline-flex items-center gap-2.5 rounded-full bg-secondary/70 py-1.5 pl-1.5 pr-4 text-xs text-muted-foreground">
@@ -256,7 +239,8 @@ const Admissions = () => {
     <>
       <PosterHero
         section={section}
-        title="Join us"
+        title="Join"
+        titleAccent="us"
         lede="The answers to what it costs, what your child needs, and who to ask — before you pick up the phone."
         image={heroPhoto}
         // Biased toward the crest on their shirts, same crop reasoning as the
@@ -280,7 +264,7 @@ const Admissions = () => {
 
       {/* ---------- why crimson ---------- */}
       <Band id="why">
-        <Head eyebrow="Why Crimson Academy" title="The question behind every other question on this page." />
+        <SectionHead eyebrow="Why Crimson Academy" title="The question behind every other question on this page." />
         <div className="mt-8 grid items-center gap-11 lg:grid-cols-2">
           <div>
             <p className="leading-relaxed text-muted-foreground">
@@ -339,7 +323,7 @@ const Admissions = () => {
 
       {/* ---------- fees ---------- */}
       <Band id="fees" ground="tint">
-        <Head eyebrow="What It Costs" title="Fees, in full, with nothing hidden." />
+        <SectionHead eyebrow="What It Costs" title="Fees, in full," pop="with nothing hidden." />
         <p className="mt-4 max-w-[65ch] text-muted-foreground">
           Fees are charged <b className="text-foreground">each term</b>, and the academic year runs
           in three terms from September to July. Tuition and meals are billed separately, so you can
@@ -448,7 +432,7 @@ const Admissions = () => {
 
       {/* ---------- getting in ---------- */}
       <Band id="entry">
-        <Head eyebrow="Getting In" title="Will my child get a place?" />
+        <SectionHead eyebrow="Getting In" title="Will my child" pop="get a place?" />
         <div className="mt-7 grid gap-5 lg:grid-cols-2">
           <div className="rounded-xl border bg-background p-6">
             <h3 className="font-heading text-lg font-semibold text-primary">
@@ -486,7 +470,7 @@ const Admissions = () => {
 
       {/* ---------- the process ---------- */}
       <Band id="enroll" ground="tint">
-        <Head eyebrow="The Process" title="Five steps to a place at Crimson." />
+        <SectionHead eyebrow="The Process" title="Five steps to" pop="a place at Crimson." />
         <p className="mt-4 max-w-[65ch] text-muted-foreground">
           The whole process usually takes a couple of weeks, and you deal with the same small group
           of people from start to finish. Crimson Academy has no separate admissions department.
@@ -519,7 +503,7 @@ const Admissions = () => {
 
       {/* ---------- admissions team ---------- */}
       <Band id="team">
-        <Head eyebrow="Who To Ask" title="You will be talking to the people who run the school." />
+        <SectionHead eyebrow="Who To Ask" title="You will be talking to the people who run the school." />
         <p className="mt-4 max-w-[65ch] text-muted-foreground">
           Applications are handled by the school's own leaders — the same people who will teach, lead
           and know your child once they are here. Here is who to ask for what.
@@ -559,7 +543,7 @@ const Admissions = () => {
 
       {/* ---------- visit ---------- */}
       <Band id="visit" ground="tint">
-        <Head eyebrow="Visit Us" title="Come and see the school for yourself." />
+        <SectionHead eyebrow="Visit Us" title="Come and see the school" pop="for yourself." />
         <div className="mt-7 grid gap-8 lg:grid-cols-2">
           <div className="space-y-4 leading-relaxed text-muted-foreground">
             <p>
@@ -611,7 +595,7 @@ const Admissions = () => {
 
       {/* ---------- faq ---------- */}
       <Band id="faq">
-        <Head eyebrow="Frequently Asked Questions" title="Questions families ask us" />
+        <SectionHead eyebrow="Frequently Asked Questions" title="Questions families" pop="ask us." />
         <div className="mt-7 max-w-3xl">
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((f, i) => (
