@@ -15,6 +15,9 @@ const Admissions = lazy(() => import("./pages/Admissions"));
 const News = lazy(() => import("./pages/News"));
 const CrimsonForLife = lazy(() => import("./pages/CrimsonForLife"));
 const Portal = lazy(() => import("./pages/Portal"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const NonDiscriminationPolicy = lazy(() => import("./pages/NonDiscriminationPolicy"));
+const SiteMap = lazy(() => import("./pages/SiteMap"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 /**
@@ -84,6 +87,9 @@ function App() {
             <Route path="/crimson-for-life" element={<CrimsonForLife />} />
             <Route path="/support" element={<SupportRedirect />} />
             <Route path="/portal" element={<Portal />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/non-discrimination-policy" element={<NonDiscriminationPolicy />} />
+            <Route path="/site-map" element={<SiteMap />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

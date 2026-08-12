@@ -2,8 +2,13 @@ import logoHorizWhite from "@/assets/logo-horiz-white.webp";
 import { Link } from "react-router-dom";
 import { MapPin, Mail, Globe, ArrowUpRight } from "lucide-react";
 import { SocialLinks } from "@/components/SocialLinks";
-import { sections } from "@/nav";
 import { cn } from "@/lib/utils";
+
+const legalLinks = [
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Non-Discrimination Policy", href: "/non-discrimination-policy" },
+  { label: "Site Map", href: "/site-map" },
+];
 
 const quickLinks = [
   { label: "Term Dates", href: "/news#calendar" },
@@ -174,52 +179,28 @@ export const Footer = () => {
       </div>
 
       {/*
-        Full sitemap, kept from the previous footer and still built from the
-        same nav.ts `sections` — Berkeley Carroll's own footer doesn't carry
-        one, but this site's is real navigation depth earned over the course
-        of the project and wasn't asked to go. Styled quieter than the band
-        above it (dimmer heading, smaller type) so it reads as reference
-        material sitting under the two things the redesign asked to foreground.
+        The multi-column sitemap that used to live here is gone on request —
+        it moved to its own page, /site-map (one of the three legal links
+        below), rather than being deleted outright. "The Crimson family"
+        credit is kept, folded into this one line instead of its own titled
+        section now that it's the only thing left in this band.
       */}
-      <div className="border-b border-primary-foreground/15 py-11">
-        <div className="container">
-          <nav aria-label="Site map" className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4">
-            {sections.map((section) => (
-              <div key={section.href}>
-                <h5 className="font-heading text-[0.7rem] font-bold uppercase tracking-wide text-primary-foreground/55">
-                  <Link to={section.href} className="transition-colors hover:text-accent">
-                    {section.label}
-                  </Link>
-                </h5>
-                <ul className="mt-2.5 space-y-1.5 text-[0.8rem] text-primary-foreground/85">
-                  {section.children.map((child) => (
-                    <li key={child.href}>
-                      <Link to={child.href} className="transition-colors hover:text-accent">
-                        {child.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </nav>
-
-          <p className="mt-7 border-t border-primary-foreground/15 pt-5 text-sm text-primary-foreground/70">
-            In partnership with the{" "}
-            {family.map((f, i) => (
-              <span key={f.href}>
-                {i > 0 && " · "}
-                <a
-                  href={f.href}
-                  className="inline-flex items-center gap-1 text-accent transition-colors hover:text-primary-foreground"
-                  title={f.title}
-                >
-                  {f.label}
-                  <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
-                </a>
-              </span>
-            ))}
-          </p>
+      <div className="border-b border-primary-foreground/15 py-6">
+        <div className="container text-center text-sm text-primary-foreground/70">
+          In partnership with the{" "}
+          {family.map((f, i) => (
+            <span key={f.href}>
+              {i > 0 && " · "}
+              <a
+                href={f.href}
+                className="inline-flex items-center gap-1 text-accent transition-colors hover:text-primary-foreground"
+                title={f.title}
+              >
+                {f.label}
+                <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
+              </a>
+            </span>
+          ))}
         </div>
       </div>
 
@@ -234,21 +215,30 @@ export const Footer = () => {
       />
 
       {/*
-        Social icons sit at the left of this bottom band with the copyright at
-        the right — the arrangement berkeleycarroll.org uses. They live in
-        SocialLinks.tsx rather than inline so a future footer change only has to
-        keep placing one component, and the verified account URLs (and the note
-        on why LinkedIn is absent) stay in one place.
+        Bottom bar: social icons and the three legal links sit together as one
+        centered group — not split to the two ends the way berkeleycarroll.org
+        arranges its own bottom bar — per the redesign asking for this specific
+        layout. Copyright drops to its own centered line underneath rather than
+        competing for the same line.
       */}
       <div className="border-t border-primary-foreground/15 bg-foreground/10">
-        {/* Icons left, copyright right — as on the reference, and also because
-            ScrollToTop floats over the bottom-right corner and would sit on top
-            of the last icon if the order were reversed. */}
-        <div className="container flex flex-col items-start justify-between gap-4 py-5 text-xs text-primary-foreground/70 sm:flex-row sm:items-center">
-          <SocialLinks />
-          <span className="sm:pr-12">
-            © {new Date().getFullYear()} Crimson Academy of Kagina. All rights reserved.
-          </span>
+        <div className="container flex flex-col items-center gap-4 py-6 text-xs text-primary-foreground/70">
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
+            <SocialLinks />
+            <span className="hidden h-4 w-px bg-primary-foreground/25 sm:block" aria-hidden="true" />
+            <nav aria-label="Legal" className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+              {legalLinks.map((l) => (
+                <Link
+                  key={l.href}
+                  to={l.href}
+                  className="text-[0.75rem] font-semibold uppercase tracking-wide text-primary-foreground/80 transition-colors hover:text-accent"
+                >
+                  {l.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+          <span>© {new Date().getFullYear()} Crimson Academy of Kagina. All rights reserved.</span>
         </div>
       </div>
     </footer>

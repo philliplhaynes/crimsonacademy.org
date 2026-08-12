@@ -41,7 +41,7 @@ const accounts = [
 ];
 
 export const SocialLinks = ({ className }: { className?: string }) => (
-  <ul className={cn("flex list-none items-center gap-2.5 p-0", className)}>
+  <ul className={cn("flex list-none items-center gap-3", className)}>
     {accounts.map(({ label, href, Icon }) => (
       <li key={label}>
         <a
@@ -52,9 +52,15 @@ export const SocialLinks = ({ className }: { className?: string }) => (
              leaves the site — the icon alone is not a name, and screen-reader
              users get no visual cue that a new tab is about to open. */
           aria-label={`${label} (opens in a new tab)`}
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-primary-foreground/40 text-primary-foreground/80 transition-colors hover:border-accent hover:bg-primary-foreground/10 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+          /*
+            Punched up from a thin translucent outline (border/40, icon/80)
+            to a filled gold badge — the outline read as barely-there against
+            the crimson field. Solid bg-accent at rest, not just on hover, so
+            the icons are legible without needing a pointer to find them.
+          */
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-sm transition-colors hover:bg-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
         >
-          <Icon className="h-[1.05rem] w-[1.05rem]" aria-hidden="true" />
+          <Icon className="h-[1.15rem] w-[1.15rem]" aria-hidden="true" strokeWidth={2.25} />
         </a>
       </li>
     ))}
