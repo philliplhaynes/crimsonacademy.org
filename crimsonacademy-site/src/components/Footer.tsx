@@ -1,6 +1,7 @@
 import logoHorizWhite from "@/assets/logo-horiz-white.webp";
 import { Link } from "react-router-dom";
 import { MapPin, Mail, Globe, ArrowUpRight } from "lucide-react";
+import { SocialLinks } from "@/components/SocialLinks";
 import { sections } from "@/nav";
 import { cn } from "@/lib/utils";
 
@@ -232,9 +233,22 @@ export const Footer = () => {
         )}
       />
 
+      {/*
+        Social icons sit at the left of this bottom band with the copyright at
+        the right — the arrangement berkeleycarroll.org uses. They live in
+        SocialLinks.tsx rather than inline so a future footer change only has to
+        keep placing one component, and the verified account URLs (and the note
+        on why LinkedIn is absent) stay in one place.
+      */}
       <div className="border-t border-primary-foreground/15 bg-foreground/10">
-        <div className="container py-5 text-xs text-primary-foreground/70">
-          © {new Date().getFullYear()} Crimson Academy of Kagina. All rights reserved.
+        {/* Icons left, copyright right — as on the reference, and also because
+            ScrollToTop floats over the bottom-right corner and would sit on top
+            of the last icon if the order were reversed. */}
+        <div className="container flex flex-col items-start justify-between gap-4 py-5 text-xs text-primary-foreground/70 sm:flex-row sm:items-center">
+          <SocialLinks />
+          <span className="sm:pr-12">
+            © {new Date().getFullYear()} Crimson Academy of Kagina. All rights reserved.
+          </span>
         </div>
       </div>
     </footer>

@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Youtube } from "lucide-react";
 import { PosterHero, Band } from "@/components/PosterHero";
-import { NewsGrid, DatedEvents, TermList } from "@/components/NewsEventsBand";
+import {
+  NewsGrid,
+  DatedEvents,
+  TermList,
+  PhotoGallery,
+  VideoGallery,
+} from "@/components/NewsEvents";
 import { findSection } from "@/nav";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -9,11 +15,11 @@ import { cn } from "@/lib/utils";
 import heroPhoto from "@/assets/news-hero-assembly.webp";
 
 /*
-  This page and the News & Events band at the foot of /admissions render the
-  same pieces from src/components/NewsEventsBand.tsx, over the same data in
-  src/data/news.ts. Admissions gets the compact arrangement (stories with the
-  calendar as a sidebar); here the calendar is the point of its own section, so
-  it spreads across the page and the terms carry their detail text.
+  Built from the pieces in src/components/NewsEvents.tsx over the data in
+  src/data/news.ts. /admissions briefly carried a compact version of the news
+  band; that has been removed now this page exists, so the sidebar variants of
+  DatedEvents and TermList are unused there but kept — they are what let the
+  calendar work as a section in its own right here.
 
   #news and #calendar are load-bearing anchors — Footer, About and StudentLife
   all link straight to them. Keep the ids.
@@ -71,6 +77,52 @@ const News = () => {
           </Link>
           .
         </p>
+      </Band>
+
+      {/* ── photo & video library ─────────────────────────────────────── */}
+      <Band id="library" ground="ink">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <span className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-accent">
+              Photo &amp; Video Library
+            </span>
+            <h2 className="mt-2 font-heading text-[clamp(1.7rem,4vw,2.875rem)] font-black uppercase leading-[0.95] tracking-[-0.015em] text-primary-foreground">
+              Photographs &amp; film
+            </h2>
+          </div>
+          <a
+            href="https://www.youtube.com/@CrimsonAcademy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              buttonVariants({ variant: "outline" }),
+              "rounded-full border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10",
+            )}
+          >
+            <Youtube className="mr-2 h-4 w-4" aria-hidden="true" />
+            Our YouTube channel
+          </a>
+        </div>
+        <p className="mt-3.5 max-w-[62ch] leading-relaxed text-primary-foreground/85">
+          Everything here was photographed or filmed at Kagina. The clips below are{" "}
+          <strong className="text-primary-foreground">two or three seconds each</strong> — moments
+          caught rather than films — and they start paused, so nothing downloads until you press
+          play. For full-length video, our YouTube channel is the place to go.
+        </p>
+
+        <div className="mt-9">
+          <div className="mb-3.5 text-[0.7rem] font-bold uppercase tracking-[0.1em] text-accent">
+            Moments from campus
+          </div>
+          <VideoGallery />
+        </div>
+
+        <div className="mt-11">
+          <div className="mb-3.5 text-[0.7rem] font-bold uppercase tracking-[0.1em] text-accent">
+            Photographs
+          </div>
+          <PhotoGallery />
+        </div>
       </Band>
 
       {/* ── calendar & term dates ─────────────────────────────────────── */}

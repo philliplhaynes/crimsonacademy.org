@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
-import { Band } from "@/components/PosterHero";
-import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { stories, terms, upcomingDates } from "@/data/news";
+import { stories, terms, upcomingDates, gallery, videos } from "@/data/news";
 
 /**
  * News and dates, in pieces so /news and /admissions can share them.
@@ -15,11 +12,16 @@ import { stories, terms, upcomingDates } from "@/data/news";
  *   NewsGrid      a lead story with the rest beside it
  *   DatedEvents   the calendar, as a narrow rail or a full-width row
  *   TermList      the three terms
- *   NewsEventsBand  all of it as one band — used at the foot of /admissions
+ *   PhotoGallery  the captioned photograph grid
+ *   VideoGallery  the clips, poster-first and preload="none"
  *
- * Content comes from src/data/news.ts, shared by both pages, so the dates can
- * never disagree between them. The dated events are still the 2024–2025
- * calendar; see the warning block in that file.
+ * These were briefly combined into a single band at the foot of /admissions.
+ * That band is gone — the content has its own page now — but the pieces stay
+ * split, because the rail/row and compact/detailed variants are what let the
+ * calendar work both as a sidebar and as a section in its own right.
+ *
+ * Content comes from src/data/news.ts. The dated events are still the
+ * 2024–2025 calendar; see the warning block in that file.
  */
 
 /** A lead story with the remaining ones beside it. */
@@ -137,55 +139,73 @@ export const TermList = ({ withDetail = false }: { withDetail?: boolean }) =>
     </div>
   );
 
-/** All of it as one band, for the foot of a page that is about something else. */
-export const NewsEventsBand = ({ id = "news-events" }: { id?: string }) => (
-  <Band id={id} ground="tint">
-    <div className="flex flex-wrap items-end justify-between gap-4">
-      <div>
-        <span className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-eyebrow">
-          News &amp; Events
-        </span>
-        <h2 className="mt-2 font-heading text-[clamp(1.7rem,4vw,2.875rem)] font-black uppercase leading-[0.95] tracking-[-0.015em] text-foreground">
-          What&apos;s happening right now
-        </h2>
-      </div>
-      <Link to="/news" className={cn(buttonVariants({ variant: "outline" }), "rounded-full")}>
-        All news &amp; dates
-      </Link>
-    </div>
-    <p className="mt-3.5 max-w-[60ch] leading-relaxed text-muted-foreground">
-      Deciding on a school is easier when you can see it in motion. Here is what the last few months
-      actually looked like, and the dates you will need if you are enrolling for the coming year.
-    </p>
+// ── the library ───────────────────────────────────────────────────────────
 
-    <div className="mt-9 grid items-start gap-8 lg:grid-cols-[minmax(0,1.62fr)_minmax(0,1fr)]">
-      <div>
-        <div className="mb-3.5 text-[0.7rem] font-bold uppercase tracking-[0.1em] text-eyebrow">
-          Latest from campus
-        </div>
-        <NewsGrid />
-      </div>
+/**
+ * The photograph gallery.
+ *
+ * No lightbox, deliberately. A lightbox is a modal, and a modal has to trap
+ * focus, restore it on close, handle Escape, and stop the page behind it
+ * scrolling — a real amount of behaviour for the sole benefit of seeing a
+ * 900px image at 1200px. These are captioned records of school life, not
+ * prints for sale. If a visitor wants one larger, the browser's own
+ * open-image-in-new-tab already does it, and works without JavaScript.
+ */
+export const PhotoGallery = ({ className }: { className?: string }) => (
+  <ul
+    className={cn(
+      "grid list-none grid-cols-2 gap-3 p-0 sm:grid-cols-3 lg:grid-cols-4",
+      className,
+    )}
+  >
+    {gallery.map((g) => (
+      <li key={g.src} className="overflow-hidden rounded-xl border bg-card">
+        <img
+          src={g.src}
+          alt={g.alt}
+          className="aspect-[4/3] w-full object-cover"
+          loading="lazy"
+        />
+        <p className="px-3 py-2.5 text-[0.78rem] leading-snug text-muted-foreground">{g.caption}</p>
+      </li>
+    ))}
+  </ul>
+);
 
-      <div className="rounded-2xl border bg-card p-6">
-        <h3 className="font-heading text-lg font-semibold">Dates for enrolling families</h3>
-        <DatedEvents layout="rail" />
-        <div className="mt-5 border-t pt-4">
-          <div className="mb-2 text-[0.7rem] font-bold uppercase tracking-[0.1em] text-eyebrow">
-            The year at a glance
-          </div>
-          <TermList />
-        </div>
-        <Link
-          to="/admissions#visit"
-          className={cn(
-            buttonVariants(),
-            "mt-5 w-full rounded-full bg-accent text-accent-foreground hover:bg-accent/90",
-          )}
+/**
+ * The video gallery.
+ *
+ * `preload="none"` is the whole reason this is affordable: five clips is about
+ * 7.6 MB, and none of it moves until a visitor presses play. The poster is a
+ * still from the clip itself, so the grid looks complete while weighing what a
+ * few photographs weigh. Native controls rather than a custom player — they are
+ * keyboard accessible and understood on every phone in the country.
+ */
+export const VideoGallery = ({ className }: { className?: string }) => (
+  <ul className={cn("grid list-none grid-cols-1 gap-5 p-0 sm:grid-cols-2 lg:grid-cols-3", className)}>
+    {videos.map((v) => (
+      <li key={v.src} className="overflow-hidden rounded-2xl border bg-card">
+        <video
+          className="aspect-video w-full bg-secondary object-cover"
+          src={v.src}
+          poster={v.poster}
+          controls
+          preload="none"
+          playsInline
         >
-          Arrange a visit
-          <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-        </Link>
-      </div>
-    </div>
-  </Band>
+          {/* Reached only if the browser cannot play H.264 at all. */}
+          <a href={v.src}>Download this clip</a>
+        </video>
+        <div className="p-4">
+          {/* text-foreground explicitly: this card sits inside an ink Band, which
+              sets text-primary-foreground on the section, and a near-white
+              heading on a near-white card is invisible. */}
+          <h3 className="font-heading text-[0.98rem] font-semibold leading-snug text-foreground">
+            {v.title}
+          </h3>
+          <p className="mt-1 text-[0.8rem] leading-relaxed text-muted-foreground">{v.detail}</p>
+        </div>
+      </li>
+    ))}
+  </ul>
 );

@@ -93,6 +93,7 @@ export const sections: NavSection[] = [
     blurb: "What is happening on campus, and when.",
     children: [
       { label: "School News", href: "/news#news" },
+      { label: "Photo & Video Library", href: "/news#library" },
       { label: "Calendar & Term Dates", href: "/news#calendar" },
     ],
   },
