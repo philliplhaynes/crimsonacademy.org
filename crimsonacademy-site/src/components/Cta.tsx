@@ -15,10 +15,10 @@ export const Cta = () => {
           of opportunity.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
-          <Link to="/support#sponsor" className={buttonVariants({ variant: "secondary" })}>
+          <Link to="/crimson-for-life#sponsor" className={buttonVariants({ variant: "secondary" })}>
             Sponsor a Student <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
-          <Link to="/support#partners" className="inline-flex items-center justify-center rounded-md border border-primary-foreground/40 px-6 py-2 text-sm font-medium hover:bg-primary-foreground/10 transition-colors">
+          <Link to="/crimson-for-life#partners" className="inline-flex items-center justify-center rounded-md border border-primary-foreground/40 px-6 py-2 text-sm font-medium hover:bg-primary-foreground/10 transition-colors">
             Partner with Crimson Foundation
           </Link>
         </div>

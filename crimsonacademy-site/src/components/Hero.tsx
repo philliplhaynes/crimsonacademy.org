@@ -36,7 +36,7 @@ export const Hero = () => {
               Enroll your child <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
             <Link
-              to="/support#sponsor"
+              to="/crimson-for-life#sponsor"
               className="inline-flex items-center justify-center rounded-md border border-primary-foreground/40 px-6 py-2 text-sm font-medium transition-colors hover:bg-primary-foreground/10"
             >
               Sponsor a student

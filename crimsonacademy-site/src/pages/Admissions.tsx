@@ -9,6 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { NewsEventsBand } from "@/components/NewsEventsBand";
 import { findSection } from "@/nav";
 import { cn } from "@/lib/utils";
 
@@ -633,6 +634,12 @@ const Admissions = () => {
           </p>
         </div>
       </Band>
+
+      {/* ---------- news & events ----------
+          A family choosing a school wants to see it in motion and wants the
+          dates, which is why the reference site carries recent posts on its
+          admissions page too. Content is shared with /news. */}
+      <NewsEventsBand />
     </>
   );
 };

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Crimson for Life — Design Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: hsl(40 50% 96%); --fg: hsl(0 12% 12%); --crimson: hsl(352 66% 33%);
+    --muted: hsl(25 10% 38%); --gold: hsl(46 68% 47%); --line: hsl(40 24% 84%);
+    --cream2: hsl(40 40% 92%); --eyebrow-c: hsl(38 55% 28%);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: Inter, ui-sans-serif, system-ui, sans-serif; line-height: 1.6; }
+  h1,h2,h3 { font-family: Fraunces, ui-serif, Georgia, serif; font-weight: 600; margin: 0; }
+  .container { max-width: 1120px; margin: 0 auto; padding: 48px 24px 80px; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--eyebrow-c); }
+  h1 { font-size: 34px; margin-top: 10px; }
+  .intro { max-width: 760px; color: var(--muted); margin-top: 14px; font-size: 16px; }
+
+  .verdict { margin-top: 28px; border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 10px; padding: 20px 22px; background: #fff; }
+  .verdict + .verdict { margin-top: 16px; }
+  .verdict.flag { border-left-color: var(--crimson); }
+  .verdict h3 { font-size: 17px; }
+  .verdict p { font-size: 14.5px; color: var(--muted); margin: 10px 0 0; }
+  table.w { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 13.5px; }
+  table.w th, table.w td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.w th { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; }
+  table.w td.num { font-family: Fraunces, serif; font-weight: 700; white-space: nowrap; text-align: right; }
+  .good { color: hsl(150 45% 30%); }
+  .bad { color: var(--crimson); }
+  .thumb { width: 74px; height: 50px; object-fit: cover; border-radius: 5px; display: block; }
+
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
+  @media (max-width: 780px) { .cards { grid-template-columns: 1fr; } }
+  .card { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #fff; text-decoration: none; color: inherit; display: block; transition: box-shadow .15s, transform .15s; }
+  .card:hover { box-shadow: 0 8px 24px hsl(0 12% 12% / .1); transform: translateY(-2px); }
+  .card .frame { aspect-ratio: 16/11; overflow: hidden; position: relative; background: var(--cream2); }
+  .card iframe { width: 400%; height: 400%; transform: scale(.25); transform-origin: top left; border: none; pointer-events: none; }
+  .card .body { padding: 20px; }
+  .card .letter { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--crimson); color: #fff; font-family: Fraunces, serif; font-weight: 700; font-size: 14px; }
+  .card h2 { font-size: 19px; margin-top: 12px; }
+  .card .sub { font-size: 12.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; color: var(--crimson); margin-top: 3px; }
+  .card p { font-size: 14px; color: var(--muted); margin-top: 10px; }
+  .card ul { margin: 10px 0 0; padding-left: 18px; font-size: 13.5px; color: var(--muted); }
+  .card li { margin-bottom: 4px; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: 3px 8px; border-radius: 999px; background: hsl(46 68% 47% / .18); color: hsl(38 65% 28%); margin-top: 12px; }
+  code { background: var(--cream2); padding: 1px 5px; border-radius: 4px; font-size: .92em; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="eyebrow">Design Exploration</div>
+  <h1>Crimson for Life — a new giving page, plus News &amp; Events on Admissions</h1>
+  <p class="intro">
+    Two mockups. The first is a <strong>new top-level page</strong> modelled on
+    <a href="https://www.berkeleycarroll.org/lions-for-life">Berkeley Carroll's Lions for Life</a> —
+    poster hero, crimson pill sub-nav, an intro that ends on a single line, a giving-levels table, a
+    decorative rule with the crest glyph, and coloured &ldquo;what your support makes possible&rdquo;
+    cards. The second adds a <strong>News &amp; Events band to the Admissions page</strong>, which is
+    how Berkeley Carroll surfaces recent posts on theirs.
+  </p>
+
+  <div class="verdict flag">
+    <h3>Crimson for Life should replace &ldquo;Support Us&rdquo;, not sit beside it</h3>
+    <p>
+      Berkeley Carroll's nav has five items and &ldquo;Lions for Life&rdquo; <em>is</em> their giving
+      item — it isn't an extra alongside a generic &ldquo;Giving&rdquo;. Crimson's nav already has six
+      items, and &ldquo;Support Us&rdquo; already covers sponsorship, gifts, partners and the annual
+      report. Adding a seventh item that duplicates the sixth would make the nav worse.
+    </p>
+    <p>
+      So the mockup shows <strong>Crimson for Life in the sixth slot</strong>, absorbing what
+      <code>/support</code> does today. If you'd rather keep both, say so — but then the two pages need
+      genuinely different jobs, and right now they don't have them.
+    </p>
+    <table class="w">
+      <tr><th>Decision needed</th><th>What I'd do</th></tr>
+      <tr><td>Route</td><td>New <code>/crimson-for-life</code>; redirect <code>/support</code> to it</td></tr>
+      <tr><td>Existing links</td><td><code>Footer.tsx</code>, <code>Academics.tsx</code> and <code>StudentLife.tsx</code> link to <code>/support#sponsor</code> and <code>#annual-report</code> — those anchors get carried over so nothing breaks</td></tr>
+      <tr><td>Nav label</td><td>&ldquo;Crimson for Life&rdquo; replaces &ldquo;Support Us&rdquo;</td></tr>
+    </table>
+  </div>
+
+  <div class="verdict">
+    <h3>The page is built on your real budget, not on adjectives</h3>
+    <p>
+      Berkeley Carroll's giving levels are named circles — Lion's Circle at $25,000, Sterling Circle at
+      $1,000. That works for a Brooklyn private school. It would read as fantasy on a page about a
+      village school in Kamonyi, so the equivalent section here names <strong>things instead of
+      circles</strong>, every one a real line from the 2024–2025 report, converted at the report's own
+      rate of 1,350 RWF to the dollar so you can check the arithmetic.
+    </p>
+    <table class="w">
+      <tr><th>Gift</th><th>What it covers</th><th>Derived from</th></tr>
+      <tr><td class="num">$17</td><td>A term of meals for one child</td><td>10,407,180 ÷ 150 nursery children ÷ 3 terms</td></tr>
+      <tr><td class="num">$51</td><td>A year of meals for one child</td><td>10,407,180 ÷ 150</td></tr>
+      <tr><td class="num">$65</td><td>One child's whole share of a school year</td><td>68,816,810 ÷ 780 students</td></tr>
+      <tr><td class="num">$519</td><td>A month of diesel for the coaster</td><td>Budget assumption: 700,000/month</td></tr>
+      <tr><td class="num">$5,478</td><td>The year's rice</td><td>Food programme line: 7,395,180</td></tr>
+      <tr><td class="num">$11,410</td><td>The whole transport operation for a year</td><td>Transport total: 15,398,894</td></tr>
+    </table>
+    <p>
+      The <strong>$65 per child per year</strong> figure is the page's spine — it's in the hero, the
+      budget section, the giving table and the closing CTA. It is the most persuasive number the school
+      has and it isn't currently anywhere on the site.
+    </p>
+  </div>
+
+  <div class="verdict flag">
+    <h3>Three things to resolve before this page goes live</h3>
+    <table class="w">
+      <tr><th>Item</th><th>Detail</th></tr>
+      <tr>
+        <td><strong>The Zeffy form's own copy</strong></td>
+        <td>
+          It currently runs Zeffy's stock placeholder text — &ldquo;a brighter, more compassionate world
+          for all&rdquo;, &ldquo;Every act of kindness&rdquo; — and says nothing about Kagina, the
+          school, or what a gift buys. It is the last thing a donor reads before deciding. Worth
+          replacing with the narrative from this page. (Campaign confirmed as
+          <em>Donate to Change Lives</em>, organised by <strong>Crimson Foundation Inc</strong>.)
+        </td>
+      </tr>
+      <tr>
+        <td><strong>One unverified sentence</strong></td>
+        <td>
+          The page says &ldquo;nine out of ten of our students come from the surrounding villages&rdquo;.
+          The report gives gender and ethnicity splits but no catchment breakdown, so that figure is
+          flagged in-page and needs a real number or removal.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>A budget inconsistency in your own report</strong></td>
+        <td>
+          The report's total converts cleanly at 1,350 (68,816,810 ÷ 1,350 = 50,975.41, matching its own
+          USD total). But its salary line shows $19,292.91 against 25,080,786 RWF, which implies about
+          1,300. I used 1,350 throughout for consistency and said so on the page — but the report itself
+          should be corrected.
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="verdict">
+    <h3>Photographs — twelve, all from the asset folder</h3>
+    <p>
+      Chosen from the same 156-image contact-sheet pass as the Student Life work, favouring the ones
+      that carry the giving argument rather than the prettiest ones.
+      <strong>12,750 KB of camera originals down to 1,227 KB</strong> — a 91% reduction, measured.
+    </p>
+    <table class="w">
+      <tr><th></th><th>Used for</th><th>Source</th><th>Original</th><th>Optimised</th></tr>
+      <tr><td><img class="thumb" src="img/hero-students.webp" alt=""></td><td>Hero</td><td><code>IMG_2475.JPG</code></td><td class="num">2335 KB</td><td class="num good">135 KB</td></tr>
+      <tr><td><img class="thumb" src="img/then-2009.webp" alt=""></td><td>Kagina in 2009, before the school</td><td><code>history-2009-first-visit.jpg</code></td><td class="num">411 KB</td><td class="num good">158 KB</td></tr>
+      <tr><td><img class="thumb" src="img/shoes.webp" alt=""></td><td>The gap a gift closes</td><td><code>IMG_8184.JPG</code></td><td class="num">2186 KB</td><td class="num good">56 KB</td></tr>
+      <tr><td><img class="thumb" src="img/teachers.webp" alt=""></td><td>Pillar — our teachers</td><td><code>IMG_2650.JPG</code></td><td class="num">2870 KB</td><td class="num good">42 KB</td></tr>
+      <tr><td><img class="thumb" src="img/meals.webp" alt=""></td><td>Pillar — the food programme</td><td><code>IMG_8408.JPG</code></td><td class="num">347 KB</td><td class="num good">47 KB</td></tr>
+      <tr><td><img class="thumb" src="img/whole-school.webp" alt=""></td><td>Pillar — the buses</td><td><code>IMG_4978.JPG</code></td><td class="num">2301 KB</td><td class="num good">120 KB</td></tr>
+      <tr><td><img class="thumb" src="img/graduates.webp" alt=""></td><td>Pillar — beyond Primary 6</td><td><code>history-2013-graduates.jpg</code></td><td class="num">191 KB</td><td class="num good">68 KB</td></tr>
+      <tr><td><img class="thumb" src="img/livestock.webp" alt=""></td><td>The livestock programme</td><td><code>IMG_7334.JPG</code></td><td class="num">319 KB</td><td class="num good">51 KB</td></tr>
+      <tr><td><img class="thumb" src="img/potters.webp" alt=""></td><td>The Potters' trade</td><td><code>faith-potters-hands.jpg</code></td><td class="num">124 KB</td><td class="num good">40 KB</td></tr>
+      <tr><td><img class="thumb" src="img/strip-build.webp" alt=""></td><td>Capital projects strip</td><td><code>IMG_8182.JPG</code></td><td class="num">635 KB</td><td class="num good">273 KB</td></tr>
+      <tr><td><img class="thumb" src="img/strip-celebrate.webp" alt=""></td><td>Closing strip</td><td><code>IMG_6991.JPG</code></td><td class="num">632 KB</td><td class="num good">89 KB</td></tr>
+      <tr><td><img class="thumb" src="img/distribution.webp" alt=""></td><td>Spare — provisions being bagged</td><td><code>IMG_5390.JPG</code></td><td class="num">394 KB</td><td class="num good">143 KB</td></tr>
+      <tr><td></td><td><strong>Total</strong></td><td></td><td class="num bad">12,750 KB</td><td class="num good">1,227 KB</td></tr>
+    </table>
+    <p>
+      One image is worth a decision: <code>1 Batwa kids 2.jpg</code> — a close crowd of barefoot
+      children in torn clothes from the pre-school years — is the most affecting picture in the folder
+      and I deliberately did <strong>not</strong> use it. It would raise money, and it would also put
+      identifiable children on a donation page in their worst moment. The 2009 field photograph makes
+      the same point with the camera further back. Your call, not mine, but that's why it's absent.
+    </p>
+  </div>
+
+  <div class="cards">
+    <a class="card" href="01-crimson-for-life.html">
+      <div class="frame"><iframe src="01-crimson-for-life.html" title="Crimson for Life preview"></iframe></div>
+      <div class="body">
+        <span class="letter">1</span>
+        <h2>Crimson for Life</h2>
+        <div class="sub">New top-level page · giving</div>
+        <p>Poster hero over three pupils, crimson slab nav, then: why give (who the school was built
+        for, including the Potters at 13% of enrolment) → the whole budget on one page with a bar per
+        line → <strong>$65 a child a year</strong> → a giving table naming things instead of circles →
+        four coloured pillar cards (teachers, food, buses, beyond P6) → beyond the school gate
+        (micro-loans, livestock) → four ways to give → the annual report, including the benchmarks the
+        school missed.</p>
+        <ul>
+          <li>Every figure traceable to the 2024–2025 report</li>
+          <li>Zeffy CTA in the header, three bands, and the footer</li>
+          <li>Leads with transparency rather than pity</li>
+        </ul>
+        <span class="tag">1.2 MB of images · no JS</span>
+      </div>
+    </a>
+
+    <a class="card" href="02-admissions-news-events.html">
+      <div class="frame"><iframe src="02-admissions-news-events.html" title="Admissions news band preview"></iframe></div>
+      <div class="body">
+        <span class="letter">2</span>
+        <h2>News &amp; Events on Admissions</h2>
+        <div class="sub">New band · slots into the live page</div>
+        <p>A lead story plus two smaller cards on the left, and a dated rail on the right — start of
+        term, the two Term 1 assessments, end of term, then the three term ranges and a
+        &ldquo;arrange a visit&rdquo; button. Berkeley Carroll runs a post slideshow on their admissions
+        page for the same reason: a parent deciding on a school wants to see it in motion, and wants the
+        dates.</p>
+        <ul>
+          <li>Reuses the three real stories already on the News page</li>
+          <li>Dated events come from the report's 2024–2025 calendar</li>
+          <li><strong>2025–2026 dates must be confirmed</strong> before it ships</li>
+        </ul>
+        <span class="tag">Uses existing assets · no JS</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="verdict flag" style="margin-top:34px">
+    <h3>Why I haven't touched the live Admissions page yet</h3>
+    <p>
+      Your other session has committed to <code>src/pages/Admissions.tsx</code> four times in the last
+      few minutes — tuition, billing period, photography — and is clearly still working in that exact
+      file. Writing to it from here would likely either lose my change or clobber theirs, silently. The
+      band above is ready to drop in as a component; say the word once that session settles and it's a
+      few minutes' work. The same applies to promoting Crimson for Life into a real route.
+    </p>
+  </div>
+</div>
+</body>
+</html>

@@ -138,7 +138,7 @@ const MobileNav = () => {
             <Link to="/admissions#enroll" className={buttonVariants({ variant: "default" })}>
               Enroll Your Child
             </Link>
-            <Link to="/support#sponsor" className={buttonVariants({ variant: "outline" })}>
+            <Link to="/crimson-for-life#sponsor" className={buttonVariants({ variant: "outline" })}>
               Sponsor a Student
             </Link>
 
@@ -208,7 +208,7 @@ export const Navbar = () => {
 
         <div className="hidden lg:flex shrink-0 items-center gap-2">
           <ModeToggle />
-          <Link to="/support#sponsor" className={buttonVariants({ variant: "outline", size: "sm" })}>
+          <Link to="/crimson-for-life#sponsor" className={buttonVariants({ variant: "outline", size: "sm" })}>
             Sponsor
           </Link>
           <Link to="/admissions#enroll" className={buttonVariants({ variant: "default", size: "sm" })}>

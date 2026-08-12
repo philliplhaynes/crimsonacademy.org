@@ -799,7 +799,7 @@ const Academics = () => {
               Examination in the entire country.
             </p>
             <Link
-              to="/support#sponsor"
+              to="/crimson-for-life#sponsor"
               className={cn(buttonVariants({ size: "lg" }), "mt-6 rounded-full")}
             >
               Sponsor a student

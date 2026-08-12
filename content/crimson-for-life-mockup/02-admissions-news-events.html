@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>News &amp; Events on Admissions — Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --background: 40 50% 96%; --foreground: 0 12% 12%;
+    --primary: 352 66% 33%; --primary-foreground: 40 46% 97%;
+    --secondary: 40 40% 92%; --muted-foreground: 25 10% 38%;
+    --accent: 46 68% 47%; --eyebrow: 38 55% 28%;
+    --border: 40 24% 84%; --ink: 352 40% 13%;
+    --bg: hsl(var(--background)); --fg: hsl(var(--foreground));
+    --crimson: hsl(var(--primary)); --crimson-fg: hsl(var(--primary-foreground));
+    --cream2: hsl(var(--secondary)); --muted: hsl(var(--muted-foreground));
+    --gold: hsl(var(--accent)); --eyebrow-c: hsl(var(--eyebrow)); --line: hsl(var(--border));
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: Inter, ui-sans-serif, system-ui, sans-serif; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  h1,h2,h3,h4 { font-family: Fraunces, ui-serif, Georgia, serif; font-weight: 600; margin: 0; }
+  a { color: inherit; }
+  img { display: block; max-width: 100%; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  .poster { font-family: Fraunces, serif; font-weight: 900; text-transform: uppercase; line-height: .95; letter-spacing: -.015em; }
+
+  .mockup-tag { background: hsl(0 12% 12%); color: #fff; font-size: 12px; font-weight: 600; text-align: center; padding: 8px; letter-spacing: .04em; text-transform: uppercase; }
+  .mockup-tag a { color: var(--gold); margin-left: 12px; }
+  .insert-note { background: hsl(var(--accent) / .18); border-bottom: 1px solid hsl(var(--accent) / .5); padding: 12px 24px; font-size: 13px; color: hsl(38 62% 22%); text-align: center; }
+  .insert-note strong { color: hsl(352 60% 26%); }
+
+  .topbar { background: hsl(var(--background) / .93); border-bottom: 1px solid var(--line); }
+  .topbar .container { display: flex; align-items: center; justify-content: space-between; height: 62px; gap: 16px; }
+  .topbar img { height: 40px; width: auto; }
+  .topnav { display: flex; gap: 18px; font-size: 13.5px; font-weight: 500; color: var(--muted); }
+  .topnav .on { color: var(--crimson); font-weight: 700; }
+  @media (max-width: 1020px) { .topnav { display: none; } }
+  .btn { display: inline-flex; align-items: center; gap: 7px; padding: 10px 20px; border-radius: 999px; font-size: 13px; font-weight: 700; text-decoration: none; letter-spacing: .03em; text-transform: uppercase; }
+  .btn-solid { background: var(--crimson); color: var(--crimson-fg); }
+  .btn-outline { border: 1.5px solid var(--crimson); color: var(--crimson); }
+  .btn-gold { background: var(--gold); color: hsl(0 20% 12%); }
+  .btn svg { width: 15px; height: 15px; }
+
+  /* ── the faded "rest of the Admissions page" above, for context ──── */
+  .ghost { padding: 46px 0 10px; opacity: .38; pointer-events: none; }
+  .ghost .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--eyebrow-c); }
+  .ghost h2 { font-size: 34px; margin-top: 8px; color: hsl(var(--ink)); }
+  .ghost .rows { margin-top: 20px; display: grid; gap: 10px; }
+  .ghost .row { border: 1px solid var(--line); border-radius: 10px; background: #fff; padding: 15px 18px; font-size: 14.5px; display: flex; justify-content: space-between; }
+  .ghost-label { text-align: center; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 26px 0 0; }
+
+  /* ══════════════ THE BAND ══════════════ */
+  .news { padding: 74px 0 78px; background: var(--cream2); position: relative; }
+  .news::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .3;
+    background-image: radial-gradient(currentColor .6px, transparent .6px); background-size: 15px 15px; }
+  .news > .container { position: relative; z-index: 1; }
+  .news .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--eyebrow-c); }
+  .news .hd { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px; }
+  .news h2.poster { font-size: clamp(27px, 4vw, 46px); margin-top: 8px; color: hsl(var(--ink)); }
+  .news .lead { margin: 14px 0 0; max-width: 60ch; color: var(--muted); font-size: 15.5px; }
+
+  .layout { display: grid; grid-template-columns: minmax(0, 1.62fr) minmax(0, 1fr); gap: 34px; margin-top: 34px; align-items: start; }
+  @media (max-width: 940px) { .layout { grid-template-columns: minmax(0,1fr); gap: 28px; } }
+
+  /* latest news — cards */
+  .panel-t { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--eyebrow-c); margin-bottom: 14px; }
+  .cards { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
+  @media (max-width: 640px) { .cards { grid-template-columns: minmax(0,1fr); } }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; text-decoration: none; color: inherit;
+    transition: box-shadow .15s, transform .15s; }
+  .card:hover { box-shadow: 0 10px 26px hsl(var(--ink) / .12); transform: translateY(-2px); }
+  .card .im { aspect-ratio: 16/10; overflow: hidden; background: var(--cream2); }
+  .card .im img { width: 100%; height: 100%; object-fit: cover; }
+  .card .bd { padding: 18px 18px 20px; flex: 1; display: flex; flex-direction: column; }
+  .card .eb { font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--eyebrow-c); }
+  .card h3 { font-size: 16.5px; margin-top: 6px; line-height: 1.24; }
+  .card p { font-size: 13.5px; color: var(--muted); margin: 9px 0 0; }
+  .card .more { margin-top: auto; padding-top: 12px; font-size: 11.5px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--crimson); }
+  /* the first card spans the row — gives the band a lead story like the reference slideshow */
+  .card.lead-card { grid-column: 1 / -1; }
+  @media (min-width: 641px) {
+    .card.lead-card { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.1fr); }
+    .card.lead-card .im { aspect-ratio: auto; height: 100%; }
+    .card.lead-card h3 { font-size: 20px; }
+    .card.lead-card .bd { padding: 22px; }
+  }
+
+  /* upcoming — the dated rail */
+  .rail { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 22px 22px 24px; }
+  .rail h3 { font-size: 17px; }
+  .ev { display: grid; grid-template-columns: 54px minmax(0,1fr); gap: 14px; padding: 14px 0; border-bottom: 1px dashed var(--line); align-items: start; }
+  .ev:last-of-type { border-bottom: 0; }
+  .chip { border-radius: 9px; background: var(--crimson); color: var(--crimson-fg); text-align: center; padding: 6px 0 7px; }
+  .chip .m { display: block; font-size: 9.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
+  .chip .d { display: block; font-family: Fraunces, serif; font-weight: 700; font-size: 19px; line-height: 1.05; }
+  .chip.gold { background: var(--gold); color: hsl(0 20% 12%); }
+  .ev .ti { font-family: Fraunces, serif; font-weight: 600; font-size: 15px; line-height: 1.25; }
+  .ev .dk { font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+  .rail .allev { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+
+  /* term strip inside the rail */
+  .terms { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .term { display: flex; justify-content: space-between; gap: 12px; font-size: 13.5px; padding: 7px 0; border-bottom: 1px dashed var(--line); }
+  .term:last-child { border-bottom: 0; }
+  .term .tn { font-weight: 600; white-space: nowrap; }
+  .term .td { color: var(--muted); text-align: right; }
+
+  .flagnote { margin-top: 26px; border-left: 3px solid var(--gold); background: hsl(var(--accent) / .14); padding: 14px 18px; font-size: 13.5px; border-radius: 0 8px 8px 0; color: var(--eyebrow-c); }
+
+  .close { background: var(--crimson); color: var(--crimson-fg); padding: 56px 0; }
+  .close .container { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
+  .close h2 { font-size: clamp(23px, 3vw, 32px); max-width: 26ch; }
+  .close p { margin: 10px 0 0; color: hsl(var(--primary-foreground) / .85); max-width: 44ch; font-size: 15px; }
+  footer.f { background: hsl(var(--ink)); color: hsl(var(--primary-foreground) / .72); padding: 32px 0; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<div class="mockup-tag">MOCKUP — NEWS &amp; EVENTS ON THE ADMISSIONS PAGE <a href="index.html">← back to notes</a></div>
+<div class="insert-note">
+  Everything below the dotted label is the <strong>new band</strong>. It slots into the live Admissions
+  page between the FAQ and the closing CTA. The greyed block above it stands in for the rest of that page.
+</div>
+
+<header class="topbar">
+  <div class="container">
+    <img src="../../crimsonacademy-site/src/assets/logo-horiz.webp" alt="Crimson Academy" />
+    <nav class="topnav">
+      <span>About</span><span>Academics</span><span>Student Life</span><span class="on">Admissions</span>
+      <span>News &amp; Events</span><span>Crimson for Life</span>
+    </nav>
+    <a class="btn btn-solid" href="#">Enroll<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+</header>
+
+<!-- context: the tail of the existing Admissions page -->
+<section class="ghost">
+  <div class="container">
+    <div class="eyebrow">Frequently Asked Questions</div>
+    <h2 class="poster" style="font-weight:900;text-transform:uppercase">Questions parents ask</h2>
+    <div class="rows">
+      <div class="row"><span>What does a term cost?</span><span>+</span></div>
+      <div class="row"><span>When can my child start?</span><span>+</span></div>
+      <div class="row"><span>Do you provide transport from my village?</span><span>+</span></div>
+      <div class="row"><span>What language will my child be taught in?</span><span>+</span></div>
+    </div>
+  </div>
+</section>
+<div class="ghost-label">· · · · · ·&nbsp;&nbsp;new band starts here&nbsp;&nbsp;· · · · · ·</div>
+
+<!-- ════════════ THE NEWS & EVENTS BAND ════════════ -->
+<section class="news" id="news-events">
+  <div class="container">
+    <div class="hd">
+      <div>
+        <div class="eyebrow">News &amp; Events</div>
+        <h2 class="poster">What&apos;s happening right now</h2>
+      </div>
+      <a class="btn btn-outline" href="#">All news &amp; dates</a>
+    </div>
+    <p class="lead">
+      Deciding on a school is easier when you can see it in motion. Here is what the last few months
+      actually looked like, and the dates you will need if you are enrolling for the coming year.
+    </p>
+
+    <div class="layout">
+      <!-- LATEST NEWS -->
+      <div>
+        <div class="panel-t">Latest from campus</div>
+        <div class="cards">
+          <a class="card lead-card" href="#">
+            <div class="im"><img src="../../crimsonacademy-site/src/assets/graduation-p6.jpg" alt="Primary 6 graduates in caps and gowns outside the school" /></div>
+            <div class="bd">
+              <div class="eb">National Exams</div>
+              <h3>Every P6 graduate earns Division A</h3>
+              <p>
+                Our 2024–2025 Primary 6 class averaged 90.4% on the National Examination, with all 44
+                students earning Division A and every graduate placed in a top boarding secondary
+                school — a thirteenth year at or near the top of the province.
+              </p>
+              <span class="more">Read more →</span>
+            </div>
+          </a>
+
+          <a class="card" href="#">
+            <div class="im"><img src="../../crimsonacademy-site/src/assets/nursery-graduation.jpg" alt="Nursery students holding certificates at their graduation ceremony" /></div>
+            <div class="bd">
+              <div class="eb">Nursery</div>
+              <h3>Nursery graduation celebrates 150 learners</h3>
+              <p>
+                The school-wide ceremony closed a year in which our youngest classes were the strongest
+                performing in the school, averaging between 75% and 88%.
+              </p>
+              <span class="more">Read more →</span>
+            </div>
+          </a>
+
+          <a class="card" href="#">
+            <div class="im"><img src="../../crimsonacademy-site/src/assets/community-service.jpg" alt="Students in uniform visiting an elderly neighbour during the monthly outreach" /></div>
+            <div class="bd">
+              <div class="eb">Community</div>
+              <h3>Primary 6 leads monthly village outreach</h3>
+              <p>
+                Each month our oldest class visits families across Kagina with encouragement and
+                essential provisions — where academic work and character formation meet.
+              </p>
+              <span class="more">Read more →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- UPCOMING -->
+      <div class="rail">
+        <h3>Dates for enrolling families</h3>
+        <div class="ev">
+          <div class="chip"><span class="m">Sep</span><span class="d">9</span></div>
+          <div>
+            <div class="ti">Term 1 begins</div>
+            <div class="dk">First day for every division, nursery through Primary 6.</div>
+          </div>
+        </div>
+        <div class="ev">
+          <div class="chip"><span class="m">Sep</span><span class="d">27</span></div>
+          <div>
+            <div class="ti">First assessment, Term 1</div>
+            <div class="dk">The first of three tests each term.</div>
+          </div>
+        </div>
+        <div class="ev">
+          <div class="chip gold"><span class="m">Oct</span><span class="d">18</span></div>
+          <div>
+            <div class="ti">Second assessment, Term 1</div>
+            <div class="dk">Reports follow to families.</div>
+          </div>
+        </div>
+        <div class="ev">
+          <div class="chip"><span class="m">Dec</span><span class="d">20</span></div>
+          <div>
+            <div class="ti">Term 1 ends</div>
+            <div class="dk">End-of-term examinations in December.</div>
+          </div>
+        </div>
+
+        <div class="terms">
+          <div class="panel-t" style="margin-bottom:8px">The year at a glance</div>
+          <div class="term"><span class="tn">Term 1</span><span class="td">September – 20 December</span></div>
+          <div class="term"><span class="tn">Term 2</span><span class="td">6 January – 29 March</span></div>
+          <div class="term"><span class="tn">Term 3</span><span class="td">21 April – 27 July</span></div>
+        </div>
+
+        <div class="allev">
+          <a class="btn btn-gold" href="#" style="width:100%;justify-content:center">Arrange a visit<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <p class="flagnote">
+      <strong>Where the content comes from:</strong> the three stories and the three term ranges are the
+      real ones already on the News page. The four dated events are drawn from the 2024–2025 school
+      calendar in the Annual Report (Term 1 opens 9 September; Test 1 on 27 September; Test 2 on 18
+      October). <strong>The school needs to confirm the 2025–2026 dates</strong> before this ships — a
+      wrong start-of-term date on the admissions page is the worst possible error to publish.
+    </p>
+  </div>
+</section>
+
+<section class="close">
+  <div class="container">
+    <div>
+      <h2>Come and see it for yourself.</h2>
+      <p>Visits are welcome during term. We will walk you through all three schools.</p>
+    </div>
+    <a class="btn btn-gold" href="#">Arrange a visit<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+</section>
+
+<footer class="f"><div class="container">Crimson Academy of Kagina · Southern Province, Rwanda</div></footer>
+
+</body>
+</html>

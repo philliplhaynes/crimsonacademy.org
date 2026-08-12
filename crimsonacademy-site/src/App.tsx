@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import { ScrollToTop } from "./components/ScrollToTop";
@@ -13,9 +13,20 @@ const Academics = lazy(() => import("./pages/Academics"));
 const StudentLife = lazy(() => import("./pages/StudentLife"));
 const Admissions = lazy(() => import("./pages/Admissions"));
 const News = lazy(() => import("./pages/News"));
-const Support = lazy(() => import("./pages/Support"));
+const CrimsonForLife = lazy(() => import("./pages/CrimsonForLife"));
 const Portal = lazy(() => import("./pages/Portal"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+
+/**
+ * /support was the giving page until it became /crimson-for-life. Plain
+ * <Navigate> would drop the fragment, so the hash is carried across by hand —
+ * old links like /support#sponsor are in circulation and still have to land on
+ * the right section.
+ */
+const SupportRedirect = () => {
+  const { hash } = useLocation();
+  return <Navigate to={`/crimson-for-life${hash}`} replace />;
+};
 
 const RouteEffects = () => {
   const { pathname, hash } = useLocation();
@@ -70,7 +81,8 @@ function App() {
             <Route path="/student-life" element={<StudentLife />} />
             <Route path="/admissions" element={<Admissions />} />
             <Route path="/news" element={<News />} />
-            <Route path="/support" element={<Support />} />
+            <Route path="/crimson-for-life" element={<CrimsonForLife />} />
+            <Route path="/support" element={<SupportRedirect />} />
             <Route path="/portal" element={<Portal />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

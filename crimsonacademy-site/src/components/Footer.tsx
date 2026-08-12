@@ -9,7 +9,7 @@ const quickLinks = [
   { label: "How to Enroll", href: "/admissions#enroll" },
   { label: "Exam Results", href: "/academics#results" },
   { label: "Leadership & Staff", href: "/about#leadership" },
-  { label: "Sponsor a Student", href: "/support#sponsor" },
+  { label: "Sponsor a Student", href: "/crimson-for-life#sponsor" },
   { label: "Portal Sign In", href: "/portal#login" },
 ];
 
@@ -69,7 +69,7 @@ export const Footer = () => {
               Enroll Your Child
             </Link>
             <Link
-              to="/support#sponsor"
+              to="/crimson-for-life#sponsor"
               className="rounded-md border border-primary-foreground/40 px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-foreground/10"
             >
               Sponsor a Student

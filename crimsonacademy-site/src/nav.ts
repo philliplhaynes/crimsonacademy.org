@@ -97,14 +97,23 @@ export const sections: NavSection[] = [
     ],
   },
   {
-    label: "Support Us",
-    href: "/support",
-    blurb: "Sponsor a child, give to the school, and meet our partners.",
+    label: "Crimson for Life",
+    href: "/crimson-for-life",
+    blurb: "Where a gift goes, what it buys, and how to give.",
+    /*
+       Replaces the old "Support Us" section rather than sitting beside it —
+       this is the giving page, and two nav items for one job made the nav
+       worse. /support is kept as a hash-preserving redirect in App.tsx, and
+       #sponsor / #give / #partners / #annual-report are carried over as ids on
+       the new page so the old deep links still land in the right place.
+    */
     children: [
-      { label: "Sponsor a Student", href: "/support#sponsor" },
-      { label: "Make a Gift", href: "/support#give" },
-      { label: "Our Partners", href: "/support#partners" },
-      { label: "Annual Report", href: "/support#annual-report" },
+      { label: "Why Give", href: "/crimson-for-life#why" },
+      { label: "Where It Goes", href: "/crimson-for-life#where" },
+      { label: "What a Gift Buys", href: "/crimson-for-life#buys" },
+      { label: "Sponsor a Student", href: "/crimson-for-life#sponsor" },
+      { label: "Ways to Give", href: "/crimson-for-life#give" },
+      { label: "Annual Report", href: "/crimson-for-life#annual-report" },
     ],
   },
   {
