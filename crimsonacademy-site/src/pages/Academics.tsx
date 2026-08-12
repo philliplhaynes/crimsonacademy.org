@@ -397,6 +397,19 @@ const Academics = () => {
         title="Academics"
         lede="Three schools under one roof, from a child's first day at age three to the morning they sit Rwanda's National Examination."
         image={heroPhoto}
+        /*
+          Default 42% cropped the photo just below the standing row's
+          shoulders — the whole crouching front row (heads ~y850, feet
+          ~y1000-1050 in the 1782x1188 source) was below the visible window
+          and never shown. Measured with a pixel-gridded overlay rather than
+          guessed: at the hero band's rendered size (1360x419 at desktop),
+          object-fit: cover always shows a fixed 549px-tall slice of this
+          image's 1188px height, so only WHICH slice slides with Y%. 78%
+          puts that slice at [~498, ~1048] — a few px of headroom above the
+          tallest standing heads (~520) down through the crouching row's
+          feet (~1030-1050), which is the full group.
+        */
+        imagePosition="50% 78%"
       />
 
       {/* ── the statement ─────────────────────────────────────────────── */}

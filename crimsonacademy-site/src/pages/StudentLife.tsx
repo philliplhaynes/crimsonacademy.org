@@ -16,7 +16,7 @@ import debatePhoto from "@/assets/sl-debate.webp";
 import chessPhoto from "@/assets/sl-chess.webp";
 import coachingPhoto from "@/assets/sl-coaching.webp";
 import tournamentPhoto from "@/assets/sl-tournament.webp";
-import servicePhoto from "@/assets/students-outreach.webp";
+import servicePhoto from "@/assets/family-outreach-visit.jpg";
 import mealsPhoto from "@/assets/history-2019-food-programme.webp";
 
 /*

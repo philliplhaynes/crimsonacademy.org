@@ -6,7 +6,7 @@ import { SectionHead } from "@/components/SectionHead";
 import heroPhoto from "@/assets/portal-hero.jpg";
 import studentsPhoto from "@/assets/contact-students.jpg";
 import parentsPhoto from "@/assets/community-service-outreach.jpg";
-import donorsPhoto from "@/assets/students-outreach.webp";
+import donorsPhoto from "@/assets/family-outreach-visit.jpg";
 import staffPhoto from "@/assets/staff-group.jpg";
 
 /**

@@ -1,7 +1,7 @@
 import { SectionHead } from "./SectionHead";
 import footballPhoto from "@/assets/sl-football.webp";
 import karatePhoto from "@/assets/sl-karate.webp";
-import outreachPhoto from "@/assets/students-outreach.webp";
+import outreachPhoto from "@/assets/family-outreach-visit.jpg";
 import graduationPhoto from "@/assets/graduation-p6.jpg";
 
 /**
