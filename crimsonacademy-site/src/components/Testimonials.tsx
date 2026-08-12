@@ -1,5 +1,4 @@
-import { Card, CardContent, CardHeader } from "./ui/card";
-import { Avatar, AvatarFallback } from "./ui/avatar";
+import { SectionHead } from "./SectionHead";
 
 interface Story {
   name: string;
@@ -32,32 +31,48 @@ const stories: Story[] = [
   },
 ];
 
+/**
+ * Stories from Kagina — a horizontal rail, the same device HistoryPanel.tsx
+ * uses for the eight history chapters, rather than a three-up grid.
+ *
+ * min-w-0 on the rail is load-bearing: a grid child defaults to min-width
+ * auto, so a grid-flow-col row of fixed-width cards inside a container will
+ * widen the whole page instead of scrolling inside its own box. That exact
+ * bug turned up in the About mockups and again in the admissions comparison
+ * table; this is the same fix, applied up front.
+ */
 export const Testimonials = () => {
   return (
-    <section className="bg-secondary/40 py-20 sm:py-28">
+    <section className="border-b bg-secondary/40 py-14 sm:py-16">
       <div className="container">
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="text-sm font-semibold uppercase tracking-wider text-eyebrow">Our Community</span>
-          <h2 className="font-heading text-3xl md:text-4xl font-semibold mt-2">Stories from Kagina</h2>
-          <p className="text-muted-foreground mt-4">
-            Through our monthly outreach, Crimson Academy walks alongside the families of the village we call home.
-          </p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {stories.map((s) => (
-            <Card key={s.name} className="h-full bg-background">
-              <CardHeader className="flex flex-row items-center gap-3 space-y-0 pb-2">
-                <Avatar>
-                  <AvatarFallback className="bg-primary/10 text-primary font-semibold">{s.initials}</AvatarFallback>
-                </Avatar>
-                <div>
-                  <div className="font-semibold leading-tight">{s.name}</div>
-                  <div className="text-xs text-muted-foreground">{s.role}</div>
+        <SectionHead
+          eyebrow="Our Community"
+          title="Stories from Kagina."
+          lede="Through our monthly outreach, Crimson Academy walks alongside the families of the village we call home."
+        />
+
+        <div className="mt-7 min-w-0 overflow-x-auto pb-2">
+          <ul className="grid min-w-0 grid-flow-col auto-cols-[minmax(17rem,1fr)] gap-4 lg:auto-cols-fr">
+            {stories.map((s) => (
+              <li key={s.name} className="rounded-xl border bg-background p-5">
+                <div className="flex items-center gap-3">
+                  <span
+                    aria-hidden="true"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 font-heading text-sm font-bold text-primary"
+                  >
+                    {s.initials}
+                  </span>
+                  <div className="min-w-0">
+                    <div className="font-heading text-sm font-semibold leading-tight">{s.name}</div>
+                    <div className="text-xs text-muted-foreground">{s.role}</div>
+                  </div>
                 </div>
-              </CardHeader>
-              <CardContent className="text-muted-foreground italic">&ldquo;{s.quote}&rdquo;</CardContent>
-            </Card>
-          ))}
+                <blockquote className="mt-3 text-sm italic leading-relaxed text-muted-foreground">
+                  &ldquo;{s.quote}&rdquo;
+                </blockquote>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

@@ -5,6 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { SectionHead } from "./SectionHead";
 
 interface QA { q: string; a: string; }
 
@@ -18,16 +19,15 @@ const faqs: QA[] = [
 
 export const FAQ = () => {
   // Tinted — closes out the homepage on the same alternating rhythm every
-  // inner page uses. Previously this and Team before it were both plain,
-  // the second back-to-back untinted run on the page.
+  // inner page uses. The header is left-aligned via SectionHead like every
+  // other section on the page now; it used to be centred inside its own
+  // max-w wrapper, one of the two conventions the page was alternating
+  // between.
   return (
-    <section className="bg-secondary/40 py-20 sm:py-28">
+    <section className="bg-secondary/40 py-14 sm:py-16">
       <div className="container">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="text-sm font-semibold uppercase tracking-wider text-eyebrow">Admissions</span>
-            <h2 className="font-heading text-3xl md:text-4xl font-semibold mt-2">Frequently asked questions</h2>
-          </div>
+        <div className="max-w-3xl">
+          <SectionHead eyebrow="Admissions" title="Frequently asked questions" className="mb-7" />
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((f, i) => (
               <AccordionItem key={i} value={`item-${i}`}>
@@ -36,7 +36,7 @@ export const FAQ = () => {
               </AccordionItem>
             ))}
           </Accordion>
-          <p className="text-center text-muted-foreground mt-10">
+          <p className="mt-8 text-muted-foreground">
             Still have a question?{" "}
             <Link to="/about#contact" className="text-primary font-medium underline underline-offset-4">Contact us</Link>
             {" "}or see{" "}

@@ -1,12 +1,25 @@
 import { Link } from "react-router-dom";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Baby, BookOpen, GraduationCap } from "lucide-react";
+import { SectionHead } from "./SectionHead";
 import { PhotoSlot } from "./PhotoSlot";
 import nurseryPhoto from "@/assets/nursery-graduation.jpg";
 
+/**
+ * How We Teach — the three school divisions and the five pillars, in one
+ * section.
+ *
+ * These were two consecutive sections ("A pathway for every age" and "Five
+ * pillars of learner success") that both answered the same visitor
+ * question, one immediately after the other, each with its own centred
+ * header and its own card grid. Merging them is the single biggest length
+ * saving in mockup B. The pillars drop to a compact five-across strip since
+ * they are supporting detail under the divisions, not a peer claim.
+ *
+ * Cards use the plain bordered card the rest of the site uses. The previous
+ * version used shadcn <Card> with a rounded icon tile floating over the
+ * photograph — a construction that appears on no other page.
+ */
 const divisions = [
   {
-    icon: <Baby className="h-8 w-8 text-primary" />,
     title: "Nursery",
     ages: "Early Years",
     href: "/academics#nursery",
@@ -15,7 +28,6 @@ const divisions = [
     desc: "A joyful foundation where our youngest learners build language, curiosity, and character — celebrated each year with a school-wide graduation.",
   },
   {
-    icon: <BookOpen className="h-8 w-8 text-primary" />,
     title: "Lower Primary",
     ages: "P1 – P3",
     href: "/academics#lower-primary",
@@ -23,7 +35,6 @@ const divisions = [
     desc: "Core literacy and numeracy taught across three languages, with creative arts and sports woven through every week.",
   },
   {
-    icon: <GraduationCap className="h-8 w-8 text-primary" />,
     title: "Upper Primary",
     ages: "P4 – P6",
     href: "/academics#upper-primary",
@@ -32,44 +43,83 @@ const divisions = [
   },
 ];
 
+const pillars = [
+  {
+    title: "S.M.A.R.T. Growth",
+    desc: "Service and continuous improvement at every developmental stage — artistic, academic, and personal.",
+  },
+  {
+    title: "Support Services",
+    desc: "Medical and socio-emotional care for students and families, because children learn best when whole.",
+  },
+  {
+    title: "Three Languages",
+    desc: "Daily instruction in English, French, and Kinyarwanda from a child's first year.",
+  },
+  {
+    title: "Measurable Benchmarks",
+    desc: "Continuous, data-driven assessment aligned to national standards keeps every learner on track.",
+  },
+  {
+    title: "Technology Innovation",
+    desc: "A computer lab and hands-on learning, including programming, for a knowledge-based economy.",
+  },
+];
+
 export const HowItWorks = () => {
   return (
-    <section className="container py-20 sm:py-28">
-      <div className="text-center max-w-2xl mx-auto mb-14">
-        <span className="text-sm font-semibold uppercase tracking-wider text-eyebrow">Academics</span>
-        <h2 className="font-heading text-3xl md:text-4xl font-semibold mt-2">
-          A pathway for every age
-        </h2>
-        <p className="text-muted-foreground mt-4">
-          Aligned to Rwanda&apos;s National Competence-Based Curriculum (MINEDUC),
-          from the first day of nursery to the National Exam.
-        </p>
-      </div>
-      <div className="grid md:grid-cols-3 gap-6">
-        {divisions.map((d) => (
-          <Card key={d.title} className="flex h-full flex-col overflow-hidden transition-shadow hover:shadow-lg">
-            {d.photo ? (
-              <img src={d.photo} alt={d.photoAlt} className="h-40 w-full object-cover" loading="lazy" />
-            ) : (
-              <PhotoSlot
-                ratio="fill"
-                brief={d.photoBrief!}
-                compact
-                className="h-40 shrink-0 rounded-none border-0 border-b border-dashed"
-              />
-            )}
-            <CardHeader className="space-y-3">
-              <div className="rounded-xl bg-primary/10 w-14 h-14 flex items-center justify-center">{d.icon}</div>
-              <div>
-                <CardTitle className="font-heading text-xl">
-                  <Link to={d.href} className="hover:text-primary">{d.title}</Link>
-                </CardTitle>
-                <span className="text-xs font-medium uppercase tracking-wide text-eyebrow">{d.ages}</span>
+    <section className="border-b bg-secondary/40 py-14 sm:py-16">
+      <div className="container">
+        <SectionHead
+          eyebrow="How We Teach"
+          title="A pathway for every age, built on five pillars."
+          lede="Aligned to Rwanda's National Competence-Based Curriculum (MINEDUC), from the first day of nursery to the National Exam."
+        />
+
+        <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {divisions.map((d) => (
+            <li key={d.title} className="overflow-hidden rounded-xl border bg-background">
+              {d.photo ? (
+                <img
+                  src={d.photo}
+                  alt={d.photoAlt}
+                  className="aspect-[4/3] w-full object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                // ratio="landscape" is already exactly aspect-[4/3], matching
+                // the real photo beside it — rather than "fill" (h-full),
+                // which needs a parent with a fixed height to resolve.
+                <PhotoSlot
+                  ratio="landscape"
+                  brief={d.photoBrief!}
+                  compact
+                  className="rounded-none border-0 border-b border-dashed"
+                />
+              )}
+              <div className="p-4">
+                <div className="text-[0.65rem] font-bold uppercase tracking-wide text-eyebrow">
+                  {d.ages}
+                </div>
+                <h3 className="mt-1 font-heading text-base font-semibold">
+                  <Link to={d.href} className="transition-colors hover:text-primary">
+                    {d.title}
+                  </Link>
+                </h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{d.desc}</p>
               </div>
-            </CardHeader>
-            <CardContent className="flex-1 text-muted-foreground">{d.desc}</CardContent>
-          </Card>
-        ))}
+            </li>
+          ))}
+        </ul>
+
+        <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          {pillars.map((p) => (
+            <li key={p.title} className="border-t-[3px] border-primary pt-3.5">
+              <h3 className="font-heading text-sm font-semibold">{p.title}</h3>
+              <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{p.desc}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
