@@ -10,7 +10,7 @@ import heroPhoto from "@/assets/class.jpeg";
 import approachPhoto from "@/assets/crimson-sign-boy.webp";
 import stripDancing from "@/assets/dancing.jpeg";
 import stripCampus from "@/assets/history-2016-expansion.jpg";
-import nurseryPhoto from "@/assets/nursery-graduation.jpg";
+import nurseryPhoto from "@/assets/nursery-graduation-2026.jpg";
 import lowerPhoto from "@/assets/contact-students.jpg";
 import upperPhoto from "@/assets/graduation-p6.jpg";
 import beyondPhoto from "@/assets/history-2013-graduates.jpg";
@@ -529,7 +529,7 @@ const Academics = () => {
           </div>
           <Shot
             src={nurseryPhoto}
-            alt="Nursery students in caps and gowns holding their certificates at the annual graduation"
+            alt="Nursery students in graduation gowns and caps lined up on stage at the school-wide ceremony"
           />
         </div>
 
