@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mockup B — Editorial Front Door | Home Redesign</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --background: 40 50% 96%; --foreground: 0 12% 12%; --primary: 352 66% 33%;
+    --primary-foreground: 40 46% 97%; --secondary: 40 40% 92%;
+    --muted-foreground: 25 10% 38%; --accent: 46 68% 47%; --eyebrow: 38 55% 28%;
+    --border: 40 24% 84%; --ink: 0 12% 12%;
+    --bg: hsl(var(--background)); --fg: hsl(var(--foreground)); --crimson: hsl(var(--primary));
+    --crimson-fg: hsl(var(--primary-foreground)); --cream2: hsl(var(--secondary));
+    --muted: hsl(var(--muted-foreground)); --gold: hsl(var(--accent));
+    --eyebrow-c: hsl(var(--eyebrow)); --line: hsl(var(--border));
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: Inter, ui-sans-serif, system-ui, sans-serif; line-height: 1.65; }
+  h1,h2,h3,h4 { font-family: Fraunces, ui-serif, Georgia, serif; font-weight: 600; margin: 0; }
+  a { color: inherit; }
+  img { display: block; max-width: 100%; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+  .tag { background: hsl(0 12% 12%); color: #fff; font-size: 12px; font-weight: 600; text-align: center; padding: 8px; letter-spacing: .04em; text-transform: uppercase; }
+  .tag a { color: var(--gold); margin-left: 12px; }
+
+  .topbar { border-bottom: 1px solid var(--line); background: var(--bg); }
+  .topbar .inner { max-width: 1180px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 62px; }
+  .topbar img { height: 40px; width: auto; }
+  .topnav { display: flex; gap: 18px; font-size: 13.5px; font-weight: 500; color: var(--muted); }
+  @media (max-width: 980px) { .topnav { display: none; } }
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: 7px; font-size: 14px; font-weight: 600; text-decoration: none; }
+  .btn-crimson { background: var(--crimson); color: var(--crimson-fg); }
+  .btn-gold { background: var(--gold); color: hsl(0 20% 12%); }
+  .btn-outline { border: 1.5px solid var(--crimson); color: var(--crimson); }
+  .btn-light { border: 1.5px solid hsl(var(--primary-foreground)/.45); color: var(--crimson-fg); }
+
+  /* ===== hero — PosterHero's visual language (poster type, swash, vertical
+     photo-preserving gradient) but WITHOUT the slab: Home's sections aren't
+     sub-pages to jump between the way an Admissions or Academics section is,
+     so a fact strip lives directly in the hero instead, echoing the About
+     page's dossier cover rather than copying PosterHero verbatim. ===== */
+  .hero { position: relative; isolation: isolate; color: var(--crimson-fg); }
+  .hero img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 38%; z-index: -2; }
+  .hero::before { content: ""; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(178deg, hsl(var(--ink)/.65) 0%, hsl(var(--ink)/.35) 46%, hsl(var(--ink)/.88) 100%); }
+  .hero .container { padding: 76px 24px 0; }
+  .crumb { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .8; }
+  /* overflow-wrap added after this genuinely blew out the page at 390px —
+     see the matching comment in 01-one-system.html for how it was found. */
+  .hero h1 { margin-top: 12px; font-size: clamp(2.875rem, 9.5vw, 7.5rem); font-weight: 900; text-transform: uppercase; line-height: .92; letter-spacing: -.015em; overflow-wrap: break-word; }
+  .swash { display: block; height: 20px; width: clamp(11rem, 34vw, 25rem); margin-top: 4px; overflow: visible; }
+  .hero p.lede { margin-top: 22px; max-width: 46ch; font-size: 17px; color: hsl(var(--primary-foreground)/.92); }
+  .hero .btns { margin-top: 26px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero .facts { margin-top: 44px; display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; border-top: 1px solid hsl(var(--primary-foreground)/.22); padding: 22px 0 34px; }
+  @media (max-width: 700px) { .hero .facts { grid-template-columns: repeat(2,1fr); } }
+  .hero .facts .n { font-family: Fraunces, serif; font-size: 28px; font-weight: 700; color: var(--gold); line-height: 1; }
+  .hero .facts .k { margin-top: 6px; font-size: 12px; color: hsl(var(--primary-foreground)/.8); }
+
+  section.blk { padding: 60px 0; border-bottom: 1px solid var(--line); }
+  .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--eyebrow-c); }
+  h2.sec { margin-top: 9px; font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.15; max-width: 26ch; }
+  p.lead { margin-top: 16px; max-width: 65ch; color: var(--muted); }
+
+  .flag { margin-top: 22px; border-radius: 10px; border: 1px solid hsl(46 68% 47% / .5); border-left: 4px solid var(--gold); background: hsl(46 68% 47% / .1); padding: 14px 16px; }
+  .flag strong { display: block; font-size: 13px; color: hsl(38 65% 26%); text-transform: uppercase; letter-spacing: .04em; }
+  .flag p { margin: 7px 0 0; font-size: 13.5px; color: var(--muted); }
+
+  /* mission — editorial spread with photo, like About.tsx's Mission block */
+  .spread { display: grid; grid-template-columns: 1fr 15rem; gap: 40px; align-items: start; margin-top: 6px; }
+  @media (max-width: 760px) { .spread { grid-template-columns: 1fr; } }
+  .spread img { width: 100%; border-radius: 12px; }
+  .chips { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips span { border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 12.5px; background: #fff; }
+  .chips b { font-family: Fraunces, serif; color: var(--crimson); }
+
+  /* academics + pillars, merged into one section */
+  .cards { display: grid; gap: 18px; margin-top: 28px; }
+  .cards.c3 { grid-template-columns: repeat(3,1fr); }
+  @media (max-width: 900px) { .cards.c3 { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 520px) { .cards.c3 { grid-template-columns: 1fr; } }
+  .card { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #fff; }
+  .card .ph { aspect-ratio: 4/3; overflow: hidden; background: var(--cream2); }
+  .card .ph img { width: 100%; height: 100%; object-fit: cover; }
+  .card .ph.needed { display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; }
+  .card .ph.needed span { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: hsl(352 40% 55%); }
+  .card .body { padding: 16px; }
+  .card .role { font-size: 10.5px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--eyebrow-c); }
+  .card h4 { margin-top: 4px; font-size: 16px; }
+  .card p { margin-top: 7px; font-size: 13.5px; color: var(--muted); line-height: 1.55; }
+
+  .pillars { margin: 26px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(5,1fr); gap: 16px; }
+  @media (max-width: 900px) { .pillars { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 520px) { .pillars { grid-template-columns: 1fr; } }
+  .pillars li { border-top: 3px solid var(--crimson); padding-top: 12px; }
+  .pillars b { display: block; font-family: Fraunces, serif; font-size: 14.5px; }
+  .pillars span { display: block; margin-top: 5px; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+
+  /* student life — photo collage */
+  .collage { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-top: 26px; }
+  @media (max-width: 700px) { .collage { grid-template-columns: repeat(2,1fr); } }
+  .collage figure { margin: 0; position: relative; border-radius: 10px; overflow: hidden; aspect-ratio: 1; }
+  .collage img { width: 100%; height: 100%; object-fit: cover; }
+  .collage figcaption { position: absolute; inset-inline: 0; bottom: 0; padding: 8px 10px; font-size: 11.5px; font-weight: 700; color: #fff; background: linear-gradient(to top, hsl(0 0% 0% / .65), transparent); }
+
+  .cta { position: relative; background: var(--crimson); color: var(--crimson-fg); padding: 56px 0; text-align: center; overflow: hidden; }
+  .cta::before { content:""; position:absolute; inset:0; opacity:.3; pointer-events:none;
+    background-image: radial-gradient(currentColor 0.6px, transparent 0.6px); background-size: 15px 15px; }
+  .cta .eyebrow { color: var(--gold); position: relative; }
+  .cta h2 { margin-top: 9px; font-size: clamp(1.5rem,3vw,2.1rem); color: var(--crimson-fg); position: relative; }
+  .cta p { margin: 12px auto 0; max-width: 52ch; color: hsl(var(--primary-foreground)/.85); font-size: 15px; position: relative; }
+  .cta .btns { margin-top: 22px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; }
+
+  /* stories — horizontal rail, like HistoryPanel.tsx's chapter rail, instead
+     of a static 3-up grid */
+  .railwrap { margin-top: 26px; overflow-x: auto; padding-bottom: 8px; }
+  .rail { display: grid; grid-auto-flow: column; grid-auto-columns: 280px; gap: 16px; min-width: 0; }
+  .story { border: 1px solid var(--line); border-radius: 14px; padding: 20px; background: #fff; }
+  .story .who { display: flex; align-items: center; gap: 10px; }
+  .story .avatar { width: 40px; height: 40px; border-radius: 999px; background: hsl(var(--primary)/.1); display: flex; align-items: center; justify-content: center; font-family: Fraunces, serif; font-weight: 700; color: var(--crimson); font-size: 13px; flex-shrink: 0; }
+  .story .nm { font-family: Fraunces, serif; font-weight: 600; font-size: 14px; }
+  .story .role { font-size: 11.5px; color: var(--muted); }
+  .story p { margin-top: 12px; font-size: 13.5px; color: var(--muted); font-style: italic; }
+
+  /* people — featured crimson panel, matches Admissions' featured-principal
+     card rather than a cream card + separate white fact tiles */
+  .peoplewrap { margin-top: 26px; border-radius: 16px; overflow: hidden; display: grid; grid-template-columns: 13rem 1fr; background: var(--crimson); color: var(--crimson-fg); }
+  @media (max-width: 700px) { .peoplewrap { grid-template-columns: 1fr; } }
+  .peoplewrap img { width: 100%; height: 100%; object-fit: cover; min-height: 220px; }
+  .peoplewrap .body { padding: 26px; }
+  .peoplewrap .role { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--gold); }
+  .peoplewrap h3 { margin-top: 6px; font-size: 22px; }
+  .peoplewrap p { margin-top: 8px; font-size: 13.5px; color: hsl(var(--primary-foreground)/.85); max-width: 46ch; }
+  .peoplewrap .facts { margin-top: 18px; display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+  @media (max-width: 500px) { .peoplewrap .facts { grid-template-columns: repeat(2,1fr); } }
+  .peoplewrap .facts .n { font-family: Fraunces, serif; font-size: 21px; font-weight: 700; color: var(--gold); }
+  .peoplewrap .facts .k { font-size: 11.5px; color: hsl(var(--primary-foreground)/.75); margin-top: 2px; }
+
+  footer.site { background: var(--crimson); color: hsl(var(--primary-foreground)/.7); padding: 30px 0; text-align: center; font-size: 12.5px; }
+</style>
+</head>
+<body>
+
+<div class="tag">MOCKUP B — "EDITORIAL FRONT DOOR" — PosterHero's language, restructured rather than copied <a href="index.html">← back to comparison</a></div>
+
+<header class="topbar">
+  <div class="inner">
+    <img src="../../crimsonacademy-site/src/assets/logo-horiz.webp" alt="Crimson Academy" />
+    <nav class="topnav"><span>About</span><span>Academics</span><span>Student Life</span><span>Admissions</span><span>News &amp; Events</span><span>Crimson for Life</span><span>Portal</span></nav>
+    <a class="btn btn-crimson" href="#">Enroll</a>
+  </div>
+</header>
+
+<!-- HERO, with the fact strip built into it — no separate stats band below,
+     no slab. -->
+<div class="hero">
+  <img class="bg" src="../../crimsonacademy-site/src/assets/home-hero-dancing.jpg" alt="" />
+  <div class="container">
+    <div class="crumb">Kagina · Kamonyi District, Rwanda</div>
+    <h1>Reaching Beyond<br />Impossibility.</h1>
+    <svg class="swash" viewBox="0 0 400 20" fill="none" aria-hidden="true">
+      <path d="M4 13C60 5 128 4 196 8c62 4 126 6 200 1" stroke="hsl(var(--accent))" stroke-width="4" stroke-linecap="round"/>
+      <path d="M18 18c58-6 124-7 190-3 60 3 122 5 178 0" stroke="hsl(var(--accent)/0.5)" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+    <p class="lede">Where faith and academic excellence grow together. Crimson Academy of Kagina is a Christian primary school educating 780 children — and, year after year, the #1 school in Rwanda's Southern Province on the National Exams.</p>
+    <div class="btns">
+      <a class="btn btn-gold" href="#">Enroll Your Child</a>
+      <a class="btn btn-light" href="#">Sponsor a Student</a>
+    </div>
+    <div class="facts">
+      <div><div class="n">#1</div><div class="k">Southern Province, National Exams</div></div>
+      <div><div class="n">90.4%</div><div class="k">P6 National Exam average</div></div>
+      <div><div class="n">780+</div><div class="k">Students, Nursery–P6</div></div>
+      <div><div class="n">3</div><div class="k">Languages of instruction</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MISSION — editorial spread, matching About.tsx's actual Mission section
+     (photo + copy), values compressed to inline chips instead of a 6-tile
+     grid so this reads as one flowing block, not another card grid. -->
+<section class="blk">
+  <div class="container">
+    <div class="eyebrow">Our Mission</div>
+    <h2 class="sec">Emboldening children to reach beyond impossibilities.</h2>
+    <div class="spread">
+      <div>
+        <p class="lead" style="margin-top:0">Children carry the hopes of the future. We are committed to learning experiences that help each student reach their greatest potential — developing the whole child: spiritual, moral, intellectual, social, emotional, and physical — with the understanding, compassion, and courage to act on their beliefs.</p>
+        <p class="lead">Founded in 2011 with four classrooms and 181 students, Crimson Academy now serves a thriving community in the heart of Kamonyi District, shaped by an environment that mirrors the character of Christ.</p>
+        <div class="chips">
+          <span><b>Truth</b> · John 3:21</span>
+          <span><b>Faith</b> · Hebrews 11:1</span>
+          <span><b>Discipline</b> · 1 Cor. 9:27</span>
+          <span><b>Hope</b> · Psalm 31:24</span>
+          <span><b>Service</b> · Mark 10:45</span>
+          <span><b>Love</b> · 1 Cor. 13</span>
+        </div>
+      </div>
+      <img src="../../crimsonacademy-site/src/assets/crimson-sign-boy.webp" alt="A Crimson Academy student holding a carved wooden school crest" />
+    </div>
+  </div>
+</section>
+
+<!-- ACADEMICS + FIVE PILLARS, merged into one "how we teach" section instead
+     of two consecutive sections making the same basic claim twice. -->
+<section class="blk" style="background:hsl(var(--secondary)/.35)">
+  <div class="container">
+    <div class="eyebrow">How We Teach</div>
+    <h2 class="sec">A pathway for every age, built on five pillars.</h2>
+    <p class="lead">Aligned to Rwanda's National Competence-Based Curriculum (MINEDUC), from the first day of nursery to the National Exam.</p>
+    <div class="cards c3">
+      <div class="card">
+        <div class="ph"><img src="../../crimsonacademy-site/src/assets/nursery-graduation.jpg" alt="Nursery students in caps and gowns at graduation" /></div>
+        <div class="body"><div class="role">Early Years</div><h4>Nursery</h4><p>A joyful foundation where our youngest learners build language, curiosity, and character.</p></div>
+      </div>
+      <div class="card">
+        <div class="ph needed"><span>Photo needed<br />A P1–P3 class at work</span></div>
+        <div class="body"><div class="role">P1 – P3</div><h4>Lower Primary</h4><p>Core literacy and numeracy across three languages, with creative arts and sports every week.</p></div>
+      </div>
+      <div class="card">
+        <div class="ph needed"><span>Photo needed<br />P6 class or the computer lab</span></div>
+        <div class="body"><div class="role">P4 – P6</div><h4>Upper Primary</h4><p>Rigorous National Exam prep — our P6 class averaged 90.4%, every graduate placed in a top boarding school.</p></div>
+      </div>
+    </div>
+    <ul class="pillars">
+      <li><b>S.M.A.R.T. Growth</b><span>Service &amp; continuous improvement at every developmental stage.</span></li>
+      <li><b>Support Services</b><span>Medical and socio-emotional care for students and families.</span></li>
+      <li><b>Three Languages</b><span>Daily English, French, and Kinyarwanda from year one.</span></li>
+      <li><b>Measurable Benchmarks</b><span>Continuous, data-driven assessment against national standards.</span></li>
+      <li><b>Technology Innovation</b><span>A computer lab and hands-on learning, including programming.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- STUDENT LIFE — photo collage instead of icon-free text cards -->
+<section class="blk">
+  <div class="container">
+    <div class="eyebrow">Student Life</div>
+    <h2 class="sec">More than a school — a community.</h2>
+    <p class="lead">At Crimson Academy, character is formed in worship, in service, on the field, and on the stage. Our students learn what it means to lead with humility and to give back to the village that surrounds them.</p>
+    <div class="flag" style="background:hsl(var(--secondary)/.5);border:0;border-left:4px solid var(--crimson)">
+      <p style="font-style:italic;margin:0">"For even the Son of Man did not come to be served, but to serve." — Mark 10:45</p>
+    </div>
+    <div class="collage">
+      <figure><img src="../../crimsonacademy-site/src/assets/sl-football.webp" alt="Students playing football" /><figcaption>Arts &amp; Athletics</figcaption></figure>
+      <figure><img src="../../crimsonacademy-site/src/assets/sl-karate.webp" alt="A student practicing karate" /><figcaption>Confidence, on the field</figcaption></figure>
+      <figure><img src="../../crimsonacademy-site/src/assets/students-outreach.webp" alt="Students visiting a village family" /><figcaption>Community Service</figcaption></figure>
+      <figure><img src="../../crimsonacademy-site/src/assets/graduation-p6.jpg" alt="P6 graduates in caps and gowns" /><figcaption>22 sponsored to secondary school</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="container">
+    <div class="eyebrow">Plant a seed. Change a life.</div>
+    <h2>In partnership with the Crimson Foundation.</h2>
+    <p>Your sponsorship gives a child in Kagina access to a world-class education, daily meals, and a future full of opportunity.</p>
+    <div class="btns">
+      <a class="btn btn-gold" href="#">Sponsor a Student</a>
+      <a class="btn btn-light" href="#">Partner with Crimson Foundation</a>
+    </div>
+  </div>
+</div>
+
+<!-- STORIES — horizontal rail -->
+<section class="blk">
+  <div class="container">
+    <div class="eyebrow">Our Community</div>
+    <h2 class="sec">Stories from Kagina.</h2>
+    <p class="lead">Through our monthly outreach, Crimson Academy walks alongside the families of the village we call home.</p>
+    <div class="railwrap">
+      <div class="rail">
+        <div class="story"><div class="who"><div class="avatar">MJ</div><div><div class="nm">Mukarubayiza Jamila</div><div class="role">Parent · Kagina Village</div></div></div><p>"Your visits, encouragement, and support have meant everything to me. You've strengthened my faith and reminded me that hope exists even amidst adversity."</p></div>
+        <div class="story"><div class="who"><div class="avatar">MD</div><div><div class="nm">Mukandori Donatile</div><div class="role">Grandparent · Community Member</div></div></div><p>"You have been a blessing to our lives — teaching God's Word and meeting both our physical and spiritual needs."</p></div>
+        <div class="story"><div class="who"><div class="avatar">MR</div><div><div class="nm">Marthin Rurinda</div><div class="role">Community Elder</div></div></div><p>"Your visits and prayers have lit a fire again in my life. Thank you for the kindness this school shows to the families all around us."</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PEOPLE — featured crimson panel -->
+<section class="blk" style="border-bottom:0">
+  <div class="container">
+    <div class="eyebrow">Our People</div>
+    <h2 class="sec">A team devoted to every child.</h2>
+    <div class="peoplewrap">
+      <img src="../../crimsonacademy-site/src/assets/staff-marie-claire.webp" alt="Marie Claire Mukabirinda" />
+      <div class="body">
+        <div class="role">Head Mistress</div>
+        <h3>Marie Claire Mukabirinda</h3>
+        <p>Leading Crimson Academy's mission of faith, character, and academic excellence in the Kamonyi District.</p>
+        <div class="facts">
+          <div><div class="n">32</div><div class="k">Staff</div></div>
+          <div><div class="n">22</div><div class="k">Teachers &amp; assistants</div></div>
+          <div><div class="n">2011</div><div class="k">Founded</div></div>
+          <div><div class="n">780</div><div class="k">Students, nursery–P6</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="flag">
+      <strong>Copy to confirm</strong>
+      <p>The live homepage's Team section still says "34 dedicated staff." The staff directory was corrected to 32 earlier in this project (and the Admissions FAQ was fixed to match) — this mockup uses 32 for consistency. The real Home.tsx / Team.tsx needs the same fix regardless of which mockup is chosen.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site">© 2026 Crimson Academy of Kagina — footer redesign carries through unchanged below this point</footer>
+
+</body>
+</html>
