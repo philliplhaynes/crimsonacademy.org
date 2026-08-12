@@ -75,28 +75,66 @@ export const PosterHero = ({
             </ol>
           </nav>
 
-          <h1 className="mt-3 font-heading text-[clamp(2.875rem,9.5vw,7.5rem)] font-black uppercase leading-[0.92] tracking-[-0.015em]">
+          {/*
+            The type scale is deliberately shared by every page that uses this
+            hero, and deliberately smaller than it was. It used to top out at
+            7.5rem (120px at desktop), which on the longer titles — CRIMSON FOR
+            LIFE, NEWS & EVENTS — spanned almost the full 1400px column and
+            buried the photograph behind it. 4.75rem still reads as a poster and
+            still clears the section headings below it (those cap at 3.375rem),
+            but it sits ON the picture instead of covering it.
+
+            The clamp floor also matters: at 2.25rem every title in the nav,
+            including the sixteen-character one, fits on a single line at 390px.
+            The old 2.875rem floor wrapped three of the seven.
+
+            w-fit + max-w-full is what makes the swash below work. The h1 shrinks
+            to the width of its own text rather than filling the column, so the
+            SVG at w-full is exactly as wide as the word above it. Before this,
+            the swash was a viewport-derived clamp(11rem,34vw,25rem) — a fixed
+            400px at desktop — which sat almost flush under a short title like
+            PORTAL and stopped a third of the way under CRIMSON FOR LIFE. Same
+            font size on both pages, wildly different presence: that mismatch,
+            more than the size, is what made these heroes look unrelated.
+
+            KNOWN LIMIT: this holds only while the title stays on one line, and
+            at 390px "Crimson for Life" is the one title that still wraps. Then
+            fit-content resolves to the available width rather than the widest
+            line, so the swash runs about 70px past the shorter second line.
+            There is no CSS for "width of the widest wrapped line" — min-content
+            breaks every word, balance makes the overhang worse — and measuring
+            it needs a ResizeObserver on every hero, which is not worth it for
+            one page at one width. Left as a rule under a two-line title.
+          */}
+          <h1 className="mt-3 w-fit max-w-full font-heading text-[clamp(2.25rem,6.4vw,4.75rem)] font-black uppercase leading-[0.95] tracking-[-0.015em]">
             {title}
+            {/*
+              Inside the h1, not beside it, so `em` resolves against the clamped
+              title size — the rule thickness tracks the type automatically and
+              there is only one number to change. aria-hidden keeps it out of the
+              accessible name.
+            */}
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 400 20"
+              fill="none"
+              preserveAspectRatio="none"
+              className="mt-[0.1em] block h-[0.14em] w-full overflow-visible"
+            >
+              <path
+                d="M4 13C60 5 128 4 196 8c62 4 126 6 200 1"
+                stroke="hsl(var(--accent))"
+                strokeWidth="4"
+                strokeLinecap="round"
+              />
+              <path
+                d="M18 18c58-6 124-7 190-3 60 3 122 5 178 0"
+                stroke="hsl(var(--accent)/0.5)"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+              />
+            </svg>
           </h1>
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 400 20"
-            fill="none"
-            className="mt-1 block h-5 w-[clamp(11rem,34vw,25rem)] overflow-visible"
-          >
-            <path
-              d="M4 13C60 5 128 4 196 8c62 4 126 6 200 1"
-              stroke="hsl(var(--accent))"
-              strokeWidth="4"
-              strokeLinecap="round"
-            />
-            <path
-              d="M18 18c58-6 124-7 190-3 60 3 122 5 178 0"
-              stroke="hsl(var(--accent)/0.5)"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-            />
-          </svg>
 
           <p className="mt-6 max-w-[44ch] text-base leading-relaxed text-primary-foreground/90 sm:text-lg">
             {lede}
