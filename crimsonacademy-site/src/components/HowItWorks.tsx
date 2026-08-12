@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ChevronsRight } from "lucide-react";
 import { SectionHead } from "./SectionHead";
-import divisionsPhoto from "@/assets/class.jpeg";
+import divisionsPhoto from "@/assets/academics-outreach.jpg";
 
 /**
  * What learning looks like here — one large photograph beside a list of the
@@ -67,7 +67,7 @@ export const HowItWorks = () => {
         <div className="mt-11 grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
           <img
             src={divisionsPhoto}
-            alt="Crimson Academy students gathered in front of the school crest painted on the classroom block"
+            alt="Crimson Academy staff in “Reaching Beyond Impossibility” shirts among a crowd of students, one child riding on another's shoulders"
             className="aspect-[4/3] w-full rounded-2xl object-cover"
             loading="lazy"
           />

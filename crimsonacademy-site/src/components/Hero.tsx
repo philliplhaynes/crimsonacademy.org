@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { DisplayHeading } from "./DisplayHeading";
-import heroPhoto from "@/assets/home-hero-dancing.jpg";
+import heroPhoto from "@/assets/home-hero-hand.jpg";
 
 /**
  * The home page hero: a full-bleed photograph running edge to edge with the
@@ -29,10 +29,17 @@ export const Hero = () => {
         Vertical, not the left-to-right wash this hero used to have: the old
         gradient hid most of the photograph to make room for left-aligned
         text. Centred type only needs the top and bottom darkened.
+
+        The middle stop is 0.45 rather than the 0.28 this started at. With
+        the hand photograph, the centred type lands on the palm — a large
+        mid-brown area, which is the worst case for the gold accent clause,
+        since gold on mid-brown is the lowest-contrast pairing in the
+        palette. 0.45 still lets the hand and the blurred school building
+        read clearly; it just stops the type having to fight them.
       */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,hsl(var(--ink)/0.55)_0%,hsl(var(--ink)/0.28)_40%,hsl(var(--ink)/0.72)_100%)]"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,hsl(var(--ink)/0.58)_0%,hsl(var(--ink)/0.45)_42%,hsl(var(--ink)/0.75)_100%)]"
       />
 
       <div className="container relative max-w-5xl py-24">
