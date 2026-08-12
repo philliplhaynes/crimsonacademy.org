@@ -1,0 +1,28 @@
+# Netlify build settings.
+#
+# This file exists because the site is not at the repository root — it lives in
+# crimsonacademy-site/, and without `base` Netlify would run npm install at the
+# top level, find no package.json, and fail. With it, "Deploy site" needs no
+# manual configuration in the dashboard at all.
+#
+# `publish` is resolved relative to `base`, so this publishes
+# crimsonacademy-site/dist.
+#
+# Deep links (/academics, /crimson-for-life) are handled by
+# crimsonacademy-site/public/_redirects, which Vite copies into dist on every
+# build. That single line — `/*  /index.html  200` — is what stops a refresh on
+# a sub-page returning 404: the server hands back index.html and React Router
+# reads the path. It is the one piece of hosting configuration this site cannot
+# do without, and it is why a plain static host with no rewrite support (GitHub
+# Pages, for instance) needs a workaround here and Netlify does not.
+
+[build]
+  base = "crimsonacademy-site"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # Match the Node the site is developed against. Netlify's default has drifted
+  # ahead of some toolchains before; pinning avoids a build that works locally
+  # and fails on deploy for no visible reason.
+  NODE_VERSION = "20"
