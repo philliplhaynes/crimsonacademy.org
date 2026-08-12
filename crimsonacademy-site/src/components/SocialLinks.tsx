@@ -20,12 +20,15 @@ import { cn } from "@/lib/utils";
  *
  * Rather than link that (a dead link in the footer of every page is worse
  * than a missing icon — same reasoning as before) or leave the icon out
- * again, it renders as a disabled placeholder: same badge shape and size as
- * the live icons so the row reads as complete, but visually muted (outline
- * instead of filled, dimmer) and not a link — a <span>, not an <a>, with
- * aria-disabled and a title/aria-label that says why. The moment a real
- * URL exists, move "LinkedIn" from PLACEHOLDER_LABEL into `accounts` below
- * with its href; nothing else about this file needs to change.
+ * again, it renders as a disabled placeholder styled IDENTICALLY to the
+ * three live badges — same solid gold fill, same size, same icon weight —
+ * so the row reads as one consistent set rather than singling this one out
+ * as different. What actually makes it a placeholder and not a real link is
+ * structural, not visual: a <span>, not an <a>, so there is no href to go
+ * stale or 404, plus aria-disabled and a title/aria-label that say why. The
+ * moment a real URL exists, move "LinkedIn" from PLACEHOLDER_LABEL into
+ * `accounts` below with its href; nothing else about this file needs to
+ * change.
  *
  * There is also a live Twitter/X account, twitter.com/crimsonfound (200),
  * left out only because it was not among the accounts requested. Same
@@ -82,12 +85,14 @@ export const SocialLinks = ({ className }: { className?: string }) => (
         aria-disabled="true"
         aria-label={`${PLACEHOLDER_LABEL} — account coming soon`}
         title={`${PLACEHOLDER_LABEL} — account coming soon`}
-        /* Outline, not filled — deliberately reads as "not active yet"
-           against the solid badges beside it, rather than as a live,
-           clickable link. cursor-default (not -pointer, not -not-allowed):
-           it isn't an interactive control being blocked, it's just not a
-           button at all. */
-        className="flex h-10 w-10 cursor-default items-center justify-center rounded-full border-2 border-dashed border-primary-foreground/40 text-primary-foreground/50"
+        /*
+          Same bg-accent/text-accent-foreground/size as the live badges
+          above — matched on request rather than visually dimmed, so the
+          row reads as one set. cursor-default, not -pointer: it isn't an
+          interactive control being blocked, it's just not a button at all,
+          and there's no hover state to invite a click that goes nowhere.
+        */
+        className="flex h-10 w-10 cursor-default items-center justify-center rounded-full bg-accent text-accent-foreground shadow-sm"
       >
         <Linkedin className="h-[1.15rem] w-[1.15rem]" aria-hidden="true" strokeWidth={2.25} />
       </span>
