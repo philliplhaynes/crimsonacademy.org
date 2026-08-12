@@ -5,7 +5,7 @@ import { SectionHead } from "@/components/SectionHead";
 
 import heroPhoto from "@/assets/portal-hero.jpg";
 import studentsPhoto from "@/assets/contact-students.jpg";
-import parentsPhoto from "@/assets/community-service.jpg";
+import parentsPhoto from "@/assets/community-service-outreach.jpg";
 import donorsPhoto from "@/assets/students-outreach.webp";
 import staffPhoto from "@/assets/staff-group.jpg";
 
@@ -42,7 +42,7 @@ const roles = [
     title: "Stay close to their day",
     text: "Attendance, performance, and a direct line to your child's teachers.",
     photo: parentsPhoto,
-    alt: "A Crimson Academy student and staff member speaking with a family elder",
+    alt: "Crimson Academy staff and students visiting a family during a community outreach visit",
   },
   {
     role: "Donors",
