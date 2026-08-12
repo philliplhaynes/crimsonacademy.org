@@ -107,6 +107,23 @@ export const sections: NavSection[] = [
       { label: "Annual Report", href: "/support#annual-report" },
     ],
   },
+  {
+    label: "Portal",
+    href: "/portal",
+    blurb: "Sign in to the Crimson Foundation Portal — grades, attendance, and sponsorship updates.",
+    /*
+       Placed last, deliberately: this is the newest section and the most
+       utility-like (a link-out, not content), so it sits after the six
+       content sections rather than interrupting them. Flagged as a judgment
+       call in the mockup review — revisit if that reads wrong once live.
+    */
+    children: [
+      { label: "Overview", href: "/portal#overview" },
+      { label: "Who Can Access", href: "/portal#roles" },
+      { label: "Sign In", href: "/portal#login" },
+      { label: "Need Help", href: "/portal#help" },
+    ],
+  },
 ];
 
 export const findSection = (pathname: string) =>

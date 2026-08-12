@@ -14,6 +14,7 @@ const StudentLife = lazy(() => import("./pages/StudentLife"));
 const Admissions = lazy(() => import("./pages/Admissions"));
 const News = lazy(() => import("./pages/News"));
 const Support = lazy(() => import("./pages/Support"));
+const Portal = lazy(() => import("./pages/Portal"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const RouteEffects = () => {
@@ -70,6 +71,7 @@ function App() {
             <Route path="/admissions" element={<Admissions />} />
             <Route path="/news" element={<News />} />
             <Route path="/support" element={<Support />} />
+            <Route path="/portal" element={<Portal />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

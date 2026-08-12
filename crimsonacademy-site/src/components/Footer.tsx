@@ -10,6 +10,7 @@ const quickLinks = [
   { label: "Exam Results", href: "/academics#results" },
   { label: "Leadership & Staff", href: "/about#leadership" },
   { label: "Sponsor a Student", href: "/support#sponsor" },
+  { label: "Portal Sign In", href: "/portal#login" },
 ];
 
 /**
