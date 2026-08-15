@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { StatementBand } from "./StatementBand";
+import { ZEFFY_DONATE_URL } from "@/lib/links";
 
 /**
  * The sponsorship ask, as a statement rather than a card — one idea at
@@ -20,12 +21,14 @@ export const Cta = () => (
     pop="Change a life."
     body="Your sponsorship covers tuition, meals, and materials — and top graduates earn scholarships to leading secondary boarding schools."
   >
-    <Link
-      to="/crimson-for-life#sponsor"
+    <a
+      href={ZEFFY_DONATE_URL}
+      target="_blank"
+      rel="noopener noreferrer"
       className="rounded-md bg-accent px-6 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent/90"
     >
       Sponsor a Student
-    </Link>
+    </a>
     <Link
       to="/crimson-for-life#partners"
       className="rounded-md border border-primary-foreground/40 px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-foreground/10"

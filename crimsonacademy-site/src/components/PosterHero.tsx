@@ -41,6 +41,23 @@ interface PosterHeroProps {
   imageAlt?: string;
   /** CSS object-position for the crop. See the worked example in PageHero. */
   imagePosition?: string;
+  /**
+   * `ink` (default) is the plain dark scrim every page but About uses.
+   * `crimson` blends the school's own red into the gradient instead of pure
+   * ink — About asked for a "translucent red shade" rather than a generic
+   * dark overlay, and this is the one-word way to get it without touching
+   * the other six pages that already have a settled, approved look.
+   */
+  tint?: "ink" | "crimson";
+  /**
+   * Tailwind arbitrary-value filter classes applied to the photo itself, e.g.
+   * "contrast-125 saturate-110". Off by default — every existing hero photo
+   * was chosen and cropped against the plain image, so retroactively
+   * filtering all of them was never asked for and isn't free (a filter
+   * forces the browser off the fast compositor path for that layer). Use it
+   * only where a specific photo is flat or hazy, as About's is.
+   */
+  imageFilter?: string;
 }
 
 export const PosterHero = ({
@@ -51,6 +68,8 @@ export const PosterHero = ({
   image,
   imageAlt = "",
   imagePosition = "50% 42%",
+  tint = "ink",
+  imageFilter,
 }: PosterHeroProps) => {
   const location = useLocation();
 
@@ -60,7 +79,7 @@ export const PosterHero = ({
         <img
           src={image}
           alt={imageAlt}
-          className="absolute inset-0 -z-20 h-full w-full object-cover"
+          className={cn("absolute inset-0 -z-20 h-full w-full object-cover", imageFilter)}
           style={{ objectPosition: imagePosition }}
         />
         {/*
@@ -68,10 +87,25 @@ export const PosterHero = ({
           the breadcrumb, the middle light enough that the photograph is
           actually visible, and the bottom dark again so the poster type and
           the lede hold contrast over whatever is in frame.
+
+          The crimson tint keeps the exact same three-stop shape — same
+          breadcrumb-safe top, same clear middle, same type-safe bottom — and
+          only swaps which colour those stops are cut from. Middle stop drops
+          from .30 to .24 opacity: on About's photo specifically, .30 of pure
+          ink over an already-warm yellow wall was reading as a flat muddy
+          brown rather than a legible photo, which is the "bad gradient"
+          being fixed. A hair less opacity in the one crimson-tinted user of
+          this prop lets the actual photograph read through more clearly;
+          the ink variant everywhere else is untouched.
         */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-[linear-gradient(178deg,hsl(var(--ink)/0.62)_0%,hsl(var(--ink)/0.30)_42%,hsl(var(--ink)/0.80)_100%)]"
+          className={cn(
+            "absolute inset-0 -z-10",
+            tint === "crimson"
+              ? "bg-[linear-gradient(178deg,hsl(var(--ink)/0.58)_0%,hsl(var(--primary)/0.24)_42%,hsl(var(--ink)/0.82)_100%)]"
+              : "bg-[linear-gradient(178deg,hsl(var(--ink)/0.62)_0%,hsl(var(--ink)/0.30)_42%,hsl(var(--ink)/0.80)_100%)]",
+          )}
         />
 
         <div className="container relative pb-24 pt-20 sm:pt-24">

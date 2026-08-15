@@ -76,8 +76,14 @@ export const sections: NavSection[] = [
        ids: Navbar, Hero, Footer, About and Academics all link straight to
        them. Only the labels and the two new sections (#why, #entry, #team)
        changed when this page was rebuilt.
+
+       #inquire is new: the enrollment inquiry form (EnrollmentForm.tsx).
+       Every site-wide "Enroll Your Child" button points here now rather than
+       at #enroll, which stays as the "Five steps" explanation further down
+       the page and is still reachable via "The Process" pill below.
     */
     children: [
+      { label: "Enroll Now", href: "/admissions#inquire" },
       { label: "Why Crimson", href: "/admissions#why" },
       { label: "Fees", href: "/admissions#fees" },
       { label: "Getting In", href: "/admissions#entry" },
@@ -93,8 +99,8 @@ export const sections: NavSection[] = [
     blurb: "What is happening on campus, and when.",
     children: [
       { label: "School News", href: "/news#news" },
-      { label: "Photo & Video Library", href: "/news#library" },
       { label: "Calendar & Term Dates", href: "/news#calendar" },
+      { label: "Video Library", href: "/news#library" },
     ],
   },
   {
@@ -110,7 +116,6 @@ export const sections: NavSection[] = [
     */
     children: [
       { label: "Why Give", href: "/crimson-for-life#why" },
-      { label: "Where It Goes", href: "/crimson-for-life#where" },
       { label: "What a Gift Buys", href: "/crimson-for-life#buys" },
       { label: "Sponsor a Student", href: "/crimson-for-life#sponsor" },
       { label: "Ways to Give", href: "/crimson-for-life#give" },

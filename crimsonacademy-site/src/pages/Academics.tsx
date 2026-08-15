@@ -5,6 +5,7 @@ import { LeaderVoice } from "@/components/LeaderVoice";
 import { findSection } from "@/nav";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { ZEFFY_DONATE_URL } from "@/lib/links";
 
 import heroPhoto from "@/assets/class.jpeg";
 import approachPhoto from "@/assets/crimson-sign-boy.webp";
@@ -116,6 +117,66 @@ const syllabusComponents = [
 
 const rankings = [
   2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025,
+];
+
+/**
+ * The S.M.A.R.T. model, rewritten from Crimson-SMART-Model.docx (supplied
+ * directly, alongside a diagram at content/smart-model.png). The letters
+ * themselves changed from what was here before — this is not a copyedit of
+ * the old five pillars, it's a different model entirely:
+ *
+ *   old: Service, Maximising each stage, Artistic expression,
+ *        Reading/writing/arithmetic, Teacher development
+ *   new: Support & Service, Multilingual & Multicultural Learning,
+ *        Academic & Artistic Excellence, Results & Continuous Improvement,
+ *        Technology & Teacher Development
+ *
+ * Built as a five-card grid rather than embedding smart-model.png directly:
+ * the PNG is a Word-exported graphic at a fixed 3200x1880, in a different
+ * typeface and a slightly different crimson than the site's own tokens, and
+ * it would sit as a flat raster block on a page built entirely from live
+ * text elsewhere. This reproduces its content and structure — the same five
+ * pillars, same order, same "in practice" specifics, same closing line — as
+ * real markup: selectable, translatable, matching the type scale and colour
+ * tokens the rest of the page uses, and legible at any width instead of
+ * shrinking as one fixed image.
+ */
+const smartPillars = [
+  {
+    letter: "S",
+    name: "Support & Service",
+    why: "We care for the whole child and the whole family, so every student arrives ready to learn.",
+    practice:
+      "Health education and access to medical and mental-health care; socio-emotional and family support services; the nursery feeding programme; and monthly community outreach that forms character through service.",
+  },
+  {
+    letter: "M",
+    name: "Multilingual & Multicultural Learning",
+    why: "Daily instruction in three languages opens doors to both local belonging and global opportunity.",
+    practice:
+      "English as the primary language of instruction, with daily French and Kinyarwanda; cultural-engagement activities; and advanced language development drawn from international best practices.",
+  },
+  {
+    letter: "A",
+    name: "Academic & Artistic Excellence",
+    why: "A rigorous, developmentally appropriate core of reading, writing and arithmetic, enriched by the arts.",
+    practice:
+      "Strong literacy and numeracy foundations; instruction paced to each child's developmental stage; creative expression through dance, chorus and the arts; all aligned to Rwanda's national Competence-Based Curriculum.",
+  },
+  {
+    letter: "R",
+    name: "Results & Continuous Improvement",
+    why: "We set clear benchmarks, measure often, and use evidence to improve every term.",
+    practice:
+      "Regular assessment and progress monitoring; data-driven decisions; accountability to district and national benchmarks; and disciplined preparation for the National Exam, where our P6 class averaged 90.4% with every student earning Division A.",
+  },
+  {
+    letter: "T",
+    name: "Technology & Teacher Development",
+    why: "Modern tools and continually growing teachers make learning stick.",
+    practice:
+      "Student-centred computing; interactive multimedia and online learning; an introduction to computer programming; and ongoing professional development so staff keep sharpening their craft.",
+  },
 ];
 
 // ── small presentational pieces, local to this page ────────────────────────
@@ -449,37 +510,23 @@ const Academics = () => {
       </section>
 
       {/* ── our approach ──────────────────────────────────────────────── */}
-      <Band id="approach" ground="tint">
+      <Band id="approach" ground="crimson">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
-          <div className="lg:order-2">
-            <Eyebrow>Our Approach</Eyebrow>
-            <Poster>
+          <div>
+            <Eyebrow dark>Our Approach</Eyebrow>
+            <Poster dark>
               The S.M.A.R.T.
               <br />
               Way to Grow
             </Poster>
-            <div className="mt-4 space-y-4 leading-relaxed text-muted-foreground">
-              <p>
-                Five pillars carry every classroom in the school:{" "}
-                <strong className="text-foreground">S</strong>ervice and continuous improvement,{" "}
-                <strong className="text-foreground">M</strong>aximising each developmental stage,{" "}
-                <strong className="text-foreground">A</strong>rtistic expression,{" "}
-                <strong className="text-foreground">R</strong>eading, writing and arithmetic, and{" "}
-                <strong className="text-foreground">T</strong>eacher and staff development.
-              </p>
-              <p>
-                Around them sit the things a competence-based curriculum needs in order to actually
-                work in a rural district: daily instruction in three languages, socio-emotional and
-                health support so children arrive ready to learn, a computer lab, and benchmarks
-                agreed with MINEDUC that we measure ourselves against every term.
-              </p>
-            </div>
-            <Chips items={syllabusComponents} />
-            <p className="mt-3.5 text-[0.8rem] text-muted-foreground">
-              The eight components behind every subject syllabus.
+            <p className="mt-4 leading-relaxed text-primary-foreground/90">
+              Rooted in our six core values — Truth, Faith, Discipline, Hope, Service and Love — the
+              S.M.A.R.T. model develops the whole child: spiritually, morally, intellectually,
+              socially, emotionally, and physically. It prepares every student in Kamonyi District to
+              thrive in a global, knowledge-based world.
             </p>
           </div>
-          <div className="lg:order-1">
+          <div>
             {/*
               793x1053 portrait in a 4/3 box, so cover crops a lot of height and
               the Y position matters: centred shows only the carved crest and
@@ -493,6 +540,42 @@ const Academics = () => {
             />
           </div>
         </div>
+
+        <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {smartPillars.map((p) => (
+            <li
+              key={p.letter}
+              className="flex flex-col rounded-2xl bg-card p-5 text-foreground shadow-[0_10px_28px_hsl(var(--ink)/0.18)]"
+            >
+              <span className="font-heading text-3xl font-black leading-none text-primary">
+                {p.letter}
+              </span>
+              <h3 className="mt-2 font-heading text-[0.95rem] font-semibold leading-snug">
+                {p.name}
+              </h3>
+              <p className="mt-2.5 text-[0.8rem] leading-relaxed text-muted-foreground">{p.why}</p>
+              <p className="mt-3 border-t pt-3 text-[0.75rem] leading-relaxed text-muted-foreground">
+                <span className="font-semibold text-eyebrow">In practice: </span>
+                {p.practice}
+              </p>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-6 max-w-[70ch] text-[0.9rem] leading-relaxed text-primary-foreground/85">
+          Together, the five pillars form one path: children who are supported and healthy (S),
+          fluent across cultures (M), grounded in strong academics and creativity (A), always
+          improving through evidence (R), and ready for a digital future (T).
+        </p>
+
+        <div className="mt-10 border-t border-primary-foreground/20 pt-8">
+          <Eyebrow dark>Subject Syllabus Components</Eyebrow>
+          <p className="mt-2 max-w-[65ch] text-[0.9rem] leading-relaxed text-primary-foreground/85">
+            Every subject we teach, in every grade, is built from the same eight components — which
+            is what actually makes a competence-based curriculum work in a rural district rather than
+            staying a phrase in a policy document.
+          </p>
+          <Chips dark items={syllabusComponents} />
+        </div>
       </Band>
 
       <Strip
@@ -501,8 +584,16 @@ const Academics = () => {
         caption="780 learners · Nursery through Primary 6 · Kagina, Southern Province"
       />
 
-      {/* ── nursery ───────────────────────────────────────────────────── */}
-      <Band id="nursery" ground="crimson">
+      {/*
+        ── nursery ────────────────────────────────────────────────────
+        ground="ink", not "crimson" — Approach directly above just claimed
+        crimson, and repeating it one band later read as the same colour
+        twice in a row. All the child components below (Poster, Stats,
+        Rhythm, LeaderVoice) already branch on a plain `dark` boolean rather
+        than on which specific dark ground, so swapping crimson for ink here
+        needed no content changes — see the matching swap on Upper School.
+      */}
+      <Band id="nursery" ground="ink">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
           <div>
             <Eyebrow dark>Nursery School · Pre-Primary</Eyebrow>
@@ -666,7 +757,7 @@ const Academics = () => {
       />
 
       {/* ── upper school ──────────────────────────────────────────────── */}
-      <Band id="upper-primary" ground="ink">
+      <Band id="upper-primary" ground="crimson">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
           <div>
             <Eyebrow dark>Upper School · Primary 4 – Primary 6</Eyebrow>
@@ -811,13 +902,15 @@ const Academics = () => {
               today. In 2016 one of our graduates posted the second-highest mark on the National
               Examination in the entire country.
             </p>
-            <Link
-              to="/crimson-for-life#sponsor"
+            <a
+              href={ZEFFY_DONATE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className={cn(buttonVariants({ size: "lg" }), "mt-6 rounded-full")}
             >
               Sponsor a student
               <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-            </Link>
+            </a>
           </div>
           <Shot src={beyondPhoto} alt="A Crimson Academy graduating class in cap and gown" />
         </div>

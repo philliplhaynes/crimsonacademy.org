@@ -1,13 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Youtube } from "lucide-react";
 import { PosterHero, Band } from "@/components/PosterHero";
-import {
-  NewsGrid,
-  DatedEvents,
-  TermList,
-  PhotoGallery,
-  VideoGallery,
-} from "@/components/NewsEvents";
+import { NewsGrid, DatedEvents, TermList, VideoGallery } from "@/components/NewsEvents";
 import { findSection } from "@/nav";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -80,52 +74,6 @@ const News = () => {
         </p>
       </Band>
 
-      {/* ── photo & video library ─────────────────────────────────────── */}
-      <Band id="library" ground="ink">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <span className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-accent">
-              Photo &amp; Video Library
-            </span>
-            <h2 className="mt-2 font-heading text-[clamp(1.7rem,4vw,2.875rem)] font-black uppercase leading-[0.95] tracking-[-0.015em] text-primary-foreground">
-              Photographs &amp; film
-            </h2>
-          </div>
-          <a
-            href="https://www.youtube.com/@CrimsonAcademy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              buttonVariants({ variant: "outline" }),
-              "rounded-full border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10",
-            )}
-          >
-            <Youtube className="mr-2 h-4 w-4" aria-hidden="true" />
-            Our YouTube channel
-          </a>
-        </div>
-        <p className="mt-3.5 max-w-[62ch] leading-relaxed text-primary-foreground/85">
-          Everything here was photographed or filmed at Kagina. The clips below are{" "}
-          <strong className="text-primary-foreground">two or three seconds each</strong> — moments
-          caught rather than films — and they start paused, so nothing downloads until you press
-          play. For full-length video, our YouTube channel is the place to go.
-        </p>
-
-        <div className="mt-9">
-          <div className="mb-3.5 text-[0.7rem] font-bold uppercase tracking-[0.1em] text-accent">
-            Moments from campus
-          </div>
-          <VideoGallery />
-        </div>
-
-        <div className="mt-11">
-          <div className="mb-3.5 text-[0.7rem] font-bold uppercase tracking-[0.1em] text-accent">
-            Photographs
-          </div>
-          <PhotoGallery />
-        </div>
-      </Band>
-
       {/* ── calendar & term dates ─────────────────────────────────────── */}
       <Band id="calendar" ground="tint">
         <span className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-eyebrow">
@@ -161,7 +109,7 @@ const News = () => {
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <Link to="/admissions#enroll" className={cn(buttonVariants({ size: "lg" }), "rounded-full")}>
+          <Link to="/admissions#inquire" className={cn(buttonVariants({ size: "lg" }), "rounded-full")}>
             How to enroll
             <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
           </Link>
@@ -171,6 +119,48 @@ const News = () => {
           >
             Contact the school office
           </Link>
+        </div>
+      </Band>
+
+      {/*
+        ── video library ──────────────────────────────────────────────
+        Moved to sit under Calendar (was between News and Calendar), and the
+        photo grid that used to share this band with it (PhotoGallery,
+        "Photographs") has been removed on request — VideoGallery is the
+        whole band now, so it's titled for what it actually contains.
+      */}
+      <Band id="library" ground="ink">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <span className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-accent">
+              Video Library
+            </span>
+            <h2 className="mt-2 font-heading text-[clamp(1.7rem,4vw,2.875rem)] font-black uppercase leading-[0.95] tracking-[-0.015em] text-primary-foreground">
+              Moments from campus
+            </h2>
+          </div>
+          <a
+            href="https://www.youtube.com/@CrimsonAcademy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              buttonVariants({ variant: "outline" }),
+              "rounded-full border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10",
+            )}
+          >
+            <Youtube className="mr-2 h-4 w-4" aria-hidden="true" />
+            Our YouTube channel
+          </a>
+        </div>
+        <p className="mt-3.5 max-w-[62ch] leading-relaxed text-primary-foreground/85">
+          Everything here was filmed at Kagina. The clips below are{" "}
+          <strong className="text-primary-foreground">two or three seconds each</strong> — moments
+          caught rather than films — and they start paused, so nothing downloads until you press
+          play. For full-length video, our YouTube channel is the place to go.
+        </p>
+
+        <div className="mt-9">
+          <VideoGallery />
         </div>
       </Band>
     </>

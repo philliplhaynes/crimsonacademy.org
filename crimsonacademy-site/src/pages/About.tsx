@@ -72,6 +72,15 @@ const About = () => {
         // group's faces sit well below the top edge. See the worked example in
         // PageHero.tsx's imagePosition doc comment.
         imagePosition="50% 29%"
+        // Requested: the default dark scrim was reading muddy over this
+        // photo's warm yellow wall, and a translucent red shade instead of
+        // plain ink. `tint="crimson"` is both — see PosterHero's doc comment.
+        // contrast/saturate compensates for the source photo itself being a
+        // little flat (overcast light, no direct sun on the group), which is
+        // the other half of "the gradient is bad" — the gradient fix alone
+        // doesn't sharpen a hazy photo, only a filter on the image can.
+        tint="crimson"
+        imageFilter="contrast-[1.1] saturate-[1.18] brightness-[1.03]"
       />
 
       <div className="container">

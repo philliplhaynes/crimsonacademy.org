@@ -4,32 +4,33 @@ import { PosterHero, Band } from "@/components/PosterHero";
 import { findSection } from "@/nav";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { ZEFFY_DONATE_URL } from "@/lib/links";
 
 import heroPhoto from "@/assets/cfl-hero-class.jpg";
 import then2009 from "@/assets/cfl-then-2009.webp";
 import shoesPhoto from "@/assets/cfl-shoes.webp";
 import teachersPhoto from "@/assets/cfl-teachers.webp";
 import mealsPhoto from "@/assets/cfl-meals.webp";
-import schoolPhoto from "@/assets/cfl-whole-school.webp";
 import graduatesPhoto from "@/assets/cfl-graduates.webp";
 import livestockPhoto from "@/assets/cfl-livestock.webp";
-import pottersPhoto from "@/assets/cfl-potters.webp";
 import buildStrip from "@/assets/cfl-strip-build.webp";
 import celebrateStrip from "@/assets/cfl-strip-celebrate.webp";
 
-/** The Zeffy campaign, run by Crimson Foundation Inc. */
-const DONATE_URL = "https://www.zeffy.com/en-US/donation-form/donate-to-change-lives-17087";
-
 /*
  ═══════════════════════════════════════════════════════════════════════════
- EVERY NUMBER ON THIS PAGE COMES FROM THE ANNUAL SCHOOL REPORT 2024–2025.
+ EVERY NUMBER ON THIS PAGE COMES FROM THE ANNUAL SCHOOL REPORT 2024–2025,
+ EXCEPT THE GIFT TIERS BELOW.
 
- Converted at 1,350 RWF to the dollar, which is the rate the report itself
- uses — 68,816,810 ÷ 1,350 = 50,975.41, matching its own USD total.
+ The "Where It Goes" full budget breakdown (five lines, RWF/USD, the $65
+ per-child callout) has been removed on request. What's left in "Why Give"
+ still quotes the report directly (71.2M RWF fees against a 68.8M RWF
+ budget, both as plain prose, not pulled from any of the removed consts).
 
- One inconsistency worth fixing in the report, not here: its salary line
- reads $19,292.91 against 25,080,786 RWF, which implies about 1,300. This
- page uses 1,350 throughout for internal consistency and says so in print.
+ The five `gifts` tiers below are NOT budget lines — they're the amounts
+ supplied directly, not derived from the report the way the old $17/$51/$65
+ ladder was. RWF figures are a straight ×1,350 conversion (the report's own
+ rate) so the table isn't dollars-only, not a claim that 1,350 RWF is what
+ each of these specifically costs in Rwanda.
 
  TWO ITEMS STILL OUTSTANDING:
    1. The Zeffy form's own description is Zeffy's stock placeholder copy and
@@ -40,43 +41,21 @@ const DONATE_URL = "https://www.zeffy.com/en-US/donation-form/donate-to-change-l
  ═══════════════════════════════════════════════════════════════════════════
 */
 
-interface BudgetLine {
-  name: string;
-  detail?: string;
-  rwf: number;
-  usd: number;
-  accent?: boolean;
-}
-
-const budget: BudgetLine[] = [
-  { name: "Staff salaries", rwf: 25_080_786, usd: 18_578 },
-  { name: "Transport", detail: "fuel, maintenance, insurance", rwf: 15_398_894, usd: 11_410 },
-  { name: "Operational", detail: "water, power, repairs, materials", rwf: 13_008_000, usd: 9_636 },
-  { name: "Food programme", rwf: 10_407_180, usd: 7_709, accent: true },
-  { name: "Staff taxes & bonuses", rwf: 4_921_950, usd: 3_646 },
-];
-
-const BUDGET_TOTAL_RWF = 68_816_810;
-const BUDGET_TOTAL_USD = 50_975;
-
-/**
- * Gift ladder. Berkeley Carroll names their levels after circles — Lion's
- * Circle, Sterling Circle. That reads as fantasy on a page about a village
- * school in Kamonyi, so these name things instead, and every one is a real
- * budget line so a donor can check the arithmetic.
- */
+/** Round tiers as supplied, not derived from a specific budget line — see the note above. */
 const gifts = [
-  { usd: "$17", what: "A term of school meals for one child", rwf: "23,127" },
-  { usd: "$51", what: "A full year of school meals for one child", rwf: "69,381" },
-  { usd: "$65", what: "One child's entire share of a school year", rwf: "88,226" },
-  { usd: "$333", what: "A year's insurance for one of the school buses", rwf: "450,000" },
-  { usd: "$519", what: "A month of diesel for the school coaster", rwf: "700,000" },
-  { usd: "$889", what: "The year's beans for all 780 children", rwf: "1,200,000" },
-  { usd: "$5,478", what: "The year's rice — the single largest food line in the school", rwf: "7,395,180" },
-  { usd: "$7,709", what: "The entire food programme for a year", rwf: "10,407,180" },
-  { usd: "$11,410", what: "The entire transport operation for a year", rwf: "15,398,894" },
+  { usd: "$10", what: "A year of student insurance", rwf: "13,500" },
+  { usd: "$50", what: "A year of school supplies for one child", rwf: "67,500" },
+  { usd: "$150", what: "A year of breakfast and lunch for one child", rwf: "202,500" },
+  { usd: "$150", what: "A year of sponsorship for one student", rwf: "202,500" },
+  { usd: "$300", what: "A year of sponsorship for one secondary student", rwf: "405,000" },
 ];
 
+/*
+ The "Buses" pillar (transport, RWF/USD) has been removed on request, and
+ every pillar's cost badge — the RWF/USD or headcount line each used to
+ carry — has been removed too. Three pillars now, not four; the grid below
+ switches from a 2x2 to a single row of three to match.
+*/
 const pillars = [
   {
     tone: "crimson" as const,
@@ -84,7 +63,6 @@ const pillars = [
     alt: "A Crimson Academy teacher at the blackboard with young pupils",
     title: "Our teachers",
     body: "Twenty-three qualified teachers, all holding the A2 qualification, plus three teaching assistants and four language specialists who work across every division. Salaries are the largest single cost in the school, and keeping good teachers in a rural district is the hardest thing we do.",
-    cost: "25,080,786 RWF · $18,578 a year",
   },
   {
     tone: "gold" as const,
@@ -92,23 +70,13 @@ const pillars = [
     alt: "Three Crimson Academy pupils eating plates of rice and beans",
     title: "The food programme",
     body: "Rice, beans, firewood and three cooks. It runs through the nursery day, and it is the most direct thing we do to keep a child in a classroom — a hungry five-year-old does not learn to read. Rice alone is 7.4M RWF of it.",
-    cost: "10,407,180 RWF · $7,709 a year",
   },
   {
     tone: "ink" as const,
-    image: schoolPhoto,
-    alt: "The whole of Crimson Academy gathered outdoors with hands raised",
-    title: "The buses",
-    body: "Five routes — Ruyenzi, Gihara, Bishenyi, Kamuhanda and Kamiranzovu — bring in the children who live too far from Kagina to walk. It is the second largest cost in the school, and it is also what makes staying behind for choir or coaching possible at all.",
-    cost: "15,398,894 RWF · $11,410 a year",
-  },
-  {
-    tone: "cream" as const,
     image: graduatesPhoto,
     alt: "A Crimson Academy graduating class in caps and gowns",
     title: "Beyond Primary 6",
-    body: "All 44 of our 2024–2025 graduates earned Division A and a place at a top secondary boarding school. We currently sponsor 22 of them through secondary — because getting a child to the end of Primary 6 and then letting go is not finishing the job.",
-    cost: "22 students sponsored today",
+    body: "All 44 of our 2024–2025 graduates earned Division A and a place at a top secondary boarding school. We go on sponsoring our top performers through secondary — because getting a child to the end of Primary 6 and then letting go is not finishing the job.",
   },
 ];
 
@@ -170,7 +138,7 @@ const DonateButton = ({
   className?: string;
 }) => (
   <a
-    href={DONATE_URL}
+    href={ZEFFY_DONATE_URL}
     target="_blank"
     rel="noopener noreferrer"
     className={cn(
@@ -204,7 +172,6 @@ const DecRule = () => (
 
 const CrimsonForLife = () => {
   const section = findSection("/crimson-for-life")!;
-  const maxRwf = budget[0].rwf;
 
   return (
     <>
@@ -212,9 +179,9 @@ const CrimsonForLife = () => {
         section={section}
         title="Crimson for"
         titleAccent="Life"
-        lede="A school year at Crimson costs about $65 a child. This page shows you exactly where that goes — and what your gift changes."
+        lede="A school year at Crimson costs about $65 a child. Here is what a gift buys, and what it changes."
         image={heroPhoto}
-        imagePosition="50% 32%"
+        imagePosition="50% 48%"
       />
 
       {/* ── the statement ─────────────────────────────────────────────── */}
@@ -231,10 +198,10 @@ const CrimsonForLife = () => {
             the Southern Province in twelve of the last thirteen years.
           </p>
           <p>
-            None of that was inherited. Every classroom was built, every bus bought, every scholarship
-            funded by somebody who decided a child in Kagina deserved the same shot as a child in
-            Kigali. We publish our whole budget below, down to the line for rice, because if we are
-            going to ask you for money we should be able to show you where the last lot went.
+            None of that was inherited. Every classroom was built, every teacher paid, every
+            scholarship funded by somebody who decided a child in Kagina deserved the same shot as a
+            child in Kigali. Below is what a gift actually buys, so you can see exactly what you are
+            part of.
           </p>
         </div>
         <p className="mt-7 max-w-[34ch] font-heading text-[clamp(1.2rem,2.2vw,1.625rem)] font-semibold leading-tight text-ink">
@@ -300,95 +267,6 @@ const CrimsonForLife = () => {
         </div>
       </Band>
 
-      {/* ── where it goes ─────────────────────────────────────────────── */}
-      <Band id="where">
-        <Eyebrow>Where It Goes</Eyebrow>
-        <Poster>The whole budget, on one page</Poster>
-        <p className="mt-4 max-w-[62ch] leading-relaxed text-muted-foreground">
-          This is the complete 2024–2025 school budget as published in our Annual School Report. Not a
-          summary, not a pie chart with an &ldquo;other&rdquo; slice — the five lines the money
-          actually goes to. The surprise for most people is that{" "}
-          <strong className="text-foreground">transport is the second largest cost in the school</strong>
-          , ahead of food and every operational line combined.
-        </p>
-
-        <div className="mt-8 overflow-hidden rounded-2xl border bg-card">
-          <table className="w-full border-collapse text-[0.95rem]">
-            <thead>
-              <tr className="bg-secondary/70">
-                <th className="px-5 py-3.5 text-left text-[0.65rem] font-bold uppercase tracking-[0.09em] text-muted-foreground">
-                  Budget line
-                </th>
-                <th className="hidden w-[30%] px-5 py-3.5 text-left text-[0.65rem] font-bold uppercase tracking-[0.09em] text-muted-foreground sm:table-cell">
-                  Share
-                </th>
-                <th className="px-5 py-3.5 text-right text-[0.65rem] font-bold uppercase tracking-[0.09em] text-muted-foreground">
-                  RWF
-                </th>
-                <th className="px-5 py-3.5 text-right text-[0.65rem] font-bold uppercase tracking-[0.09em] text-muted-foreground">
-                  USD
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {budget.map((b) => (
-                <tr key={b.name} className="border-t even:bg-secondary/35">
-                  <td className="px-5 py-3 font-semibold">
-                    {b.name}
-                    {b.detail && (
-                      <span className="font-normal text-muted-foreground"> — {b.detail}</span>
-                    )}
-                  </td>
-                  <td className="hidden px-5 py-3 sm:table-cell">
-                    <div
-                      className={cn(
-                        "h-2.5 min-w-[4px] rounded-full",
-                        b.accent ? "bg-accent" : "bg-primary",
-                      )}
-                      style={{ width: `${(b.rwf / maxRwf) * 100}%` }}
-                    />
-                  </td>
-                  <td className="whitespace-nowrap px-5 py-3 text-right tabular-nums">
-                    {b.rwf.toLocaleString("en-US")}
-                  </td>
-                  <td className="whitespace-nowrap px-5 py-3 text-right font-heading font-bold tabular-nums">
-                    ${b.usd.toLocaleString("en-US")}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-            <tfoot>
-              <tr className="border-t bg-secondary/70 font-bold">
-                <td className="px-5 py-3.5">Total for the year</td>
-                <td className="hidden sm:table-cell" />
-                <td className="whitespace-nowrap px-5 py-3.5 text-right tabular-nums">
-                  {BUDGET_TOTAL_RWF.toLocaleString("en-US")}
-                </td>
-                <td className="whitespace-nowrap px-5 py-3.5 text-right font-heading tabular-nums">
-                  ${BUDGET_TOTAL_USD.toLocaleString("en-US")}
-                </td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-        <p className="mt-3 max-w-[70ch] text-[0.8rem] leading-relaxed text-muted-foreground">
-          Converted at 1,350 RWF to the dollar, the rate used in the report itself. Income for the
-          same year was 71,164,200 RWF ($52,714) from school fees, leaving a net of 2,347,390 RWF
-          ($1,739). Capital projects, sponsorships and secondary scholarships sit outside this
-          operating budget.
-        </p>
-
-        <div className="mt-7 flex flex-wrap items-center gap-7 rounded-r-2xl border-l-4 border-accent bg-accent/12 px-7 py-6">
-          <div className="font-heading text-[clamp(2.375rem,5vw,3.75rem)] font-black leading-none text-primary">
-            $65
-          </div>
-          <p className="max-w-[46ch] text-[0.95rem] text-eyebrow">
-            <strong>One child, one year.</strong> The entire budget divided by all 780 students —
-            88,226&nbsp;RWF each. Salaries, buses, meals, electricity, chalk, everything.
-          </p>
-        </div>
-      </Band>
-
       <Strip
         src={buildStrip}
         alt="Newly finished classroom blocks on the Crimson Academy campus"
@@ -400,8 +278,7 @@ const CrimsonForLife = () => {
         <Eyebrow>What a Gift Buys</Eyebrow>
         <Poster>Gifts of any size, and what each one covers</Poster>
         <p className="mt-4 max-w-[62ch] leading-relaxed text-muted-foreground">
-          Every figure below is a real line from the 2024–2025 budget, converted at the report&apos;s
-          own exchange rate — so you can check our arithmetic.
+          A few ways to give, and what each one puts toward a child&apos;s year at Crimson.
         </p>
 
         <div className="mt-8 overflow-hidden rounded-2xl border">
@@ -421,7 +298,7 @@ const CrimsonForLife = () => {
             </thead>
             <tbody>
               {gifts.map((g) => (
-                <tr key={g.usd} className="bg-card odd:bg-secondary/55">
+                <tr key={g.what} className="bg-card odd:bg-secondary/55">
                   <td className="w-[26%] whitespace-nowrap px-5 py-4 font-heading text-[clamp(1.05rem,2vw,1.4rem)] font-black text-primary">
                     {g.usd}
                   </td>
@@ -435,9 +312,8 @@ const CrimsonForLife = () => {
           </table>
         </div>
         <p className="mt-3 max-w-[70ch] text-[0.8rem] leading-relaxed text-muted-foreground">
-          Per-child meal figures are the food programme divided by the 150 nursery children it serves;
-          the per-child year is the whole budget divided by all 780 students. Gifts of any size are
-          welcome and none of these are minimums.
+          RWF figures are converted at 1,350 to the dollar. Gifts of any size are welcome and none of
+          these are minimums.
         </p>
         <div className="mt-6">
           <DonateButton>Give any amount</DonateButton>
@@ -449,10 +325,10 @@ const CrimsonForLife = () => {
         <DecRule />
         <div className="mt-7">
           <Eyebrow>What Your Support Makes Possible</Eyebrow>
-          <Poster>Four things a gift keeps running</Poster>
+          <Poster>Three things a gift keeps running</Poster>
         </div>
 
-        <div className="mt-9 grid gap-6 sm:grid-cols-2">
+        <div className="mt-9 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {pillars.map((p) => (
             <article key={p.title} className="flex flex-col overflow-hidden rounded-2xl">
               <div className="overflow-hidden">
@@ -469,7 +345,6 @@ const CrimsonForLife = () => {
                   p.tone === "crimson" && "bg-primary text-primary-foreground",
                   p.tone === "gold" && "bg-accent text-accent-foreground",
                   p.tone === "ink" && "bg-ink text-primary-foreground",
-                  p.tone === "cream" && "bg-secondary text-foreground",
                 )}
               >
                 <div
@@ -486,22 +361,10 @@ const CrimsonForLife = () => {
                       p.tone === "crimson" && "text-primary-foreground/88",
                       p.tone === "gold" && "text-accent-foreground/85",
                       p.tone === "ink" && "text-primary-foreground/85",
-                      p.tone === "cream" && "text-muted-foreground",
                     )}
                   >
                     {p.body}
                   </p>
-                  <span
-                    className={cn(
-                      "mt-4 inline-block rounded-full px-3.5 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.04em]",
-                      p.tone === "crimson" && "bg-primary-foreground/16 text-accent",
-                      p.tone === "gold" && "bg-accent-foreground/14 text-accent-foreground",
-                      p.tone === "ink" && "bg-primary-foreground/14 text-accent",
-                      p.tone === "cream" && "bg-primary/12 text-primary",
-                    )}
-                  >
-                    {p.cost}
-                  </span>
                 </div>
               </div>
             </article>
@@ -537,10 +400,7 @@ const CrimsonForLife = () => {
               </p>
             </div>
           </div>
-          <div className="grid gap-5">
-            <Shot src={livestockPhoto} alt="Goats from the school livestock programme with children looking on" />
-            <Shot src={pottersPhoto} alt="Hands shaping wet clay, the traditional trade of the Potters community" />
-          </div>
+          <Shot src={livestockPhoto} alt="Goats from the school livestock programme with children looking on" />
         </div>
       </Band>
 
@@ -577,7 +437,7 @@ const CrimsonForLife = () => {
 
           <div id="sponsor" className="flex scroll-mt-32 flex-col rounded-2xl border bg-card p-6">
             <span className="text-[0.7rem] font-bold uppercase tracking-[0.06em] text-eyebrow">
-              $65 a year covers a child
+              Ongoing sponsorship
             </span>
             <h3 className="mt-1 font-heading text-lg font-semibold">Sponsor a student</h3>
             <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">
@@ -716,7 +576,7 @@ const CrimsonForLife = () => {
             </p>
           </div>
           <a
-            href={DONATE_URL}
+            href={ZEFFY_DONATE_URL}
             target="_blank"
             rel="noopener noreferrer"
             className={cn(buttonVariants({ size: "lg" }), "rounded-full")}

@@ -36,10 +36,16 @@ import mealsPhoto from "@/assets/history-2019-food-programme.webp";
    3. The lead teacher for basketball, debate and chess. The four names that
       do appear — Eugene, Robert, Elizabeth, Frederic — are all from
       StaffDirectory.tsx.
-   4. A photograph of the chess club. `sl-chess.webp` is a STAND-IN: it shows
-      igisoro, the Rwandan mancala, played on a mat at Kagina — not chess. The
-      narrative names that tradition rather than passing the picture off as a
-      chess match, but it should be swapped when a real photo exists.
+   4. A photograph of the chess club. `sl-chess.webp` is STILL a STAND-IN: it
+      shows igisoro, the Rwandan mancala, played on a mat at Kagina — not
+      chess. Asked for again, and checked again — every file in src/assets
+      was reviewed, including the newest batch (class2/3/5.JPG, crimson.jpg,
+      karate_pose.jpg, upper_school.JPEG, Judah_Claire.jpeg, P6_Graduation.
+      jpeg, dance.jpeg, service2.JPG, parents.jpeg) — and none of them show
+      chess either. The narrative below names the igisoro tradition honestly
+      rather than passing the picture off as a chess match. Swap the import
+      the moment an actual photo of students playing chess exists; nothing
+      else about this tile needs to change.
  ═══════════════════════════════════════════════════════════════════════════
 */
 
@@ -150,14 +156,17 @@ const atTheTable: ActivityTileProps[] = [
   },
 ];
 
+/*
+  "School transport" removed on request: the school does not want transport
+  mentioned anywhere on the site. Breakfast and lunch rewritten to say plainly
+  that they cost something — the fee figures below (15,000 RWF a term for
+  breakfast, 45,000 for lunch) match the fee table on /admissions#fees, so
+  the two pages can't quietly disagree about what meals cost.
+*/
 const provisions = [
   <>
-    A daily <strong className="font-semibold text-primary-foreground">food programme</strong> through
-    the nursery day, cooked on site by three staff cooks
-  </>,
-  <>
-    <strong className="font-semibold text-primary-foreground">School transport</strong> for children
-    who live too far from Kagina to walk — which is also what makes staying late possible
+    <strong className="font-semibold text-primary-foreground">Breakfast and lunch</strong>, cooked on
+    site and served every school day, available to any family for a fee
   </>,
   <>
     Access to{" "}
@@ -338,8 +347,8 @@ const StudentLife = () => {
         <Poster>Where &amp; when</Poster>
         <p className="mt-4 max-w-[62ch] leading-relaxed text-muted-foreground">
           Everything on this page happens on campus, after lessons, on the pitch, the hard court, or
-          in a classroom. Nothing here costs a family anything beyond being able to get a child home
-          afterwards — which is what the buses are for. The school year runs in three terms from
+          in a classroom. Nothing here costs a family anything beyond the time it takes. The school
+          year runs in three terms from
           September through July; exact dates are published under{" "}
           <Link
             to="/news#calendar"

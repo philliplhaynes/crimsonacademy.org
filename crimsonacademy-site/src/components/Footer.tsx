@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { MapPin, Mail, Globe } from "lucide-react";
 import { SocialLinks } from "@/components/SocialLinks";
 import { cn } from "@/lib/utils";
+import { ZEFFY_DONATE_URL } from "@/lib/links";
 
 const legalLinks = [
   { label: "Privacy Policy", href: "/privacy-policy" },
@@ -10,13 +11,18 @@ const legalLinks = [
   { label: "Site Map", href: "/site-map" },
 ];
 
-const quickLinks = [
+/**
+ * `external` marks the one entry (Sponsor a Student) that leaves the site —
+ * everything else is a same-page anchor rendered as a router Link. Simpler
+ * than maintaining two arrays for one exception.
+ */
+const quickLinks: { label: string; href: string; external?: boolean }[] = [
   { label: "Term Dates", href: "/news#calendar" },
   { label: "Fees", href: "/admissions#fees" },
-  { label: "How to Enroll", href: "/admissions#enroll" },
+  { label: "How to Enroll", href: "/admissions#inquire" },
   { label: "Exam Results", href: "/academics#results" },
   { label: "Leadership & Staff", href: "/about#leadership" },
-  { label: "Sponsor a Student", href: "/crimson-for-life#sponsor" },
+  { label: "Sponsor a Student", href: ZEFFY_DONATE_URL, external: true },
   { label: "Portal Sign In", href: "/portal#login" },
 ];
 
@@ -50,17 +56,19 @@ export const Footer = () => {
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link
-              to="/admissions#enroll"
+              to="/admissions#inquire"
               className="rounded-md bg-accent px-6 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent/90"
             >
               Enroll Your Child
             </Link>
-            <Link
-              to="/crimson-for-life#sponsor"
+            <a
+              href={ZEFFY_DONATE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="rounded-md border border-primary/40 px-6 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary/10"
             >
               Sponsor a Student
-            </Link>
+            </a>
           </div>
         </div>
       </div>
@@ -144,13 +152,25 @@ export const Footer = () => {
             <ul className="mt-3.5 flex flex-wrap gap-x-5 gap-y-2 text-sm">
               {quickLinks.map((q) => (
                 <li key={q.href}>
-                  <Link
-                    to={q.href}
-                    className="inline-flex items-center gap-1.5 transition-colors hover:text-accent"
-                  >
-                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
-                    {q.label}
-                  </Link>
+                  {q.external ? (
+                    <a
+                      href={q.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 transition-colors hover:text-accent"
+                    >
+                      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                      {q.label}
+                    </a>
+                  ) : (
+                    <Link
+                      to={q.href}
+                      className="inline-flex items-center gap-1.5 transition-colors hover:text-accent"
+                    >
+                      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                      {q.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

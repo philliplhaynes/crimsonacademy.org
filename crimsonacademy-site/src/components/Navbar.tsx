@@ -7,6 +7,7 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { sections } from "@/nav";
 import { cn } from "@/lib/utils";
+import { ZEFFY_DONATE_URL } from "@/lib/links";
 
 const CLOSE_DELAY = 200;
 
@@ -135,12 +136,17 @@ const MobileNav = () => {
       {isOpen && createPortal(
         <div className="fixed inset-0 top-16 z-50 overflow-y-auto bg-background">
           <div className="flex flex-col gap-2 p-4 pb-24">
-            <Link to="/admissions#enroll" className={buttonVariants({ variant: "default" })}>
+            <Link to="/admissions#inquire" className={buttonVariants({ variant: "default" })}>
               Enroll Your Child
             </Link>
-            <Link to="/crimson-for-life#sponsor" className={buttonVariants({ variant: "outline" })}>
+            <a
+              href={ZEFFY_DONATE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={buttonVariants({ variant: "outline" })}
+            >
               Sponsor a Student
-            </Link>
+            </a>
 
             <nav className="mt-4 divide-y">
               {sections.map((section, i) => {
@@ -208,10 +214,15 @@ export const Navbar = () => {
 
         <div className="hidden lg:flex shrink-0 items-center gap-2">
           <ModeToggle />
-          <Link to="/crimson-for-life#sponsor" className={buttonVariants({ variant: "outline", size: "sm" })}>
+          <a
+            href={ZEFFY_DONATE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={buttonVariants({ variant: "outline", size: "sm" })}
+          >
             Sponsor
-          </Link>
-          <Link to="/admissions#enroll" className={buttonVariants({ variant: "default", size: "sm" })}>
+          </a>
+          <Link to="/admissions#inquire" className={buttonVariants({ variant: "default", size: "sm" })}>
             Enroll
           </Link>
         </div>

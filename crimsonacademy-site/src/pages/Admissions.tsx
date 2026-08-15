@@ -11,19 +11,16 @@ import {
 } from "@/components/ui/accordion";
 import { findSection } from "@/nav";
 import { SectionHead } from "@/components/SectionHead";
+import { EnrollmentForm } from "@/components/EnrollmentForm";
 
-import heroPhoto from "@/assets/admissions-hero.jpg";
+import heroPhoto from "@/assets/student_learning.JPEG";
 import whyPhoto from "@/assets/admissions-why.jpg";
-/*
-  NOT a photograph — a promotional flyer for the graduation ceremony, with
-  the school's logo, the event location and the motto set as baked-in
-  artwork. It is therefore rendered object-contain on a panel rather than
-  cropped like the photographs, and its alt text carries the words in the
-  image, since nothing else can. Worth replacing with an actual photograph
-  of a graduation if one exists: text inside a JPEG is invisible to search
-  engines, cannot be translated, and goes soft on a high-DPI screen.
-*/
-import graduationPoster from "@/assets/graduation.jpg";
+// A real photograph of the whole school at assembly — replaces graduation.jpg,
+// which was a promotional flyer graphic (logo, venue and motto baked into the
+// artwork as text) rather than a photo, and was rendered object-contain for
+// exactly that reason. This is a genuine photograph, so it's cropped like
+// every other photo on the page rather than boxed and letterboxed.
+import assemblyPhoto from "@/assets/assembly.JPEG";
 import marieClaire from "@/assets/staff-marie-claire.webp";
 import martha from "@/assets/staff-martha.webp";
 import damascene from "@/assets/staff-jean-damascene.webp";
@@ -243,24 +240,35 @@ const Admissions = () => {
         titleAccent="us"
         lede="The answers to what it costs, what your child needs, and who to ask — before you pick up the phone."
         image={heroPhoto}
-        // Biased toward the crest on their shirts, same crop reasoning as the
-        // About page's contact photo.
         /*
-          Only the Y value does anything here, and it is worth knowing why
-          before anyone tries to fix the framing by nudging X. The hero band is
-          a far wider aspect (~1360x450) than this photo (4752x3168), so
-          object-cover scales the image to the container's WIDTH and the
-          overflow is entirely vertical — X has nothing to slide along.
-
-          Y=55% centres the three students in the band. The poster type does
-          clip the leftmost of them, and that cannot be solved from here: the
-          band is 450px of a 907px scaled image, and every Y that clears the
-          type pushes the other two faces out of the bottom. If that bothers
-          you, the fix is a wider or looser-framed photograph, not a crop
-          value.
+          student_learning.JPEG is 1500x1000 — much closer to the hero band's
+          own wide-short aspect than the old admissions-hero.jpg (4752x3168)
+          was, so this crops far less aggressively. The boy at the blackboard
+          sits right-of-centre in the source frame; 58% keeps his raised hand
+          and the chalk clear of the poster type on the left rather than
+          centring the photo and clipping the one detail that makes it read
+          as "a lesson in progress" rather than just "a classroom".
         */
-        imagePosition="50% 55%"
+        imagePosition="58% 40%"
       />
+
+      {/* ---------- enrollment inquiry ---------- */}
+      <Band id="inquire" ground="crimson">
+        <SectionHead
+          light
+          eyebrow="Start Here"
+          title="Tell us about your child,"
+          pop="and we'll take it from there."
+        />
+        <p className="mt-4 max-w-[65ch] text-primary-foreground/85">
+          Every &ldquo;Enroll Your Child&rdquo; button on this site leads here. Fill this in and it
+          opens your own email app with the message already written to us — no account, no portal,
+          nothing to sign in to.
+        </p>
+        <div className="mt-8 max-w-3xl rounded-2xl bg-background p-6 sm:p-8">
+          <EnrollmentForm />
+        </div>
+      </Band>
 
       {/* ---------- why crimson ---------- */}
       <Band id="why">
@@ -430,9 +438,20 @@ const Admissions = () => {
         </div>
       </Band>
 
-      {/* ---------- getting in ---------- */}
-      <Band id="entry">
-        <SectionHead eyebrow="Getting In" title="Will my child" pop="get a place?" />
+      {/*
+        ---------- getting in ----------
+        ground="ink" is safe here specifically because both cards below are
+        self-contained bg-background boxes — nothing in this band's body sits
+        directly on the dark backdrop except the heading, which SectionHead's
+        `light` prop already handles. That is deliberately NOT true of most of
+        the other bands on this page (their prose sits straight on the band),
+        which is why they stay on cream/tint rather than all nine sections
+        getting a distinct hue — seven distinct backgrounds trying to also
+        keep every paragraph legible on each was a much bigger retrofit than
+        "give sections some variety" asked for.
+      */}
+      <Band id="entry" ground="ink">
+        <SectionHead light eyebrow="Getting In" title="Will my child" pop="get a place?" />
         <div className="mt-7 grid gap-5 lg:grid-cols-2">
           <div className="rounded-xl border bg-background p-6">
             <h3 className="font-heading text-lg font-semibold text-primary">
@@ -469,7 +488,7 @@ const Admissions = () => {
       </Band>
 
       {/* ---------- the process ---------- */}
-      <Band id="enroll" ground="tint">
+      <Band id="enroll">
         <SectionHead eyebrow="The Process" title="Five steps to" pop="a place at Crimson." />
         <p className="mt-4 max-w-[65ch] text-muted-foreground">
           The whole process usually takes a couple of weeks, and you deal with the same small group
@@ -502,7 +521,7 @@ const Admissions = () => {
       </Band>
 
       {/* ---------- admissions team ---------- */}
-      <Band id="team">
+      <Band id="team" ground="tint">
         <SectionHead eyebrow="Who To Ask" title="You will be talking to the people who run the school." />
         <p className="mt-4 max-w-[65ch] text-muted-foreground">
           Applications are handled by the school's own leaders — the same people who will teach, lead
@@ -542,7 +561,7 @@ const Admissions = () => {
       </Band>
 
       {/* ---------- visit ---------- */}
-      <Band id="visit" ground="tint">
+      <Band id="visit">
         <SectionHead eyebrow="Visit Us" title="Come and see the school" pop="for yourself." />
         <div className="mt-7 grid gap-8 lg:grid-cols-2">
           <div className="space-y-4 leading-relaxed text-muted-foreground">
@@ -580,13 +599,11 @@ const Admissions = () => {
               </CardContent>
             </Card>
           </div>
-          {/* Contained, not cropped: this is a flyer whose text is part of the
-              artwork, so object-cover would slice the wording off. */}
-          <div className="flex items-center justify-center rounded-xl bg-background p-4">
+          <div className="overflow-hidden rounded-xl">
             <img
-              src={graduationPoster}
-              alt="Poster for the Crimson Academy School of Kagina Graduation Ceremony, held at Runda, Kagina, under the school motto “Reaching Beyond Impossibility”"
-              className="w-full rounded-lg object-contain"
+              src={assemblyPhoto}
+              alt="The whole school lined up outdoors for morning assembly"
+              className="aspect-[4/3] w-full object-cover"
               loading="lazy"
             />
           </div>
@@ -594,7 +611,7 @@ const Admissions = () => {
       </Band>
 
       {/* ---------- faq ---------- */}
-      <Band id="faq">
+      <Band id="faq" ground="tint">
         <SectionHead eyebrow="Frequently Asked Questions" title="Questions families" pop="ask us." />
         <div className="mt-7 max-w-3xl">
           <Accordion type="single" collapsible className="w-full">

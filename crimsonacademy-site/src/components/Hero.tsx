@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { DisplayHeading } from "./DisplayHeading";
+import { ZEFFY_DONATE_URL } from "@/lib/links";
 import heroPhoto from "@/assets/home-hero-hand.jpg";
 
 /**
@@ -65,17 +66,19 @@ export const Hero = () => {
 
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link
-            to="/admissions#enroll"
+            to="/admissions#inquire"
             className="rounded-md bg-accent px-6 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent/90"
           >
             Enroll Your Child
           </Link>
-          <Link
-            to="/crimson-for-life#sponsor"
+          <a
+            href={ZEFFY_DONATE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="rounded-md border border-primary-foreground/40 px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-foreground/10"
           >
             Sponsor a Student
-          </Link>
+          </a>
         </div>
       </div>
     </section>
