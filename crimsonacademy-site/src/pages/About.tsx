@@ -81,6 +81,11 @@ const About = () => {
         // doesn't sharpen a hazy photo, only a filter on the image can.
         tint="crimson"
         imageFilter="contrast-[1.1] saturate-[1.18] brightness-[1.03]"
+        // The source photo has visible quality issues (softness/noise) that
+        // the crimson gradient alone doesn't hide, since its middle band is
+        // intentionally near-clear. A flat grey wash over the whole image
+        // mutes that too.
+        grayVeil
       />
 
       <div className="container">

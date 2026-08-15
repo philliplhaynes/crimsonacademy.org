@@ -58,6 +58,16 @@ interface PosterHeroProps {
    * only where a specific photo is flat or hazy, as About's is.
    */
   imageFilter?: string;
+  /**
+   * A flat, neutral-grey wash over the whole photo, not just the gradient's
+   * top/bottom stops. The gradient's middle band is deliberately near-clear
+   * so the photo reads through — exactly the area a low-quality source image
+   * shows its noise/softness the most. This sits between the image and the
+   * gradient specifically to mute that middle band too, at the cost of the
+   * photo overall reading a bit duller. Off by default; on for About's hero,
+   * whose source photo has visible compression/quality issues.
+   */
+  grayVeil?: boolean;
 }
 
 export const PosterHero = ({
@@ -70,6 +80,7 @@ export const PosterHero = ({
   imagePosition = "50% 42%",
   tint = "ink",
   imageFilter,
+  grayVeil = false,
 }: PosterHeroProps) => {
   const location = useLocation();
 
@@ -82,6 +93,9 @@ export const PosterHero = ({
           className={cn("absolute inset-0 -z-20 h-full w-full object-cover", imageFilter)}
           style={{ objectPosition: imagePosition }}
         />
+        {grayVeil && (
+          <div aria-hidden="true" className="absolute inset-0 -z-[15] bg-[hsl(0_0%_34%/0.58)]" />
+        )}
         {/*
           A gradient, not a flat scrim: the top needs to stay dark enough for
           the breadcrumb, the middle light enough that the photograph is
