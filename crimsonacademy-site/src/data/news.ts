@@ -1,5 +1,5 @@
-import gradPhoto from "@/assets/graduation-p6.jpg";
-import nurseryPhoto from "@/assets/nursery-graduation.jpg";
+import gradPhoto from "@/assets/IMG_0640.JPEG";
+import nurseryPhoto from "@/assets/nursery-graduation-2026.jpg";
 import servicePhoto from "@/assets/community-service.jpg";
 
 /* Library — the gallery deliberately reuses photographs already optimised for

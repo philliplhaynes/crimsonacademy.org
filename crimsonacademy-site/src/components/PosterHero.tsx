@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import type { NavSection } from "@/nav";
 import { cn } from "@/lib/utils";
+import { useEnrollmentModal } from "@/components/EnrollmentModal";
 
 /**
  * The Academics page's hero: a full-bleed photograph, the page name set at
@@ -83,6 +84,7 @@ export const PosterHero = ({
   grayVeil = false,
 }: PosterHeroProps) => {
   const location = useLocation();
+  const { openEnrollmentModal } = useEnrollmentModal();
 
   return (
     <>
@@ -220,6 +222,22 @@ export const PosterHero = ({
             className="flex min-w-0 items-center justify-start gap-1 overflow-x-auto rounded-2xl bg-primary p-3 shadow-[0_18px_44px_hsl(var(--ink)/0.28)] sm:justify-center sm:p-4"
           >
             {section.children.map((child) => {
+              const pillBase =
+                "shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary";
+
+              if (child.action === "enroll") {
+                return (
+                  <button
+                    key={child.href}
+                    type="button"
+                    onClick={openEnrollmentModal}
+                    className={cn(pillBase, "text-primary-foreground/90 hover:bg-primary-foreground/15")}
+                  >
+                    {child.label}
+                  </button>
+                );
+              }
+
               const isActive = child.href.includes("#")
                 ? location.pathname + location.hash === child.href
                 : location.pathname === child.href;
@@ -228,7 +246,7 @@ export const PosterHero = ({
                   key={child.href}
                   to={child.href}
                   className={cn(
-                    "shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary",
+                    pillBase,
                     isActive
                       ? "bg-accent font-bold text-accent-foreground"
                       : "text-primary-foreground/90 hover:bg-primary-foreground/15",

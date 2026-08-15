@@ -94,7 +94,7 @@ const Portal = () => {
         title="Portal"
         lede="Students, parents, donors and staff all connect through one platform — the Crimson Foundation Portal. Sign in to see grades, attendance, sponsorship updates, and school records."
         image={heroPhoto}
-        imagePosition="50% 38%"
+        imagePosition="50% 58%"
       />
 
       {/* ---------- overview + sign in ---------- */}

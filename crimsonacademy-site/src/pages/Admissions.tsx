@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/accordion";
 import { findSection } from "@/nav";
 import { SectionHead } from "@/components/SectionHead";
-import { EnrollmentForm } from "@/components/EnrollmentForm";
 
 import heroPhoto from "@/assets/student_learning.JPEG";
 import whyPhoto from "@/assets/admissions-why.jpg";
@@ -251,24 +250,6 @@ const Admissions = () => {
         */
         imagePosition="58% 40%"
       />
-
-      {/* ---------- enrollment inquiry ---------- */}
-      <Band id="inquire" ground="crimson">
-        <SectionHead
-          light
-          eyebrow="Start Here"
-          title="Tell us about your child,"
-          pop="and we'll take it from there."
-        />
-        <p className="mt-4 max-w-[65ch] text-primary-foreground/85">
-          Every &ldquo;Enroll Your Child&rdquo; button on this site leads here. Fill this in and it
-          opens your own email app with the message already written to us — no account, no portal,
-          nothing to sign in to.
-        </p>
-        <div className="mt-8 max-w-3xl rounded-2xl bg-background p-6 sm:p-8">
-          <EnrollmentForm />
-        </div>
-      </Band>
 
       {/* ---------- why crimson ---------- */}
       <Band id="why">

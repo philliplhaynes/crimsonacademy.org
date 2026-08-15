@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { ArrowRight, Download } from "lucide-react";
 import { PosterHero, Band } from "@/components/PosterHero";
 import { findSection } from "@/nav";
@@ -32,12 +31,15 @@ import celebrateStrip from "@/assets/cfl-strip-celebrate.webp";
  rate) so the table isn't dollars-only, not a claim that 1,350 RWF is what
  each of these specifically costs in Rwanda.
 
- TWO ITEMS STILL OUTSTANDING:
-   1. The Zeffy form's own description is Zeffy's stock placeholder copy and
-      says nothing about Kagina or what a gift buys. It is the last thing a
-      donor reads before deciding. Worth replacing with the narrative here.
-   2. The annual report PDF is not yet hosted; the download button points at
-      the report section rather than a file.
+ ONE ITEM STILL OUTSTANDING:
+   The Zeffy form's own description is Zeffy's stock placeholder copy and
+   says nothing about Kagina or what a gift buys. It is the last thing a
+   donor reads before deciding. Worth replacing with the narrative here.
+
+ The Annual Report's "Download the report" button links to the actual PDF
+ now, at public/Crimson-Academy-Annual-Report-2024-2025.pdf (served as a
+ static file, unprocessed by Vite — anything under public/ is copied as-is
+ to the build output root).
  ═══════════════════════════════════════════════════════════════════════════
 */
 
@@ -181,7 +183,7 @@ const CrimsonForLife = () => {
         titleAccent="Life"
         lede="A school year at Crimson costs about $65 a child. Here is what a gift buys, and what it changes."
         image={heroPhoto}
-        imagePosition="50% 48%"
+        imagePosition="50% 17%"
       />
 
       {/* ── the statement ─────────────────────────────────────────────── */}
@@ -248,16 +250,22 @@ const CrimsonForLife = () => {
             <h3 className="font-heading text-[1.35rem] font-bold">The gap a gift actually closes</h3>
             <div className="mt-4 space-y-4 leading-relaxed text-muted-foreground">
               <p>
-                School fees very nearly cover what it costs to run the school day to day — in
-                2024–2025 fees brought in 71.2M RWF against a 68.8M RWF budget. What fees do{" "}
-                <em>not</em> cover is the part that makes Crimson different: the children whose
-                families cannot pay at all, the{" "}
-                <strong className="text-foreground">22 secondary scholarships</strong> we currently
-                fund, and every building on the campus.
+                Crimson offers a genuinely rigorous education, the same curriculum and National Exam
+                any child in Kigali gets. Reaching it is the harder part. For a lot of families in
+                Kagina, primary school is already a stretch, and secondary is further still. That is
+                truest for the Potters, whose families make a living from clay rather than a wage, and
+                for whom a school fee due at the start of term can decide whether a child sits the exam
+                at all.
               </p>
               <p>
-                That is what giving is for here. Not the gap in the operating budget — the gap between
-                a school that breaks even and a school that reaches the children who need it most.
+                Without a sponsor, that exam at the end of Primary 6 is often where the story ends.
+                Sponsorship is what keeps it from ending there: it follows a child continuously,
+                nursery through Primary 6, and for our strongest performers, into a fully funded
+                secondary boarding place. We currently fund{" "}
+                <strong className="text-foreground">22 of those secondary scholarships</strong>. That
+                is the actual gap a gift closes: the space between a child who starts strong and
+                stalls, and one who walks the whole path to a secondary diploma on solid ground, with
+                no gaps or holes along the way.
               </p>
             </div>
           </div>
@@ -543,17 +551,15 @@ const CrimsonForLife = () => {
                 </li>
               ))}
             </ul>
-            {/*
-              The PDF is not hosted yet, so this points at the school's contact
-              details rather than a dead file. Swap for the asset when it exists.
-            */}
-            <Link
-              to="/about#contact"
+            <a
+              href="/Crimson-Academy-Annual-Report-2024-2025.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className={cn(buttonVariants({ variant: "outline", size: "lg" }), "mt-5 rounded-full")}
             >
               <Download className="mr-2 h-4 w-4" aria-hidden="true" />
-              Request the report
-            </Link>
+              Download the report
+            </a>
           </div>
         </div>
       </Band>
@@ -569,7 +575,8 @@ const CrimsonForLife = () => {
         <div className="container flex flex-wrap items-center justify-between gap-6">
           <div>
             <h2 className="max-w-[26ch] font-heading text-[clamp(1.55rem,3.2vw,2.3rem)] font-bold text-accent-foreground">
-              $65 puts a child through a year of school.
+              $150 puts a child through a year of school, including uniforms and school
+              supplies.
             </h2>
             <p className="mt-2.5 max-w-[48ch] text-accent-foreground/85">
               Any amount, one time or monthly, and Zeffy passes on all of it.

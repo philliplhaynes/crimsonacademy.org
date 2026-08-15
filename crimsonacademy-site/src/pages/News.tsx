@@ -5,6 +5,7 @@ import { NewsGrid, DatedEvents, TermList, VideoGallery } from "@/components/News
 import { findSection } from "@/nav";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useEnrollmentModal } from "@/components/EnrollmentModal";
 
 import heroPhoto from "@/assets/news-hero-assembly.webp";
 
@@ -24,6 +25,7 @@ import heroPhoto from "@/assets/news-hero-assembly.webp";
 
 const News = () => {
   const section = findSection("/news")!;
+  const { openEnrollmentModal } = useEnrollmentModal();
 
   return (
     <>
@@ -109,10 +111,14 @@ const News = () => {
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <Link to="/admissions#inquire" className={cn(buttonVariants({ size: "lg" }), "rounded-full")}>
+          <button
+            type="button"
+            onClick={openEnrollmentModal}
+            className={cn(buttonVariants({ size: "lg" }), "rounded-full")}
+          >
             How to enroll
             <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-          </Link>
+          </button>
           <Link
             to="/about#contact"
             className={cn(buttonVariants({ variant: "outline", size: "lg" }), "rounded-full")}

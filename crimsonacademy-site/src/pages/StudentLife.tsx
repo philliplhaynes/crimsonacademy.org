@@ -13,7 +13,7 @@ import karatePhoto from "@/assets/sl-karate.webp";
 import basketballPhoto from "@/assets/sl-basketball.webp";
 import footballPhoto from "@/assets/sl-football.webp";
 import debatePhoto from "@/assets/sl-debate.webp";
-import chessPhoto from "@/assets/sl-chess.webp";
+import chessPhoto from "@/assets/chess2.jpg";
 import coachingPhoto from "@/assets/sl-coaching.webp";
 import tournamentPhoto from "@/assets/sl-tournament.webp";
 import servicePhoto from "@/assets/family-outreach-visit.jpg";
@@ -36,16 +36,12 @@ import mealsPhoto from "@/assets/history-2019-food-programme.webp";
    3. The lead teacher for basketball, debate and chess. The four names that
       do appear — Eugene, Robert, Elizabeth, Frederic — are all from
       StaffDirectory.tsx.
-   4. A photograph of the chess club. `sl-chess.webp` is STILL a STAND-IN: it
-      shows igisoro, the Rwandan mancala, played on a mat at Kagina — not
-      chess. Asked for again, and checked again — every file in src/assets
-      was reviewed, including the newest batch (class2/3/5.JPG, crimson.jpg,
-      karate_pose.jpg, upper_school.JPEG, Judah_Claire.jpeg, P6_Graduation.
-      jpeg, dance.jpeg, service2.JPG, parents.jpeg) — and none of them show
-      chess either. The narrative below names the igisoro tradition honestly
-      rather than passing the picture off as a chess match. Swap the import
-      the moment an actual photo of students playing chess exists; nothing
-      else about this tile needs to change.
+
+ RESOLVED: the chess club photo was a stand-in (sl-chess.webp, igisoro rather
+ than chess) for months — see git history if that context is ever needed.
+ `chess2.jpg` is a real photo of students playing chess and replaces it.
+ news.ts's own `galChess` still points at sl-chess.webp — a separate photo
+ for a different context (the News video/photo library), not touched here.
  ═══════════════════════════════════════════════════════════════════════════
 */
 
@@ -127,8 +123,8 @@ const atTheTable: ActivityTileProps[] = [
     name: "Chess Club",
     hook: "For the children who go quiet in a crowd",
     image: chessPhoto,
-    imageAlt: "Children and adults gathered around a strategy board game played on a mat outdoors",
-    meta: ["Primary 3 – Primary 6", "?Photo & lead to confirm"],
+    imageAlt: "A student weighing a move on a chess board, classmates playing at desks behind her",
+    meta: ["Primary 3 – Primary 6", "?Lead to confirm"],
     body: [
       "Chess rewards nothing that football rewards. Not speed, not volume, not height. Only sitting with a hard problem for longer than it is comfortable to sit with it — which is exactly the muscle a national exam asks for and almost nothing else in a child's week trains.",
       "It also sits in a long local tradition. Strategy games are played on mats all over Kagina, and a child who has spent evenings on a board of seeds already understands trading a piece now for a position later.",

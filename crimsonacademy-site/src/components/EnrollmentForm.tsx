@@ -5,11 +5,11 @@ import { cn } from "@/lib/utils";
 import { ENROLLMENT_EMAIL } from "@/lib/links";
 
 /**
- * The enrollment inquiry form. Every "Enroll Your Child" button on the site
- * — Navbar, Hero, Footer, and the sub-nav pill on this page — now lands here
- * instead of jumping straight to the explanatory "Five steps" section
- * further down the page (#enroll, unchanged, still reachable from its own
- * sub-nav pill).
+ * The enrollment inquiry form. Rendered inside the popup modal in
+ * EnrollmentModal.tsx — every "Enroll Your Child" / "Enroll Now" trigger on
+ * the site opens that same modal rather than any of them linking to a
+ * permanent on-page section. The explanatory "Five steps" section on
+ * Admissions (#enroll) is separate and unaffected.
  *
  * ─────────────────────────────────────────────────────────────────────────
  * HOW SUBMISSION ACTUALLY WORKS, AND WHY.
@@ -130,7 +130,7 @@ const Field = ({
 const inputClass =
   "w-full rounded-md border bg-background px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-ring";
 
-export const EnrollmentForm = () => {
+export const EnrollmentForm = ({ onSubmitted }: { onSubmitted?: () => void }) => {
   const [form, setForm] = useState<FormState>(initialState);
   const [touched, setTouched] = useState(false);
 
@@ -152,6 +152,7 @@ export const EnrollmentForm = () => {
     setTouched(true);
     if (!isValid) return;
     window.location.href = buildEnrollmentMailto(form);
+    onSubmitted?.();
   };
 
   return (

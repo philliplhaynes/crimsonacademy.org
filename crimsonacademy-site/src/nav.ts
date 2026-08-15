@@ -1,6 +1,14 @@
 export interface NavChild {
   label: string;
   href: string;
+  /**
+   * When set, every renderer of NavChild (Navbar's dropdown and mobile
+   * menu, PosterHero's sub-nav slab) renders this entry as a button that
+   * opens the matching modal instead of a Link to `href`. `href` is kept
+   * anyway as the semantic fallback destination, unused while the action
+   * fires but still correct if the special-case is ever removed.
+   */
+  action?: "enroll";
 }
 
 export interface NavSection {
@@ -77,13 +85,15 @@ export const sections: NavSection[] = [
        them. Only the labels and the two new sections (#why, #entry, #team)
        changed when this page was rebuilt.
 
-       #inquire is new: the enrollment inquiry form (EnrollmentForm.tsx).
-       Every site-wide "Enroll Your Child" button points here now rather than
-       at #enroll, which stays as the "Five steps" explanation further down
-       the page and is still reachable via "The Process" pill below.
+       #inquire no longer exists as a page section — every "Enroll Your
+       Child" trigger site-wide, including this pill (via `action: "enroll"`
+       above), opens the EnrollmentForm as a popup modal instead
+       (EnrollmentModal.tsx). `href` stays set as the semantic fallback.
+       #enroll is unrelated and unaffected: the "Five steps" explanation
+       further down the page, still reachable via "The Process" pill below.
     */
     children: [
-      { label: "Enroll Now", href: "/admissions#inquire" },
+      { label: "Enroll Now", href: "/admissions#inquire", action: "enroll" },
       { label: "Why Crimson", href: "/admissions#why" },
       { label: "Fees", href: "/admissions#fees" },
       { label: "Getting In", href: "/admissions#entry" },

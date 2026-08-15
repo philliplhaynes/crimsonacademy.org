@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-route
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import { ScrollToTop } from "./components/ScrollToTop";
+import { EnrollmentModalProvider } from "./components/EnrollmentModal";
 import { prefersReducedMotion } from "./lib/motion";
 import "./App.css";
 
@@ -66,36 +67,38 @@ const PageFallback = () => (
 function App() {
   return (
     <BrowserRouter>
-      <RouteEffects />
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
-      >
-        Skip to main content
-      </a>
-      <Navbar />
-      <main id="main">
-        <Suspense fallback={<PageFallback />}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/about/history" element={<AboutHistory />} />
-            <Route path="/academics" element={<Academics />} />
-            <Route path="/student-life" element={<StudentLife />} />
-            <Route path="/admissions" element={<Admissions />} />
-            <Route path="/news" element={<News />} />
-            <Route path="/crimson-for-life" element={<CrimsonForLife />} />
-            <Route path="/support" element={<SupportRedirect />} />
-            <Route path="/portal" element={<Portal />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/non-discrimination-policy" element={<NonDiscriminationPolicy />} />
-            <Route path="/site-map" element={<SiteMap />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </main>
-      <Footer />
-      <ScrollToTop />
+      <EnrollmentModalProvider>
+        <RouteEffects />
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
+        >
+          Skip to main content
+        </a>
+        <Navbar />
+        <main id="main">
+          <Suspense fallback={<PageFallback />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/about/history" element={<AboutHistory />} />
+              <Route path="/academics" element={<Academics />} />
+              <Route path="/student-life" element={<StudentLife />} />
+              <Route path="/admissions" element={<Admissions />} />
+              <Route path="/news" element={<News />} />
+              <Route path="/crimson-for-life" element={<CrimsonForLife />} />
+              <Route path="/support" element={<SupportRedirect />} />
+              <Route path="/portal" element={<Portal />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/non-discrimination-policy" element={<NonDiscriminationPolicy />} />
+              <Route path="/site-map" element={<SiteMap />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </main>
+        <Footer />
+        <ScrollToTop />
+      </EnrollmentModalProvider>
     </BrowserRouter>
   );
 }

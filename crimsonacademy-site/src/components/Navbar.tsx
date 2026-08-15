@@ -8,6 +8,7 @@ import { ModeToggle } from "./mode-toggle";
 import { sections } from "@/nav";
 import { cn } from "@/lib/utils";
 import { ZEFFY_DONATE_URL } from "@/lib/links";
+import { useEnrollmentModal } from "@/components/EnrollmentModal";
 
 const CLOSE_DELAY = 200;
 
@@ -16,6 +17,7 @@ const DesktopNav = () => {
   const closeTimer = useRef<number | undefined>(undefined);
   const navRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
+  const { openEnrollmentModal } = useEnrollmentModal();
 
   useEffect(() => setOpenIndex(null), [pathname]);
 
@@ -86,15 +88,29 @@ const DesktopNav = () => {
                   {section.label} overview
                 </Link>
                 <div className="my-1 h-px bg-border" />
-                {section.children.map((child) => (
-                  <Link
-                    key={child.href}
-                    to={child.href}
-                    className="block rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                  >
-                    {child.label}
-                  </Link>
-                ))}
+                {section.children.map((child) =>
+                  child.action === "enroll" ? (
+                    <button
+                      key={child.href}
+                      type="button"
+                      onClick={() => {
+                        setOpenIndex(null);
+                        openEnrollmentModal();
+                      }}
+                      className="block w-full rounded-md px-3 py-2 text-left text-sm text-muted-foreground hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    >
+                      {child.label}
+                    </button>
+                  ) : (
+                    <Link
+                      key={child.href}
+                      to={child.href}
+                      className="block rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    >
+                      {child.label}
+                    </Link>
+                  ),
+                )}
               </div>
             )}
           </div>
@@ -108,6 +124,7 @@ const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState<number | null>(null);
   const { pathname } = useLocation();
+  const { openEnrollmentModal } = useEnrollmentModal();
 
   useEffect(() => {
     setIsOpen(false);
@@ -136,9 +153,16 @@ const MobileNav = () => {
       {isOpen && createPortal(
         <div className="fixed inset-0 top-16 z-50 overflow-y-auto bg-background">
           <div className="flex flex-col gap-2 p-4 pb-24">
-            <Link to="/admissions#inquire" className={buttonVariants({ variant: "default" })}>
+            <button
+              type="button"
+              onClick={() => {
+                setIsOpen(false);
+                openEnrollmentModal();
+              }}
+              className={buttonVariants({ variant: "default" })}
+            >
               Enroll Your Child
-            </Link>
+            </button>
             <a
               href={ZEFFY_DONATE_URL}
               target="_blank"
@@ -175,15 +199,29 @@ const MobileNav = () => {
                     </div>
                     {isExpanded && (
                       <div className="flex flex-col pb-2">
-                        {section.children.map((child) => (
-                          <Link
-                            key={child.href}
-                            to={child.href}
-                            className="rounded-md px-3 py-3 text-sm text-muted-foreground hover:bg-secondary"
-                          >
-                            {child.label}
-                          </Link>
-                        ))}
+                        {section.children.map((child) =>
+                          child.action === "enroll" ? (
+                            <button
+                              key={child.href}
+                              type="button"
+                              onClick={() => {
+                                setIsOpen(false);
+                                openEnrollmentModal();
+                              }}
+                              className="rounded-md px-3 py-3 text-left text-sm text-muted-foreground hover:bg-secondary"
+                            >
+                              {child.label}
+                            </button>
+                          ) : (
+                            <Link
+                              key={child.href}
+                              to={child.href}
+                              className="rounded-md px-3 py-3 text-sm text-muted-foreground hover:bg-secondary"
+                            >
+                              {child.label}
+                            </Link>
+                          ),
+                        )}
                       </div>
                     )}
                   </div>
@@ -203,6 +241,8 @@ const MobileNav = () => {
 };
 
 export const Navbar = () => {
+  const { openEnrollmentModal } = useEnrollmentModal();
+
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
       <div className="container flex h-16 items-center justify-between gap-4">
@@ -222,9 +262,13 @@ export const Navbar = () => {
           >
             Sponsor
           </a>
-          <Link to="/admissions#inquire" className={buttonVariants({ variant: "default", size: "sm" })}>
+          <button
+            type="button"
+            onClick={openEnrollmentModal}
+            className={buttonVariants({ variant: "default", size: "sm" })}
+          >
             Enroll
-          </Link>
+          </button>
         </div>
 
         <MobileNav />

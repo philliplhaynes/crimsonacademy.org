@@ -4,6 +4,7 @@ import { MapPin, Mail, Globe } from "lucide-react";
 import { SocialLinks } from "@/components/SocialLinks";
 import { cn } from "@/lib/utils";
 import { ZEFFY_DONATE_URL } from "@/lib/links";
+import { useEnrollmentModal } from "@/components/EnrollmentModal";
 
 const legalLinks = [
   { label: "Privacy Policy", href: "/privacy-policy" },
@@ -12,14 +13,16 @@ const legalLinks = [
 ];
 
 /**
- * `external` marks the one entry (Sponsor a Student) that leaves the site —
- * everything else is a same-page anchor rendered as a router Link. Simpler
- * than maintaining two arrays for one exception.
+ * `external` marks the one entry (Sponsor a Student) that leaves the site,
+ * `action` marks the one entry (How to Enroll) that opens the enrollment
+ * modal instead of navigating anywhere — everything else is a same-page
+ * anchor rendered as a router Link. Simpler than maintaining three arrays
+ * for two exceptions.
  */
-const quickLinks: { label: string; href: string; external?: boolean }[] = [
+const quickLinks: { label: string; href: string; external?: boolean; action?: "enroll" }[] = [
   { label: "Term Dates", href: "/news#calendar" },
   { label: "Fees", href: "/admissions#fees" },
-  { label: "How to Enroll", href: "/admissions#inquire" },
+  { label: "How to Enroll", href: "/admissions#inquire", action: "enroll" },
   { label: "Exam Results", href: "/academics#results" },
   { label: "Leadership & Staff", href: "/about#leadership" },
   { label: "Sponsor a Student", href: ZEFFY_DONATE_URL, external: true },
@@ -27,6 +30,8 @@ const quickLinks: { label: string; href: string; external?: boolean }[] = [
 ];
 
 export const Footer = () => {
+  const { openEnrollmentModal } = useEnrollmentModal();
+
   return (
     <footer className="bg-primary text-primary-foreground">
       {/*
@@ -55,12 +60,13 @@ export const Footer = () => {
             leading secondary boarding schools.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <Link
-              to="/admissions#inquire"
+            <button
+              type="button"
+              onClick={openEnrollmentModal}
               className="rounded-md bg-accent px-6 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent/90"
             >
               Enroll Your Child
-            </Link>
+            </button>
             <a
               href={ZEFFY_DONATE_URL}
               target="_blank"
@@ -162,6 +168,15 @@ export const Footer = () => {
                       <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
                       {q.label}
                     </a>
+                  ) : q.action === "enroll" ? (
+                    <button
+                      type="button"
+                      onClick={openEnrollmentModal}
+                      className="inline-flex items-center gap-1.5 transition-colors hover:text-accent"
+                    >
+                      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                      {q.label}
+                    </button>
                   ) : (
                     <Link
                       to={q.href}

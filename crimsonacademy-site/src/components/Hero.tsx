@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
 import { DisplayHeading } from "./DisplayHeading";
 import { ZEFFY_DONATE_URL } from "@/lib/links";
+import { useEnrollmentModal } from "@/components/EnrollmentModal";
 import heroPhoto from "@/assets/home-hero-hand.jpg";
 
 /**
@@ -18,6 +18,8 @@ import heroPhoto from "@/assets/home-hero-hand.jpg";
  * below the fold to suggest the page continues.
  */
 export const Hero = () => {
+  const { openEnrollmentModal } = useEnrollmentModal();
+
   return (
     <section className="relative isolate flex min-h-[min(86vh,740px)] items-center justify-center overflow-hidden text-center text-primary-foreground">
       <img
@@ -65,12 +67,13 @@ export const Hero = () => {
         </p>
 
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Link
-            to="/admissions#inquire"
+          <button
+            type="button"
+            onClick={openEnrollmentModal}
             className="rounded-md bg-accent px-6 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent/90"
           >
             Enroll Your Child
-          </Link>
+          </button>
           <a
             href={ZEFFY_DONATE_URL}
             target="_blank"
