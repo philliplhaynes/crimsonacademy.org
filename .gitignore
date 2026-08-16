@@ -25,6 +25,11 @@ dist-ssr
 # gstack local tool state (machine-local, not project content)
 .gstack/
 
+# Wrangler local dev state (Cloudflare build config lives in wrangler.jsonc,
+# which IS committed — this is just its local cache/session data)
+.wrangler/
+.dev.vars
+
 # OS/editor cruft
 .DS_Store
 Thumbs.db

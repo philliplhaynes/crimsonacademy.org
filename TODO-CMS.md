@@ -27,9 +27,9 @@ and Sanity becomes the better answer.
       (it is **not** currently a repo — `.gitignore` already exists)
 - [ ] Create a GitHub repo and push. The foundation site lives at
       `github.com/philliplhaynes/cf-website`, so a sibling repo keeps things together.
-- [ ] Deploy to **Cloudflare Pages** or **Netlify** (both free)
-      - build command `npm run build`, publish directory `dist`
-      - SPA fallback is already committed: `public/_redirects` + `vercel.json`
+- [x] Deploy to **Cloudflare** (Workers, static assets)
+      - build command `npm run build`, deploy command `npx wrangler deploy`
+      - SPA fallback is committed in `wrangler.jsonc` (`assets.not_found_handling`)
 - [ ] Confirm a deep link works in production (e.g. `/about#history`) — if it 404s, the
       fallback rule did not take
 - [ ] Point `crimsonacademy.org` DNS at the deploy

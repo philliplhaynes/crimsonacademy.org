@@ -20,13 +20,13 @@ npm run dev      # http://localhost:5173  (live, hot-reload)
 npm run build    # chunked static output to /dist  (~1.2 MB total, ~118 KB gz first load)
 npm run preview  # serve the production build locally
 ```
-**Deploying:** static host, publish `/dist`. Because routing is client-side, the host MUST
-rewrite unknown paths to `index.html` or deep links 404. Config is already committed:
-`public/_redirects` (Netlify / Cloudflare Pages) and `vercel.json` (Vercel). For any other
-host, add the equivalent SPA fallback rule.
-
-Note: `OPEN-PREVIEW.html` is a stale single-file snapshot from before the multi-page
-conversion — it no longer reflects the site and can be deleted.
+**Deploying:** Cloudflare Workers (static assets), configured in the committed
+`wrangler.jsonc`. Because routing is client-side, the host MUST rewrite unknown paths to
+`index.html` or deep links 404 — handled by `assets.not_found_handling:
+"single-page-application"` in that file. Don't reintroduce a `public/_redirects` catch-all
+(`/* /index.html 200`) alongside it: Workers assets strips `.html`/`/index` from resolved
+paths, so that rule redirects to itself and Cloudflare rejects the deploy as an infinite
+loop.
 
 ## Current state (done)
 - Full crimson/gold/cream theme in `src/App.css` (CSS variables; light + dark). Fonts: Fraunces

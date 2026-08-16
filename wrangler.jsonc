@@ -1,0 +1,24 @@
+{
+  // Committed so Cloudflare's build doesn't have to re-run its interactive
+  // setup wizard (with non-interactive fallback answers) on every deploy —
+  // that's what generated this file's shape in the first place, on the
+  // build that failed with an infinite-redirect-loop error.
+  //
+  // "not_found_handling": "single-page-application" is what makes deep
+  // links (/academics, /crimson-for-life#why) work on refresh: any path
+  // that doesn't match a built asset falls back to index.html, and React
+  // Router takes it from there. This replaces public/_redirects (deleted),
+  // whose old catch-all rule (`/* /index.html 200`) actively conflicted
+  // with this setting — Workers assets strips `.html`/`/index` from
+  // resolved paths, so redirecting to `/index.html` resolved back to `/`,
+  // which matched the catch-all again, forming an infinite loop.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "crimsonacademy-org",
+  "compatibility_date": "2026-08-16",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "not_found_handling": "single-page-application"
+  }
+}
