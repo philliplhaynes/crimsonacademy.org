@@ -14,8 +14,8 @@ rem  Use "Start Website.cmd" instead if you are editing and want changes to
 rem  appear as you save.
 rem ---------------------------------------------------------------------------
 
-cd /d "%~dp0crimsonacademy-site" || (
-  echo Could not find the crimsonacademy-site folder next to this file.
+cd /d "%~dp0" || (
+  echo Could not find the folder this launcher lives in.
   pause
   exit /b 1
 )

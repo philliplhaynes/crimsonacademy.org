@@ -17,8 +17,8 @@ rem  in this folder - the short version is that a browser refuses to run this
 rem  kind of site straight off the disk.
 rem ---------------------------------------------------------------------------
 
-cd /d "%~dp0crimsonacademy-site" || (
-  echo Could not find the crimsonacademy-site folder next to this file.
+cd /d "%~dp0" || (
+  echo Could not find the folder this launcher lives in.
   pause
   exit /b 1
 )

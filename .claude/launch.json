@@ -4,7 +4,7 @@
     {
       "name": "crimson-dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--prefix", "crimsonacademy-site"],
+      "runtimeArgs": ["run", "dev"],
       "port": 5173
     }
   ]

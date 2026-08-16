@@ -41,28 +41,12 @@ Both are worked around by serving the folder over `http://` instead, which is
 all the launchers do — they start a tiny local web server, visible only to your
 own computer.
 
-Opening `crimsonacademy-site/dist/index.html` directly gives a blank white page
-for exactly these two reasons. It isn't broken; it just needs a server.
-
-## A note on `crimsonacademy-preview.html`
-
-There is a single-file `crimsonacademy-preview.html` in this folder. It *does*
-open by double-click, because everything is crammed inside that one file — but
-**it is badly out of date**. It's a snapshot of an early, single-page version of
-the site: all its links are `#anchor` jumps down one long page, so it has none
-of the real Academics, Student Life, Admissions, News & Events, Crimson for
-Life or Portal pages, and none of the work done since.
-
-Don't use it to review the site, and don't send it to anyone. Delete it, or
-regenerate it, but be aware that a genuinely self-contained single file would
-now be very large: every photograph would have to be embedded as text inside the
-HTML (roughly a third bigger than the image itself), and the five video clips on
-the News page would have to be embedded too. It would run to tens of megabytes.
-The launchers are the better answer.
+Opening `dist/index.html` directly gives a blank white page for exactly these
+two reasons. It isn't broken; it just needs a server.
 
 ## Running it from a terminal instead
 
-The launchers are just wrappers. From `crimsonacademy-site/`:
+The launchers are just wrappers. From this folder:
 
 ```bash
 npm install      # once
