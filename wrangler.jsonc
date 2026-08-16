@@ -19,6 +19,13 @@
     "enabled": true
   },
   "assets": {
+    // Required — without it, wrangler deploy fails with "The `assets`
+    // property in your configuration is missing the required `directory`
+    // property." Cloudflare's setup wizard papered over this the one time
+    // it ran, by silently redirecting to a generated dist/wrangler.json
+    // that had this filled in; that wizard only runs when no wrangler.jsonc
+    // exists yet, so once this file is committed, it's used as-is.
+    "directory": "./dist",
     "not_found_handling": "single-page-application"
   }
 }
