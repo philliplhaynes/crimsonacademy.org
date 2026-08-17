@@ -30,6 +30,12 @@ dist-ssr
 .wrangler/
 .dev.vars
 
+# Secrets — never commit these, this is a public repo
+.env
+.env.*
+!.env.example
+.env.txt
+
 # OS/editor cruft
 .DS_Store
 Thumbs.db
