@@ -7,9 +7,11 @@ import { cn } from "@/lib/utils";
  * bottom of every page.
  *
  * ─────────────────────────────────────────────────────────────────────────
- * EVERY LIVE URL HERE WAS TAKEN FROM crimsonfoundation.org AND CHECKED
- * (HTTP 200). None of them is a guess. If an account moves, check the
- * sister site first.
+ * Facebook and YouTube are taken from crimsonfoundation.org. Instagram is
+ * the school's own account (@crimsonacademykagina), not the Foundation's
+ * (@crimsonfoundationinc) — given directly, not looked up. If an account
+ * moves, check crimsonfoundation.org first for Facebook/YouTube; Instagram
+ * has no sister-site fallback.
  *
  * LINKEDIN HAS NO REAL URL YET. It was asked for twice now. Checked again
  * before adding this placeholder: crimsonfoundation.org's own homepage
@@ -43,7 +45,7 @@ const accounts = [
   },
   {
     label: "Instagram",
-    href: "https://www.instagram.com/crimsonfoundationinc/",
+    href: "https://www.instagram.com/crimsonacademykagina/",
     Icon: Instagram,
   },
   {
