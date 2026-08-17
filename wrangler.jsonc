@@ -27,5 +27,23 @@
     // exists yet, so once this file is committed, it's used as-is.
     "directory": "./dist",
     "not_found_handling": "single-page-application"
-  }
+  },
+  // Attaches crimsonacademy.org / www to THIS Worker as Custom Domains.
+  // `custom_domain: true` makes wrangler provision and own the DNS for
+  // these hostnames on every deploy — no manual A/CNAME records needed.
+  //
+  // This site has never used GitHub Pages; every deploy runs
+  // `npx wrangler deploy` straight to this Worker (see the build logs).
+  // A DNS-side session mistakenly pointed the apex at GitHub Pages IPs
+  // and www at a github.io CNAME, on the wrong assumption that "the
+  // server is GitHub" — GitHub only hosts this repo's source, which
+  // Cloudflare's Workers Builds then builds and deploys from directly.
+  // Those stray records need deleting by hand in the dashboard (DNS →
+  // Records) since Cloudflare's custom-domain provisioning can't always
+  // take over a hostname that already has conflicting records it didn't
+  // create — this config is necessary but may not be sufficient alone.
+  "routes": [
+    { "pattern": "crimsonacademy.org", "custom_domain": true },
+    { "pattern": "www.crimsonacademy.org", "custom_domain": true }
+  ]
 }
