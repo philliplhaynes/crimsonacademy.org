@@ -213,7 +213,7 @@ const Portal = () => {
             </p>
           </div>
           <a
-            href="mailto:info@crimsonacademy.org"
+            href="mailto:news@crimsonfoundation.org"
             className="rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
           >
             Contact Us

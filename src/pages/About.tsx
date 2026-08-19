@@ -278,10 +278,10 @@ const About = () => {
                     <div>
                       <div className="font-medium">Email</div>
                       <a
-                        href="mailto:info@crimsonacademy.org"
+                        href="mailto:news@crimsonfoundation.org"
                         className="text-accent underline underline-offset-4"
                       >
-                        info@crimsonacademy.org
+                        news@crimsonfoundation.org
                       </a>
                     </div>
                   </li>

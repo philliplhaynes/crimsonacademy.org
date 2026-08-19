@@ -40,10 +40,10 @@ const NonDiscriminationPolicy = () => {
             Anyone with a concern about how this policy is applied is encouraged to contact the
             school directly at{" "}
             <a
-              href="mailto:info@crimsonacademy.org"
+              href="mailto:news@crimsonfoundation.org"
               className="font-medium text-primary underline underline-offset-4"
             >
-              info@crimsonacademy.org
+              news@crimsonfoundation.org
             </a>
             .
           </p>

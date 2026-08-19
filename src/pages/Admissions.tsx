@@ -570,10 +570,10 @@ const Admissions = () => {
                   <div>
                     <div className="font-medium text-foreground">Arrange a visit</div>
                     <a
-                      href="mailto:info@crimsonacademy.org"
+                      href="mailto:news@crimsonfoundation.org"
                       className="text-sm text-primary underline underline-offset-4"
                     >
-                      info@crimsonacademy.org
+                      news@crimsonfoundation.org
                     </a>
                   </div>
                 </div>

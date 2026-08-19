@@ -119,10 +119,10 @@ export const Footer = () => {
               <li className="flex items-center gap-2.5">
                 <Mail className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
                 <a
-                  href="mailto:info@crimsonacademy.org"
+                  href="mailto:news@crimsonfoundation.org"
                   className="transition-colors hover:text-accent"
                 >
-                  info@crimsonacademy.org
+                  news@crimsonfoundation.org
                 </a>
               </li>
               <li className="flex items-center gap-2.5">

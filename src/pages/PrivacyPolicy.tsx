@@ -144,10 +144,10 @@ const PrivacyPolicy = () => {
               <p>
                 Questions about this policy or about information you've sent us can go to{" "}
                 <a
-                  href="mailto:info@crimsonacademy.org"
+                  href="mailto:news@crimsonfoundation.org"
                   className="font-medium text-primary underline underline-offset-4"
                 >
-                  info@crimsonacademy.org
+                  news@crimsonfoundation.org
                 </a>
                 .
               </p>

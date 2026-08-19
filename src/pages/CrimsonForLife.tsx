@@ -43,13 +43,18 @@ import celebrateStrip from "@/assets/cfl-strip-celebrate.webp";
  ═══════════════════════════════════════════════════════════════════════════
 */
 
-/** Round tiers as supplied, not derived from a specific budget line — see the note above. */
+/**
+ * Round tiers as supplied, not derived from a specific budget line — see the
+ * note above. `monthly` is the annual figure ÷ 12, to a cent — a real
+ * division of the same tier, not a separately-set marketing number, so it
+ * won't always land on a round figure ($0.83, $4.17).
+ */
 const gifts = [
-  { usd: "$10", what: "A year of student insurance", rwf: "13,500" },
-  { usd: "$50", what: "A year of school supplies for one child", rwf: "67,500" },
-  { usd: "$150", what: "A year of breakfast and lunch for one child", rwf: "202,500" },
-  { usd: "$150", what: "A year of sponsorship for one student", rwf: "202,500" },
-  { usd: "$300", what: "A year of sponsorship for one secondary student", rwf: "405,000" },
+  { usd: "$10", monthly: "$0.83", what: "A year of student insurance", rwf: "13,500" },
+  { usd: "$50", monthly: "$4.17", what: "A year of school supplies for one child", rwf: "67,500" },
+  { usd: "$150", monthly: "$12.50", what: "A year of breakfast and lunch for one child", rwf: "202,500" },
+  { usd: "$150", monthly: "$12.50", what: "A year of sponsorship for one student", rwf: "202,500" },
+  { usd: "$300", monthly: "$25", what: "A year of sponsorship for one secondary student", rwf: "405,000" },
 ];
 
 /*
@@ -307,8 +312,14 @@ const CrimsonForLife = () => {
             <tbody>
               {gifts.map((g) => (
                 <tr key={g.what} className="bg-card odd:bg-secondary/55">
-                  <td className="w-[26%] whitespace-nowrap px-5 py-4 font-heading text-[clamp(1.05rem,2vw,1.4rem)] font-black text-primary">
-                    {g.usd}
+                  <td className="w-[28%] px-5 py-4">
+                    <div className="whitespace-nowrap font-heading text-[clamp(1.05rem,2vw,1.4rem)] font-black text-primary">
+                      {g.usd}
+                      <span className="ml-1 text-xs font-normal text-muted-foreground">/yr</span>
+                    </div>
+                    <div className="mt-0.5 whitespace-nowrap text-[0.75rem] text-muted-foreground">
+                      {g.monthly}/mo
+                    </div>
                   </td>
                   <td className="px-5 py-4">{g.what}</td>
                   <td className="hidden whitespace-nowrap px-5 py-4 text-right text-[0.8rem] tabular-nums text-muted-foreground sm:table-cell">
@@ -320,8 +331,9 @@ const CrimsonForLife = () => {
           </table>
         </div>
         <p className="mt-3 max-w-[70ch] text-[0.8rem] leading-relaxed text-muted-foreground">
-          RWF figures are converted at 1,350 to the dollar. Gifts of any size are welcome and none of
-          these are minimums.
+          Monthly figures are the annual gift divided by twelve, for giving through Zeffy&apos;s
+          recurring option. RWF figures are converted at 1,350 to the dollar. Gifts of any size are
+          welcome and none of these are minimums.
         </p>
         <div className="mt-6">
           <DonateButton>Give any amount</DonateButton>
@@ -465,7 +477,7 @@ const CrimsonForLife = () => {
             </ul>
             <div className="mt-auto pt-5">
               <a
-                href="mailto:info@crimsonacademy.org?subject=Sponsoring%20a%20student"
+                href="mailto:news@crimsonfoundation.org?subject=Sponsoring%20a%20student"
                 className={cn(buttonVariants({ variant: "outline", size: "lg" }), "rounded-full")}
               >
                 Email us about sponsorship
@@ -484,7 +496,7 @@ const CrimsonForLife = () => {
             </p>
             <div className="mt-auto pt-5">
               <a
-                href="mailto:info@crimsonacademy.org?subject=Capital%20projects"
+                href="mailto:news@crimsonfoundation.org?subject=Capital%20projects"
                 className={cn(buttonVariants({ variant: "outline", size: "lg" }), "rounded-full")}
               >
                 Ask what&apos;s next
