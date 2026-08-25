@@ -186,7 +186,7 @@ const CrimsonForLife = () => {
         section={section}
         title="Crimson for"
         titleAccent="Life"
-        lede="A school year at Crimson costs about $65 a child. Here is what a gift buys, and what it changes."
+        lede="A school year at Crimson costs about $150 a child. Here is what a gift buys, and what it changes."
         image={heroPhoto}
         imagePosition="50% 17%"
       />
