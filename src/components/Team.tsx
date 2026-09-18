@@ -18,7 +18,7 @@ const facts = [
   { n: "32", label: "Staff" },
   { n: "22", label: "Teachers & assistants" },
   { n: "2011", label: "Founded" },
-  { n: "780", label: "Students, nursery–P6" },
+  { n: "900", label: "Students, nursery–P6" },
 ];
 
 /**

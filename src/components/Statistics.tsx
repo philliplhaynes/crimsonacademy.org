@@ -10,7 +10,7 @@
 const stats = [
   { n: "#1", k: "Southern Province, National Exams" },
   { n: "90.4%", k: "P6 National Exam average, 2024–2025" },
-  { n: "780+", k: "Students, Nursery–Primary 6" },
+  { n: "900+", k: "Students, Nursery–Primary 6" },
   { n: "3", k: "Languages of instruction" },
 ];
 

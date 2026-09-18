@@ -581,7 +581,7 @@ const Academics = () => {
       <Strip
         src={stripDancing}
         alt=""
-        caption="780 learners · Nursery through Primary 6 · Kagina, Southern Province"
+        caption="900 learners · Nursery through Primary 6 · Kagina, Southern Province"
       />
 
       {/*

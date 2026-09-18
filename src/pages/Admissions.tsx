@@ -119,7 +119,7 @@ const whyPoints = [
 const stats = [
   { n: "90.4%", k: "P6 National Exam average" },
   { n: "#1", k: "Southern Province, nearly every year since 2013" },
-  { n: "780", k: "Students, nursery to Primary 6" },
+  { n: "900", k: "Students, nursery to Primary 6" },
   { n: "32", k: "Staff who know them by name" },
 ];
 
@@ -194,7 +194,7 @@ const faqs = [
     // reconciled against it (22 people hold a Teaching role, but whether the
     // report's 23 counts teaching assistants is unclear), so the unverifiable
     // number is left out rather than restated.
-    a: "Enrollment in 2024–2025 was 780 students across nursery and six primary grades, taught and supported by 32 staff.",
+    a: "Enrollment in 2026–2027 is 900 students across nursery and six primary grades, taught and supported by 32 staff.",
   },
   {
     q: "Do you provide transport and meals?",

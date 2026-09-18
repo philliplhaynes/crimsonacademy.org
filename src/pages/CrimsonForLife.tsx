@@ -200,7 +200,7 @@ const CrimsonForLife = () => {
           <p>
             Crimson Academy began in 2011 with four classrooms and 181 children in a village where
             most families could not pay for school. Fourteen years later there are{" "}
-            <strong className="text-foreground">780 students</strong>, thirty-two staff, a library, a
+            <strong className="text-foreground">900 students</strong>, thirty-two staff, a library, a
             computer lab, a pitch and a hard court — and a Primary 6 class that has finished first in
             the Southern Province in twelve of the last thirteen years.
           </p>

@@ -305,7 +305,7 @@ const StudentLife = () => {
         <ClusterHead
           index="Cluster One"
           title={<>On the stage</>}
-          blurb="Music and dance are not the school's decoration. They open the morning, they carry both graduations, and they are the first place a shy child is ever applauded by 780 people."
+          blurb="Music and dance are not the school's decoration. They open the morning, they carry both graduations, and they are the first place a shy child is ever applauded by 900 people."
         />
         <Tiles items={onTheStage} />
       </Band>

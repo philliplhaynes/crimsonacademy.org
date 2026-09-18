@@ -62,7 +62,7 @@ export const Hero = () => {
         />
 
         <p className="mx-auto mt-7 max-w-[52ch] text-base leading-relaxed text-primary-foreground/90 sm:text-lg">
-          A Christian primary school educating 780 children in rural Rwanda — and, year after year,
+          A Christian primary school educating 900 children in rural Rwanda — and, year after year,
           the #1 school in the Southern Province on the National Exams.
         </p>
 

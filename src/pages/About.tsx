@@ -51,7 +51,7 @@ const Article = ({
 );
 
 const facts = [
-  { n: "780", k: "Students" },
+  { n: "900", k: "Students" },
   { n: "32", k: "Staff" },
   { n: "2011", k: "Founded" },
   { n: "#1", k: "Southern Province" },
@@ -66,7 +66,7 @@ const About = () => {
         section={section}
         title="About"
         titleAccent="us"
-        lede="Crimson Academy of Kagina is a Christian primary school in Kamonyi District, Rwanda, serving 780 students from nursery through Primary 6."
+        lede="Crimson Academy of Kagina is a Christian primary school in Kamonyi District, Rwanda, serving 900 students from nursery through Primary 6."
         image={aboutHero}
         // Tuned to this photo: the crop shows a band of its height here and the
         // group's faces sit well below the top edge. See the worked example in
